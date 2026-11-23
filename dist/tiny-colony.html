@@ -1,0 +1,1055 @@
+<title>Tiny Colony</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+:root {
+  --bg: #121a16;
+  --panel: #1b2620;
+  --panel-2: #243229;
+  --line: #34463a;
+  --text: #e6efe4;
+  --muted: #94a597;
+  --accent: #7bc86c;
+  --accent-ink: #0f1a12;
+  --danger: #d9534f;
+  --warn: #e0894a;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; margin: 0; background: var(--bg); color: var(--text); font: 15px/1.4 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+body { min-height: 100vh; }
+h1 { font-size: 20px; margin: 0; letter-spacing: .5px; }
+h2 { margin: 0 0 10px; font-size: 18px; }
+.muted { color: var(--muted); font-size: 13px; }
+.top { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; padding: 12px 16px; border-bottom: 1px solid var(--line); background: var(--panel); }
+.resbar { display: flex; flex-wrap: wrap; gap: 8px; flex: 1; }
+.res { min-width: 120px; padding: 6px 12px; background: var(--panel-2); border: 1px solid var(--line); border-radius: 8px; }
+.res[hidden] { display: none; }
+.res .name { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .6px; }
+.res .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+.res .val { font-size: 20px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.res .rate { font-size: 12px; color: var(--accent); font-variant-numeric: tabular-nums; }
+.layout { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(320px, 1fr); gap: 16px; padding: 16px; max-width: 1400px; margin: 0 auto; }
+.colony canvas { width: 100%; aspect-ratio: 16 / 9; display: block; border: 1px solid var(--line); border-radius: 10px; background: #1a2a21; }
+.colony-bar { display: flex; align-items: center; gap: 12px; margin-top: 10px; flex-wrap: wrap; }
+.panel { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 12px; min-width: 0; }
+.tabs { display: flex; gap: 4px; margin-bottom: 10px; flex-wrap: wrap; }
+.tab { flex: 1; padding: 8px 6px; border: 1px solid var(--line); background: var(--panel-2); color: var(--muted); border-radius: 8px; cursor: pointer; font: inherit; }
+.tab.active { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); font-weight: 700; }
+.pane[hidden], .modal[hidden] { display: none; }
+.modes { display: flex; gap: 6px; margin-bottom: 10px; }
+.mode { flex: 1; padding: 6px; background: var(--panel-2); color: var(--text); border: 1px solid var(--line); border-radius: 6px; cursor: pointer; font: inherit; }
+.mode.active { border-color: var(--accent); color: var(--accent); font-weight: 700; }
+.list { display: flex; flex-direction: column; gap: 8px; }
+.card { display: grid; grid-template-columns: 1fr auto; gap: 4px 10px; align-items: center; padding: 8px 10px; background: var(--panel-2); border: 1px solid var(--line); border-radius: 8px; }
+.card[hidden] { display: none; }
+.card .title { font-weight: 700; }
+.card .owned { color: var(--muted); font-weight: 400; margin-left: 6px; }
+.card .desc { grid-column: 1; font-size: 12px; color: var(--muted); }
+.card .btn { grid-column: 2; grid-row: 1 / span 2; min-width: 112px; }
+.btn { padding: 8px 12px; border: 1px solid var(--line); background: var(--panel-2); color: var(--text); border-radius: 8px; cursor: pointer; font: inherit; }
+.btn:hover:not(:disabled) { border-color: var(--accent); }
+.btn:disabled { opacity: .5; cursor: not-allowed; }
+.btn.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); font-weight: 700; }
+.btn.danger { border-color: var(--danger); color: #ffb4b0; }
+.cost.ok { color: var(--accent); font-weight: 700; }
+.cost.no { color: var(--warn); }
+.btn.primary .cost { color: inherit; }
+.stats { display: grid; grid-template-columns: 1fr auto; gap: 4px 12px; margin: 12px 0; }
+.stats dt { color: var(--muted); }
+.stats dd { margin: 0; text-align: right; font-weight: 700; font-variant-numeric: tabular-nums; }
+.row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin: 10px 0; }
+.lbl { display: block; margin-top: 12px; font-size: 13px; color: var(--muted); }
+textarea { width: 100%; background: var(--bg); color: var(--text); border: 1px solid var(--line); border-radius: 8px; padding: 8px; font: 12px/1.3 ui-monospace, monospace; resize: vertical; }
+.modal { position: fixed; inset: 0; background: rgba(0, 0, 0, .65); display: flex; align-items: center; justify-content: center; padding: 16px; z-index: 10; }
+.modal-card { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 18px; max-width: 420px; width: 100%; }
+.modal-card ul { padding-left: 18px; margin: 8px 0; }
+@media (max-width: 760px) {
+  .layout { grid-template-columns: 1fr; padding: 16px; }
+  .res { min-width: calc(50% - 4px); flex: 1; }
+  .top { padding: 12px 16px; }
+}
+
+body { padding-left: max(0px, env(safe-area-inset-left, 0px)); padding-right: max(0px, env(safe-area-inset-right, 0px)); }
+.top, .layout { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+
+</style>
+<header class="top">
+    <h1>Tiny Colony</h1>
+    <div id="resbar" class="resbar" aria-label="Resources"></div>
+  </header>
+
+  <main class="layout">
+    <section class="colony">
+      <canvas id="world" aria-label="Colony view"></canvas>
+      <div class="colony-bar">
+        <button id="gather" class="btn primary" type="button">Gather wood</button>
+        <span id="colonyInfo" class="muted"></span>
+      </div>
+    </section>
+
+    <aside class="panel">
+      <nav class="tabs" role="tablist">
+        <button class="tab active" data-tab="buildings" role="tab" type="button">Buildings</button>
+        <button class="tab" data-tab="upgrades" role="tab" type="button">Upgrades</button>
+        <button class="tab" data-tab="prestige" role="tab" type="button">Relocate</button>
+        <button class="tab" data-tab="settings" role="tab" type="button">Settings</button>
+      </nav>
+
+      <div class="pane" id="pane-buildings">
+        <div class="modes" id="modes"></div>
+        <div id="buildingList" class="list"></div>
+      </div>
+      <div class="pane" id="pane-upgrades" hidden>
+        <div id="upgradeList" class="list"></div>
+        <p id="upgradeOwned" class="muted"></p>
+      </div>
+      <div class="pane" id="pane-prestige" hidden>
+        <p>Relocate your colony to fertile land. You lose resources, buildings and upgrades, but keep <b>seeds</b>: each gives <b>+5%</b> production forever.</p>
+        <p>Seeds earned on relocation = floor(sqrt(wood this run / 100K)). Unlocks at 1M wood this run.</p>
+        <dl class="stats">
+          <dt>Wood this run</dt><dd id="pRun">0</dd>
+          <dt>Seeds owned</dt><dd id="pSeeds">0</dd>
+          <dt>Current bonus</dt><dd id="pBonus">+0%</dd>
+          <dt>Seeds on relocate</dt><dd id="pGain">0</dd>
+          <dt>Bonus after</dt><dd id="pAfter">+0%</dd>
+          <dt>Relocations</dt><dd id="pCount">0</dd>
+        </dl>
+        <button id="relocate" class="btn primary" type="button" disabled>Relocate</button>
+      </div>
+      <div class="pane" id="pane-settings" hidden>
+        <p class="muted" id="saveInfo">Autosaves every 10 seconds.</p>
+        <div class="row">
+          <button id="saveNow" class="btn" type="button">Save now</button>
+          <button id="exportBtn" class="btn" type="button">Export save</button>
+          <button id="hardReset" class="btn danger" type="button">Hard reset</button>
+        </div>
+        <label class="lbl" for="saveText">Save string (paste here to import)</label>
+        <textarea id="saveText" rows="5" spellcheck="false"></textarea>
+        <div class="row">
+          <button id="importBtn" class="btn" type="button">Import save</button>
+          <span id="importMsg" class="muted" role="status"></span>
+        </div>
+      </div>
+    </aside>
+  </main>
+
+  <div id="modal" class="modal" hidden>
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <h2 id="modalTitle"></h2>
+      <div id="modalBody"></div>
+      <div id="modalButtons" class="row"></div>
+    </div>
+  </div>
+<script>
+(() => {
+// ---- format.js ----
+// Number and time formatting. Pure functions, no DOM.
+const SUFFIX = ['', 'K', 'M', 'B', 'T'];
+
+function sci(n) {
+  let exp = Math.floor(Math.log10(n));
+  let m = parseFloat((n / Math.pow(10, exp)).toPrecision(3));
+  if (m >= 10) { m = 1; exp += 1; }
+  return m + 'e' + exp;
+}
+
+/** 0 -> "0", 12.3 -> "12.3", 1234 -> "1.23K", 4.5e6 -> "4.5M", 1.2e15 -> "1.2e15" */
+function fmt(n) {
+  if (!Number.isFinite(n)) return n > 0 ? 'Infinity' : '0';
+  if (n <= 0) return '0';
+  if (n < 100) return String(parseFloat(n.toPrecision(3)));
+  if (n < 1000) return String(Math.floor(n));
+  if (n >= 1e15) return sci(n);
+  let k = 0;
+  let v = n;
+  while (v >= 1000) { v /= 1000; k++; }
+  let s = parseFloat(v.toPrecision(3));
+  if (s >= 1000) { s = 1; k++; } // 999.95K rounds up to 1M
+  if (k >= SUFFIX.length) return sci(n);
+  return s + SUFFIX[k];
+}
+
+/** 7200 -> "2h 0m", 75 -> "1m 15s", 9 -> "9s" */
+function fmtTime(sec) {
+  sec = Math.max(0, Math.floor(sec));
+  const h = Math.floor(sec / 3600);
+  const m = Math.floor((sec % 3600) / 60);
+  const s = sec % 60;
+  if (h > 0) return h + 'h ' + m + 'm';
+  if (m > 0) return m + 'm ' + s + 's';
+  return s + 's';
+}
+
+// ---- data.js ----
+// Static game data and balance constants. Pure data, no DOM.
+const GROWTH = 1.15;            // cost multiplier per building owned
+const OFFLINE_CAP_S = 8 * 3600; // max offline time credited
+const OFFLINE_MIN_S = 60;       // show the "welcome back" modal above this
+const OFFLINE_EFF = 0.5;        // base offline efficiency
+const OFFLINE_EFF_UPGRADED = 0.75;
+const AUTO_INTERVAL = 5;        // seconds between auto-buys (Foreman)
+const SEED_BONUS = 0.05;        // +5% production per seed
+const PRESTIGE_UNLOCK = 1e6;    // run wood needed to relocate
+const PRESTIGE_DIVISOR = 1e5;   // seeds = floor(sqrt(runWood / this))
+const BASE_INCOME = 0.5;        // wood/s from the settlers themselves
+const START_WOOD = 10;
+const MAX_VALUE = 1e300;
+const MAX_WORKERS = 40;
+const SAVE_KEY = 'tinycolony.save';
+const SAVE_VERSION = 1;
+
+const RES = ['wood', 'stone', 'metal', 'energy'];
+
+const RES_INFO = {
+  wood:   { name: 'Wood',   color: '#7bc86c' },
+  stone:  { name: 'Stone',  color: '#aab4c0' },
+  metal:  { name: 'Metal',  color: '#e0894a' },
+  energy: { name: 'Energy', color: '#f2d24b' },
+};
+
+// Tier gates: wood is always open; the others open with a gate upgrade.
+const TIER_GATE = { stone: 'u_map', metal: 'u_ore', energy: 'u_grid' };
+
+// res = what it produces, costRes = what it costs. Output is per second per building.
+const BUILDINGS = [
+  { id: 'lumber',  name: 'Lumber Camp', res: 'wood',   out: 0.2, costRes: 'wood',   base: 10,      color: '#6b8e23' },
+  { id: 'sawmill', name: 'Sawmill',     res: 'wood',   out: 1.6, costRes: 'wood',   base: 120,     color: '#a0713d' },
+  { id: 'quarry',  name: 'Quarry',      res: 'stone',  out: 2,   costRes: 'wood',   base: 500,     color: '#8d99a6' },
+  { id: 'mason',   name: 'Stone Mason', res: 'stone',  out: 16,  costRes: 'stone',  base: 4000,    color: '#c7ced6' },
+  { id: 'mine',    name: 'Mine',        res: 'metal',  out: 10,  costRes: 'stone',  base: 12000,   color: '#b0652d' },
+  { id: 'foundry', name: 'Foundry',     res: 'metal',  out: 90,  costRes: 'metal',  base: 120000,  color: '#e0894a' },
+  { id: 'solar',   name: 'Solar Array', res: 'energy', out: 55,  costRes: 'metal',  base: 500000,  color: '#4aa3e0' },
+  { id: 'fusion',  name: 'Fusion Core', res: 'energy', out: 700, costRes: 'energy', base: 6000000, color: '#f2d24b' },
+];
+
+const total = (s) => Object.values(s.b).reduce((a, b) => a + b, 0);
+
+// kind: bmult (x mult on one building) | gate (opens a tier) | global (prod only)
+//       | speed (walk speed + prod) | auto (Foreman) | offline
+const UPGRADES = [
+  { id: 'u_axes',    name: 'Sharper Axes',     desc: 'Lumber Camps produce x2.',                kind: 'bmult', building: 'lumber',  mult: 2, cost: { res: 'wood',   amt: 100 },     req: (s) => s.b.lumber >= 10,  reqText: 'Own 10 Lumber Camps' },
+  { id: 'u_saws',    name: 'Sturdy Saws',      desc: 'Sawmills produce x2.',                    kind: 'bmult', building: 'sawmill', mult: 2, cost: { res: 'wood',   amt: 1500 },    req: (s) => s.b.sawmill >= 5,  reqText: 'Own 5 Sawmills' },
+  { id: 'u_map',     name: "Surveyor's Map",   desc: 'Unlocks Stone and the Quarry.',           kind: 'gate',  tier: 'stone',                cost: { res: 'wood',   amt: 300 },     req: (s) => s.run.wood >= 250, reqText: 'Gather 250 wood' },
+  { id: 'u_picks',   name: 'Iron Picks',       desc: 'Quarries produce x2.',                    kind: 'bmult', building: 'quarry',  mult: 2, cost: { res: 'wood',   amt: 6000 },    req: (s) => s.b.quarry >= 10,  reqText: 'Own 10 Quarries' },
+  { id: 'u_chisel',  name: 'Fine Chisels',     desc: 'Stone Masons produce x2.',                kind: 'bmult', building: 'mason',   mult: 2, cost: { res: 'stone',  amt: 50000 },   req: (s) => s.b.mason >= 10,   reqText: 'Own 10 Stone Masons' },
+  { id: 'u_ore',     name: 'Ore Prospecting',  desc: 'Unlocks Metal and the Mine.',             kind: 'gate',  tier: 'metal',                cost: { res: 'stone',  amt: 3000 },    req: (s) => s.run.stone >= 2000, reqText: 'Gather 2K stone' },
+  { id: 'u_shafts',  name: 'Deep Shafts',      desc: 'Mines produce x2.',                       kind: 'bmult', building: 'mine',    mult: 2, cost: { res: 'stone',  amt: 200000 },  req: (s) => s.b.mine >= 10,    reqText: 'Own 10 Mines' },
+  { id: 'u_furnace', name: 'Blast Furnace',    desc: 'Foundries produce x2.',                   kind: 'bmult', building: 'foundry', mult: 2, cost: { res: 'metal',  amt: 1500000 }, req: (s) => s.b.foundry >= 10, reqText: 'Own 10 Foundries' },
+  { id: 'u_grid',    name: 'Power Grid',       desc: 'Unlocks Energy and the Solar Array.',     kind: 'gate',  tier: 'energy',               cost: { res: 'metal',  amt: 60000 },   req: (s) => s.run.metal >= 40000, reqText: 'Gather 40K metal' },
+  { id: 'u_panels',  name: 'Panel Coating',    desc: 'Solar Arrays produce x2.',                kind: 'bmult', building: 'solar',   mult: 2, cost: { res: 'metal',  amt: 6000000 }, req: (s) => s.b.solar >= 10,   reqText: 'Own 10 Solar Arrays' },
+  { id: 'u_core',    name: 'Containment Field', desc: 'Fusion Cores produce x2.',               kind: 'bmult', building: 'fusion',  mult: 2, cost: { res: 'energy', amt: 70000000 }, req: (s) => s.b.fusion >= 10, reqText: 'Own 10 Fusion Cores' },
+  { id: 'u_team',    name: 'Teamwork',         desc: 'All production x1.5.',                    kind: 'global', prod: 1.5,                   cost: { res: 'wood',   amt: 2500 },    req: (s) => total(s) >= 25,    reqText: 'Own 25 buildings' },
+  { id: 'u_boots',   name: 'Worker Boots',     desc: 'Workers walk 25% faster; production +10%.', kind: 'speed', walk: 1.25, prod: 1.1,        cost: { res: 'wood',   amt: 800 },     req: (s) => total(s) >= 4,     reqText: 'Own 4 buildings' },
+  { id: 'u_foreman', name: 'Foreman',          desc: 'Automatically buys the cheapest affordable building every 5s.', kind: 'auto',      cost: { res: 'wood',   amt: 20000 },   req: (s) => total(s) >= 40,    reqText: 'Own 40 buildings' },
+  { id: 'u_offline', name: 'Night Shift',      desc: 'Offline efficiency rises from 50% to 75%.', kind: 'offline',                         cost: { res: 'stone',  amt: 10000 },   req: (s) => !!s.u.u_map,       reqText: "Buy Surveyor's Map" },
+];
+
+const BUILDING_BY_ID = Object.fromEntries(BUILDINGS.map((b) => [b.id, b]));
+const UPGRADE_BY_ID = Object.fromEntries(UPGRADES.map((u) => [u.id, u]));
+
+// ---- sim.js ----
+// Pure simulation logic. The exact same step() runs live and for offline catch-up.
+
+
+function tierUnlocked(s, res) {
+  return res === 'wood' || !!s.u[TIER_GATE[res]];
+}
+
+function totalBuildings(s) {
+  let t = 0;
+  for (const b of BUILDINGS) t += s.b[b.id];
+  return t;
+}
+
+function workerCount(s) {
+  return Math.min(MAX_WORKERS, 1 + Math.floor(Math.sqrt(totalBuildings(s))));
+}
+
+function walkSpeedMult(s) {
+  let m = 1;
+  for (const u of UPGRADES) if (s.u[u.id] && u.walk) m *= u.walk;
+  return m;
+}
+
+function bMult(s, id) {
+  let m = 1;
+  for (const u of UPGRADES) if (s.u[u.id] && u.kind === 'bmult' && u.building === id) m *= u.mult;
+  return m;
+}
+
+function globalMult(s) {
+  let m = 1 + SEED_BONUS * s.seeds;
+  for (const u of UPGRADES) if (s.u[u.id] && u.prod) m *= u.prod;
+  return m;
+}
+
+function offlineEff(s) {
+  return s.u.u_offline ? OFFLINE_EFF_UPGRADED : OFFLINE_EFF;
+}
+
+/** Per-second production of every resource. */
+function rates(s) {
+  const r = { wood: BASE_INCOME, stone: 0, metal: 0, energy: 0 };
+  for (const b of BUILDINGS) r[b.res] += s.b[b.id] * b.out * bMult(s, b.id);
+  const g = globalMult(s);
+  for (const k of RES) r[k] *= g;
+  return r;
+}
+
+/** Production of one building type per second, including all multipliers. */
+function buildingRate(s, id) {
+  const b = BUILDING_BY_ID[id];
+  return s.b[id] * b.out * bMult(s, id) * globalMult(s);
+}
+
+function addRes(s, res, amt) {
+  if (!(amt > 0)) return;
+  s.res[res] = Math.min(MAX_VALUE, s.res[res] + amt);
+  s.run[res] = Math.min(MAX_VALUE, s.run[res] + amt);
+  s.total[res] = Math.min(MAX_VALUE, s.total[res] + amt);
+}
+
+function clickValue(s) {
+  return 1 * globalMult(s);
+}
+
+function gather(s) {
+  addRes(s, 'wood', clickValue(s));
+  s.stats.clicks += 1;
+}
+
+// ---- costs -------------------------------------------------------------
+
+function unitCost(b, owned) {
+  return Math.floor(b.base * Math.pow(GROWTH, owned));
+}
+
+/** Cost of k buildings starting with `owned`: geometric series, not k separate loops. */
+function bulkCost(b, owned, k) {
+  if (k <= 1) return unitCost(b, owned);
+  const first = b.base * Math.pow(GROWTH, owned);
+  // + 1e-6 guards against floor() landing one below an exact integer from float error
+  return Math.floor((first * (Math.pow(GROWTH, k) - 1)) / (GROWTH - 1) + 1e-6);
+}
+
+/** Largest k whose bulkCost fits in `budget`, via the closed form (no loops over k). */
+function maxAffordable(b, owned, budget) {
+  const first = b.base * Math.pow(GROWTH, owned);
+  if (!(budget >= first)) return 0;
+  let k = Math.floor(Math.log(1 + (budget * (GROWTH - 1)) / first) / Math.log(GROWTH));
+  while (k > 0 && bulkCost(b, owned, k) > budget) k--; // float-edge safety
+  while (bulkCost(b, owned, k + 1) <= budget) k++;
+  return k;
+}
+
+function buyBuilding(s, id, k) {
+  const b = BUILDING_BY_ID[id];
+  if (!tierUnlocked(s, b.res) || !(k >= 1)) return 0;
+  const cost = bulkCost(b, s.b[id], k);
+  if (s.res[b.costRes] < cost) return 0;
+  s.res[b.costRes] -= cost;
+  s.b[id] += k;
+  return k;
+}
+
+function canAffordUpgrade(s, u) {
+  return s.res[u.cost.res] >= u.cost.amt;
+}
+
+function buyUpgrade(s, id) {
+  const u = UPGRADE_BY_ID[id];
+  if (!u || s.u[id] || !u.req(s) || !canAffordUpgrade(s, u)) return false;
+  s.res[u.cost.res] -= u.cost.amt;
+  s.u[id] = true;
+  return true;
+}
+
+// ---- automation --------------------------------------------------------
+
+function autoBuyCheapest(s) {
+  let best = null;
+  let bestCost = Infinity;
+  for (const b of BUILDINGS) {
+    if (!tierUnlocked(s, b.res)) continue;
+    const c = unitCost(b, s.b[b.id]);
+    if (c < bestCost && s.res[b.costRes] >= c) { best = b; bestCost = c; }
+  }
+  if (best) buyBuilding(s, best.id, 1);
+}
+
+// ---- time --------------------------------------------------------------
+
+function step(s, dt) {
+  if (!(dt > 0)) return;
+  const r = rates(s);
+  for (const k of RES) addRes(s, k, r[k] * dt);
+  if (s.u.u_foreman) {
+    s.autoT += dt;
+    let guard = 5;
+    while (s.autoT >= AUTO_INTERVAL && guard-- > 0) {
+      s.autoT -= AUTO_INTERVAL;
+      autoBuyCheapest(s);
+    }
+    if (s.autoT > AUTO_INTERVAL) s.autoT = AUTO_INTERVAL;
+  }
+}
+
+/**
+ * Credit time spent away. Capped at 8h, efficiency 50% (75% with Night Shift).
+ * Uses at most 600 coarse steps so a long gap loads in well under 50 ms.
+ */
+function offlineCatchUp(s, rawSeconds) {
+  if (!(rawSeconds > 0)) return null;
+  const seconds = Math.min(rawSeconds, OFFLINE_CAP_S);
+  const eff = offlineEff(s);
+  const before = { ...s.res };
+  const chunks = 600;
+  const dt = (seconds * eff) / chunks;
+  for (let i = 0; i < chunks; i++) step(s, dt);
+  const gains = {};
+  for (const k of RES) gains[k] = s.res[k] - before[k];
+  return { rawSeconds, seconds, capped: rawSeconds > OFFLINE_CAP_S, eff, gains };
+}
+
+// ---- prestige ----------------------------------------------------------
+
+function seedsFor(runWood) {
+  return Math.floor(Math.sqrt(runWood / PRESTIGE_DIVISOR));
+}
+
+function prestigeReady(s) {
+  return s.run.wood >= PRESTIGE_UNLOCK;
+}
+
+function doPrestige(s) {
+  if (!prestigeReady(s)) return 0;
+  const gained = seedsFor(s.run.wood);
+  s.seeds += gained;
+  s.res = { wood: START_WOOD, stone: 0, metal: 0, energy: 0 };
+  s.run = { wood: 0, stone: 0, metal: 0, energy: 0 };
+  for (const b of BUILDINGS) s.b[b.id] = 0;
+  s.u = {};
+  s.autoT = 0;
+  s.stats.prestiges += 1;
+  return gained;
+}
+
+// ---- state.js ----
+// State creation, validation/migration, save/load, import/export.
+// localStorage is only touched inside functions so this module also loads in Node tests.
+
+
+
+const zeroRes = () => ({ wood: 0, stone: 0, metal: 0, energy: 0 });
+
+function newState(now = Date.now()) {
+  const b = {};
+  for (const x of BUILDINGS) b[x.id] = 0;
+  return {
+    version: SAVE_VERSION,
+    res: { ...zeroRes(), wood: START_WOOD },
+    run: zeroRes(),
+    total: zeroRes(),
+    b,
+    u: {},
+    seeds: 0,
+    autoT: 0,
+    lastSeen: now,
+    buyMode: '1',
+    stats: { clicks: 0, prestiges: 0, created: now },
+  };
+}
+
+function num(v, fallback = 0) {
+  return typeof v === 'number' && Number.isFinite(v) && v >= 0 ? Math.min(v, MAX_VALUE) : fallback;
+}
+
+/** Throws if `raw` cannot possibly be a save. Used for imports. */
+function validate(raw) {
+  if (!raw || typeof raw !== 'object' || Array.isArray(raw)) throw new Error('Invalid save');
+  if (typeof raw.version !== 'number') throw new Error('Invalid save');
+  if (!raw.res || typeof raw.res !== 'object') throw new Error('Invalid save');
+  if (raw.version > SAVE_VERSION) throw new Error('Save is from a newer version');
+}
+
+/** Fill in missing fields, drop unknown ones, repair NaN/negative numbers. */
+function migrate(raw, now = Date.now()) {
+  const s = newState(now);
+  if (!raw || typeof raw !== 'object') return s;
+  for (const k of RES) {
+    s.res[k] = num(raw.res && raw.res[k], s.res[k]);
+    s.run[k] = num(raw.run && raw.run[k], 0);
+    s.total[k] = num(raw.total && raw.total[k], 0);
+  }
+  for (const x of BUILDINGS) s.b[x.id] = Math.floor(num(raw.b && raw.b[x.id], 0));
+  for (const u of UPGRADES) if (raw.u && raw.u[u.id] === true) s.u[u.id] = true;
+  s.seeds = Math.floor(num(raw.seeds, 0));
+  s.autoT = num(raw.autoT, 0);
+  s.lastSeen = num(raw.lastSeen, now);
+  if (s.lastSeen > now) s.lastSeen = now; // clock moved backwards: never credit negative time
+  s.buyMode = ['1', '10', '100', 'max'].includes(raw.buyMode) ? raw.buyMode : '1';
+  if (raw.stats) {
+    s.stats.clicks = Math.floor(num(raw.stats.clicks, 0));
+    s.stats.prestiges = Math.floor(num(raw.stats.prestiges, 0));
+    s.stats.created = num(raw.stats.created, now);
+  }
+  s.version = SAVE_VERSION;
+  return s;
+}
+
+function save(s) {
+  try {
+    s.lastSeen = Date.now();
+    localStorage.setItem(SAVE_KEY, JSON.stringify(s));
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
+/** Loads the save (or a fresh game) and credits offline time. */
+function load(now = Date.now()) {
+  let raw = null;
+  try {
+    const txt = localStorage.getItem(SAVE_KEY);
+    if (txt) raw = JSON.parse(txt);
+  } catch (e) {
+    raw = null;
+  }
+  if (!raw) return { state: newState(now), report: null };
+  const state = migrate(raw, now);
+  const elapsed = (now - state.lastSeen) / 1000;
+  let report = null;
+  if (elapsed >= OFFLINE_MIN_S) report = offlineCatchUp(state, elapsed);
+  state.lastSeen = now;
+  return { state, report };
+}
+
+function exportString(s) {
+  return btoa(JSON.stringify(s));
+}
+
+/** Returns a clean state, or throws Error('Invalid save'). */
+function importString(str, now = Date.now()) {
+  let raw;
+  try {
+    raw = JSON.parse(atob(String(str).trim()));
+  } catch (e) {
+    throw new Error('Invalid save');
+  }
+  validate(raw);
+  const s = migrate(raw, now);
+  s.lastSeen = now; // an imported file can never grant offline time
+  return s;
+}
+
+function wipeSave() {
+  try { localStorage.removeItem(SAVE_KEY); } catch (e) { /* ignore */ }
+}
+
+// ---- render.js ----
+// Canvas colony view: nodes, building blocks and walking workers.
+
+
+
+
+const W = 800;
+const H = 450;
+const TOWN = { x: 400, y: 225 };
+const NODES = {
+  wood:   { x: 120, y: 110, label: 'Forest' },
+  stone:  { x: 120, y: 340, label: 'Quarry Hill' },
+  metal:  { x: 680, y: 110, label: 'Iron Peak' },
+  energy: { x: 680, y: 340, label: 'Power Field' },
+};
+
+function createWorld(canvas) {
+  const ctx = canvas.getContext('2d');
+  const workers = [];
+  const floats = [];
+  let scale = 1;
+
+  function resize() {
+    const r = canvas.getBoundingClientRect();
+    const dpr = window.devicePixelRatio || 1;
+    const w = Math.max(1, Math.round(r.width * dpr));
+    const h = Math.round((w * H) / W);
+    if (canvas.width !== w || canvas.height !== h) {
+      canvas.width = w;
+      canvas.height = h;
+    }
+    scale = canvas.width / W;
+  }
+
+  function newWorker() {
+    return { x: TOWN.x + (Math.random() - 0.5) * 30, y: TOWN.y + 20, state: 'idle', timer: Math.random(), res: 'wood', tx: 0, ty: 0 };
+  }
+
+  function moveToward(w, dt, speed) {
+    const dx = w.tx - w.x;
+    const dy = w.ty - w.y;
+    const d = Math.hypot(dx, dy);
+    const stepLen = speed * dt;
+    if (d <= stepLen) { w.x = w.tx; w.y = w.ty; return true; }
+    w.x += (dx / d) * stepLen;
+    w.y += (dy / d) * stepLen;
+    return false;
+  }
+
+  function update(dt, s) {
+    dt = Math.min(dt, 0.1);
+    const want = workerCount(s);
+    while (workers.length < want) workers.push(newWorker());
+    while (workers.length > want) workers.pop();
+    const speed = 70 * walkSpeedMult(s);
+    const open = Object.keys(NODES).filter((k) => tierUnlocked(s, k));
+    for (const w of workers) {
+      if (w.state === 'idle') {
+        w.timer -= dt;
+        if (w.timer <= 0) {
+          w.res = open[Math.floor(Math.random() * open.length)];
+          const n = NODES[w.res];
+          w.tx = n.x + (Math.random() - 0.5) * 60;
+          w.ty = n.y + (Math.random() - 0.5) * 40;
+          w.state = 'out';
+        }
+      } else if (w.state === 'out') {
+        if (moveToward(w, dt, speed)) { w.state = 'gather'; w.timer = 0.8 + Math.random() * 0.6; }
+      } else if (w.state === 'gather') {
+        w.timer -= dt;
+        if (w.timer <= 0) {
+          w.tx = TOWN.x + (Math.random() - 0.5) * 50;
+          w.ty = TOWN.y + 25 + Math.random() * 15;
+          w.state = 'back';
+        }
+      } else if (w.state === 'back') {
+        if (moveToward(w, dt, speed)) {
+          floats.push({ x: w.x, y: w.y, res: w.res, age: 0 });
+          w.state = 'idle';
+          w.timer = Math.random() * 0.5;
+        }
+      }
+    }
+    for (let i = floats.length - 1; i >= 0; i--) {
+      floats[i].age += dt;
+      if (floats[i].age > 1) floats.splice(i, 1);
+    }
+  }
+
+  function drawNode(res, open) {
+    const n = NODES[res];
+    ctx.globalAlpha = open ? 1 : 0.22;
+    if (res === 'wood') {
+      for (let i = 0; i < 5; i++) {
+        const x = n.x - 40 + i * 20;
+        const y = n.y + (i % 2) * 14 - 8;
+        ctx.fillStyle = '#5b3a1e'; ctx.fillRect(x - 2, y + 8, 4, 10);
+        ctx.fillStyle = '#2f7d3a';
+        ctx.beginPath(); ctx.moveTo(x, y - 18); ctx.lineTo(x + 12, y + 10); ctx.lineTo(x - 12, y + 10); ctx.fill();
+      }
+    } else if (res === 'stone') {
+      ctx.fillStyle = '#7c8794';
+      for (let i = 0; i < 4; i++) { ctx.beginPath(); ctx.ellipse(n.x - 30 + i * 20, n.y + (i % 2) * 10, 16, 11, 0, 0, 7); ctx.fill(); }
+    } else if (res === 'metal') {
+      ctx.fillStyle = '#4d5560';
+      ctx.beginPath(); ctx.moveTo(n.x - 50, n.y + 30); ctx.lineTo(n.x - 8, n.y - 36); ctx.lineTo(n.x + 50, n.y + 30); ctx.fill();
+      ctx.fillStyle = '#e0894a';
+      ctx.beginPath(); ctx.arc(n.x + 6, n.y + 4, 5, 0, 7); ctx.arc(n.x - 14, n.y + 14, 4, 0, 7); ctx.fill();
+    } else {
+      for (let i = 0; i < 3; i++) {
+        ctx.fillStyle = '#1f4e79'; ctx.fillRect(n.x - 48 + i * 34, n.y - 16, 28, 22);
+        ctx.fillStyle = '#4aa3e0'; ctx.fillRect(n.x - 45 + i * 34, n.y - 13, 22, 16);
+      }
+    }
+    ctx.globalAlpha = 1;
+    ctx.fillStyle = open ? '#cfd8c8' : '#6b7468';
+    ctx.font = '12px system-ui, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText(open ? n.label : n.label + ' (locked)', n.x, n.y + (n.y < 200 ? -44 : 48));
+  }
+
+  function draw(s) {
+    resize();
+    ctx.setTransform(scale, 0, 0, scale, 0, 0);
+    const g = ctx.createLinearGradient(0, 0, 0, H);
+    g.addColorStop(0, '#22382a'); g.addColorStop(1, '#1a2a21');
+    ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+
+    for (const k of Object.keys(NODES)) {
+      const open = tierUnlocked(s, k);
+      ctx.strokeStyle = open ? '#4b3b2b' : '#2b3a30';
+      ctx.lineWidth = 12; ctx.lineCap = 'round';
+      ctx.beginPath(); ctx.moveTo(TOWN.x, TOWN.y); ctx.lineTo(NODES[k].x, NODES[k].y); ctx.stroke();
+    }
+    for (const k of Object.keys(NODES)) drawNode(k, tierUnlocked(s, k));
+
+    // town hall
+    ctx.fillStyle = '#c9b38a'; ctx.fillRect(TOWN.x - 30, TOWN.y - 24, 60, 40);
+    ctx.fillStyle = '#9a3b32';
+    ctx.beginPath(); ctx.moveTo(TOWN.x - 38, TOWN.y - 24); ctx.lineTo(TOWN.x, TOWN.y - 50); ctx.lineTo(TOWN.x + 38, TOWN.y - 24); ctx.fill();
+    ctx.fillStyle = '#5b3a1e'; ctx.fillRect(TOWN.x - 7, TOWN.y - 2, 14, 18);
+
+    // building blocks: one row per building type next to its resource node
+    const rowIdx = {};
+    for (const b of BUILDINGS) {
+      const n = NODES[b.res];
+      const idx = rowIdx[b.res] || 0;
+      rowIdx[b.res] = idx + 1;
+      const count = Math.min(s.b[b.id], 12);
+      const y = n.y + (n.y < 200 ? 58 : -76) + idx * 18;
+      const x0 = n.x < 400 ? 24 : W - 24 - 12 * 16;
+      ctx.fillStyle = b.color;
+      for (let i = 0; i < count; i++) ctx.fillRect(x0 + i * 16, y, 12, 12);
+    }
+
+    for (const w of workers) {
+      ctx.fillStyle = '#f4d35e';
+      ctx.beginPath(); ctx.arc(w.x, w.y, 5, 0, 7); ctx.fill();
+      if (w.state === 'back') {
+        ctx.fillStyle = RES_INFO[w.res].color;
+        ctx.beginPath(); ctx.arc(w.x, w.y - 8, 3.5, 0, 7); ctx.fill();
+      }
+    }
+    for (const f of floats) {
+      ctx.globalAlpha = 1 - f.age;
+      ctx.fillStyle = RES_INFO[f.res].color;
+      ctx.font = 'bold 13px system-ui, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('+', f.x, f.y - 14 - f.age * 22);
+      ctx.globalAlpha = 1;
+    }
+  }
+
+  return { update, draw, workers, floats };
+}
+
+// ---- ui.js ----
+// DOM layer. Built once; update() only writes text/attributes that actually changed.
+
+
+
+
+
+const $ = (id) => document.getElementById(id);
+
+function setText(el, txt) {
+  if (el._t !== txt) { el.textContent = txt; el._t = txt; }
+}
+function setDisabled(el, v) {
+  if (el._d !== v) { el.disabled = v; el._d = v; }
+}
+function setClass(el, cls, on) {
+  if (el._c !== undefined && el._c[cls] === on) return;
+  el._c = Object.assign(el._c || {}, { [cls]: on });
+  el.classList.toggle(cls, on);
+}
+function setHidden(el, v) {
+  if (el._h !== v) { el.hidden = v; el._h = v; }
+}
+function el(tag, cls, text) {
+  const e = document.createElement(tag);
+  if (cls) e.className = cls;
+  if (text !== undefined) e.textContent = text;
+  return e;
+}
+
+function createUI(game) {
+  const tiles = {};
+  const rows = {};
+  let upKey = '';
+  let upRefs = [];
+  let lastSave = Date.now();
+
+  // ---- resource bar ----
+  for (const k of RES) {
+    const t = el('div', 'res');
+    t.id = 'res-' + k;
+    const name = el('div', 'name');
+    const dot = el('span', 'dot');
+    dot.style.background = RES_INFO[k].color;
+    name.append(dot, document.createTextNode(RES_INFO[k].name));
+    const val = el('div', 'val', '0'); val.className = 'val';
+    const rate = el('div', 'rate', '+0/s');
+    t.append(name, val, rate);
+    $('resbar').append(t);
+    tiles[k] = { t, val, rate };
+  }
+
+  // ---- buy mode buttons ----
+  const modeBtns = {};
+  for (const m of ['1', '10', '100', 'max']) {
+    const b = el('button', 'mode', m === 'max' ? 'Max' : 'x' + m);
+    b.type = 'button';
+    b.dataset.mode = m;
+    b.addEventListener('click', () => { game.state.buyMode = m; update(); });
+    $('modes').append(b);
+    modeBtns[m] = b;
+  }
+
+  // ---- building rows ----
+  for (const b of BUILDINGS) {
+    const card = el('div', 'card');
+    card.id = 'b-' + b.id;
+    const title = el('div', 'title', b.name);
+    const owned = el('span', 'owned', '0');
+    title.append(owned);
+    const desc = el('div', 'desc');
+    const btn = el('button', 'btn');
+    btn.type = 'button';
+    btn.append(document.createTextNode('Buy '));
+    const kLbl = el('span', 'k');
+    const cost = el('span', 'cost');
+    btn.append(kLbl, el('br'), cost);
+    btn.addEventListener('click', () => {
+      const q = quote(b);
+      if (buyBuilding(game.state, b.id, q.k)) update();
+    });
+    card.append(title, btn, desc);
+    $('buildingList').append(card);
+    rows[b.id] = { card, owned, desc, btn, kLbl, cost };
+  }
+
+  function quote(b) {
+    const s = game.state;
+    const n = s.b[b.id];
+    const budget = s.res[b.costRes];
+    let k;
+    if (s.buyMode === 'max') k = Math.max(1, maxAffordable(b, n, budget));
+    else k = Number(s.buyMode);
+    const cost = bulkCost(b, n, k);
+    return { k, cost, ok: budget >= cost };
+  }
+
+  // ---- tabs ----
+  document.querySelectorAll('.tab').forEach((t) => {
+    t.addEventListener('click', () => {
+      document.querySelectorAll('.tab').forEach((x) => x.classList.toggle('active', x === t));
+      document.querySelectorAll('.pane').forEach((p) => { p.hidden = p.id !== 'pane-' + t.dataset.tab; });
+    });
+  });
+
+  // ---- gather button ----
+  $('gather').addEventListener('click', () => { gather(game.state); update(); });
+
+  // ---- modal ----
+  function showModal(title, bodyNodes, buttons) {
+    $('modalTitle').textContent = title;
+    const body = $('modalBody');
+    body.replaceChildren(...bodyNodes);
+    const bar = $('modalButtons');
+    bar.replaceChildren();
+    for (const b of buttons) {
+      const btn = el('button', 'btn' + (b.primary ? ' primary' : ''), b.label);
+      btn.type = 'button';
+      btn.addEventListener('click', () => { closeModal(); if (b.onClick) b.onClick(); });
+      bar.append(btn);
+    }
+    $('modal').hidden = false;
+  }
+  function closeModal() { $('modal').hidden = true; }
+
+  function showOffline(rep) {
+    if (!rep) return;
+    const intro = el('p', null,
+      'You were away ' + fmtTime(rep.rawSeconds) +
+      (rep.capped ? ' (credited up to the ' + fmtTime(OFFLINE_CAP_S) + ' cap)' : '') +
+      '. Your colony kept working at ' + Math.round(rep.eff * 100) + '% efficiency:');
+    const ul = el('ul');
+    for (const k of RES) if (rep.gains[k] > 0) ul.append(el('li', null, '+' + fmt(rep.gains[k]) + ' ' + RES_INFO[k].name));
+    showModal('While you were away', [intro, ul], [{ label: 'Collect', primary: true }]);
+  }
+
+  function confirmModal(title, text, label, onYes) {
+    showModal(title, [el('p', null, text)], [
+      { label: 'Cancel' },
+      { label, primary: true, onClick: onYes },
+    ]);
+  }
+
+  // ---- prestige ----
+  $('relocate').addEventListener('click', () => {
+    const s = game.state;
+    if (!prestigeReady(s)) return;
+    const gain = seedsFor(s.run.wood);
+    confirmModal('Relocate?', 'You will gain ' + gain + ' seeds (+' + Math.round(gain * SEED_BONUS * 100) +
+      '% production) and restart with nothing else.', 'Relocate', () => {
+      doPrestige(s);
+      save(s);
+      update();
+    });
+  });
+
+  // ---- settings ----
+  $('saveNow').addEventListener('click', () => { save(game.state); lastSave = Date.now(); update(); });
+  $('exportBtn').addEventListener('click', () => {
+    const str = exportString(game.state);
+    $('saveText').value = str;
+    $('importMsg').textContent = 'Save string ready: copy it somewhere safe.';
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(str).catch(() => {});
+  });
+  $('importBtn').addEventListener('click', () => {
+    try {
+      game.state = importString($('saveText').value);
+      save(game.state);
+      $('importMsg').textContent = 'Import successful.';
+      update();
+    } catch (e) {
+      $('importMsg').textContent = 'Import failed: ' + e.message + '.';
+    }
+  });
+  $('hardReset').addEventListener('click', () => {
+    confirmModal('Hard reset?', 'This permanently deletes ALL progress, including seeds. This cannot be undone.',
+      'Delete everything', () => {
+        wipeSave();
+        game.state = newState();
+        save(game.state);
+        update();
+      });
+  });
+
+  // ---- upgrades list ----
+  function rebuildUpgrades() {
+    const s = game.state;
+    const list = $('upgradeList');
+    list.replaceChildren();
+    upRefs = [];
+    const visible = UPGRADES.filter((u) => !s.u[u.id] && u.req(s));
+    for (const u of visible) {
+      const card = el('div', 'card');
+      card.dataset.id = u.id;
+      card.append(el('div', 'title', u.name));
+      const btn = el('button', 'btn');
+      btn.type = 'button';
+      btn.append(document.createTextNode('Buy '), el('br'));
+      const cost = el('span', 'cost', fmt(u.cost.amt) + ' ' + RES_INFO[u.cost.res].name);
+      btn.append(cost);
+      btn.addEventListener('click', () => { if (buyUpgrade(game.state, u.id)) update(); });
+      card.append(btn, el('div', 'desc', u.desc));
+      list.append(card);
+      upRefs.push({ u, btn, cost });
+    }
+    if (!visible.length) list.append(el('p', 'muted', 'No upgrades available yet. Keep building!'));
+  }
+
+  function update() {
+    const s = game.state;
+    const r = rates(s);
+    for (const k of RES) {
+      const open = tierUnlocked(s, k);
+      setHidden(tiles[k].t, !open);
+      setText(tiles[k].val, fmt(s.res[k]));
+      setText(tiles[k].rate, '+' + fmt(r[k]) + '/s');
+    }
+    for (const m of Object.keys(modeBtns)) setClass(modeBtns[m], 'active', s.buyMode === m);
+    for (const b of BUILDINGS) {
+      const row = rows[b.id];
+      setHidden(row.card, !tierUnlocked(s, b.res));
+      const q = quote(b);
+      setText(row.owned, 'x' + s.b[b.id]);
+      setText(row.kLbl, q.k > 1 ? 'x' + q.k : '');
+      setText(row.cost, fmt(q.cost) + ' ' + RES_INFO[b.costRes].name);
+      setClass(row.cost, 'ok', q.ok);
+      setClass(row.cost, 'no', !q.ok);
+      setDisabled(row.btn, !q.ok);
+      row.cost.dataset.cost = String(q.cost);
+      setText(row.desc, '+' + fmt(b.out) + ' ' + RES_INFO[b.res].name + '/s each' +
+        (s.b[b.id] ? ' | total +' + fmt(buildingRate(s, b.id)) + '/s' : ''));
+    }
+
+    const key = UPGRADES.filter((u) => !s.u[u.id] && u.req(s)).map((u) => u.id).join(',') + '|' + Object.keys(s.u).length;
+    if (key !== upKey) { upKey = key; rebuildUpgrades(); }
+    for (const ref of upRefs) {
+      const ok = canAffordUpgrade(s, ref.u);
+      setDisabled(ref.btn, !ok);
+      setClass(ref.cost, 'ok', ok);
+      setClass(ref.cost, 'no', !ok);
+    }
+    setText($('upgradeOwned'), 'Owned: ' + Object.keys(s.u).length + ' / ' + UPGRADES.length +
+      (Object.keys(s.u).length ? ' (' + UPGRADES.filter((u) => s.u[u.id]).map((u) => u.name).join(', ') + ')' : ''));
+
+    const mult = 1 + SEED_BONUS * s.seeds;
+    const gain = prestigeReady(s) ? seedsFor(s.run.wood) : 0;
+    setText($('pRun'), fmt(s.run.wood) + ' / ' + fmt(PRESTIGE_UNLOCK));
+    setText($('pSeeds'), String(s.seeds));
+    setText($('pBonus'), '+' + Math.round((mult - 1) * 100) + '%');
+    setText($('pGain'), String(gain));
+    setText($('pAfter'), '+' + Math.round((s.seeds + gain) * SEED_BONUS * 100) + '%');
+    setText($('pCount'), String(s.stats.prestiges));
+    setDisabled($('relocate'), !prestigeReady(s));
+
+    setText($('gather'), 'Gather wood (+' + fmt(clickValue(s)) + ')');
+    setText($('colonyInfo'), 'Workers: ' + workerCount(s) + ' | Buildings: ' + totalBuildings(s) +
+      ' | Offline efficiency: ' + Math.round(offlineEff(s) * 100) + '%');
+    const ago = Math.max(0, Math.floor((Date.now() - lastSave) / 1000));
+    setText($('saveInfo'), 'Autosaves every 10 seconds and when you leave the tab. Last save ' + ago + 's ago.');
+  }
+
+  return { update, showOffline, setLastSave: (t) => { lastSave = t; } };
+}
+
+// ---- main.js ----
+// Entry point: load, wire loops, autosave.
+
+
+
+
+
+
+const { state, report } = load();
+const game = { state };
+const world = createWorld(document.getElementById('world'));
+const ui = createUI(game);
+
+ui.update();
+if (report) { ui.showOffline(report); window.__lastOffline = report; }
+
+// Simulation: always advance by real elapsed time, never by "number of ticks",
+// because background tabs throttle timers.
+let last = Date.now();
+function tick() {
+  const now = Date.now();
+  const dt = (now - last) / 1000;
+  last = now;
+  if (dt <= 0) return; // clock moved backwards: ignore
+  if (dt > 5) {
+    // device slept / tab frozen: treat like time away
+    const rep = offlineCatchUp(game.state, dt);
+    if (rep && dt >= OFFLINE_MIN_S) { ui.showOffline(rep); window.__lastOffline = rep; }
+  } else {
+    let rem = dt;
+    while (rem > 0) { const d = Math.min(rem, 0.1); step(game.state, d); rem -= d; }
+  }
+  ui.update();
+}
+setInterval(tick, 100);
+
+// Rendering: capped at ~30 fps.
+let lastFrame = 0;
+function frame(t) {
+  if (t - lastFrame >= 33) {
+    world.update((t - lastFrame) / 1000, game.state);
+    world.draw(game.state);
+    lastFrame = t;
+  }
+  requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+
+// Saving: timer + whenever the page is hidden or closed.
+function doSave() { if (save(game.state)) ui.setLastSave(Date.now()); }
+setInterval(doSave, 10000);
+document.addEventListener('visibilitychange', () => { if (document.hidden) doSave(); });
+window.addEventListener('pagehide', doSave);
+
+// Small hook for automated tests and debugging.
+window.tinyColony = {
+  game, world, ui,
+  rates: () => rates(game.state),
+  save: doSave,
+  buy: (id, k) => buyBuilding(game.state, id, k),
+  workerCount: () => workerCount(game.state),
+  tick,
+};
+
+})();
+</script>

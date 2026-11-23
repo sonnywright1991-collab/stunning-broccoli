@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tiny Colony</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="top">
+    <h1>Tiny Colony</h1>
+    <div id="resbar" class="resbar" aria-label="Resources"></div>
+  </header>
+
+  <main class="layout">
+    <section class="colony">
+      <canvas id="world" aria-label="Colony view"></canvas>
+      <div class="colony-bar">
+        <button id="gather" class="btn primary" type="button">Gather wood</button>
+        <span id="colonyInfo" class="muted"></span>
+      </div>
+    </section>
+
+    <aside class="panel">
+      <nav class="tabs" role="tablist">
+        <button class="tab active" data-tab="buildings" role="tab" type="button">Buildings</button>
+        <button class="tab" data-tab="upgrades" role="tab" type="button">Upgrades</button>
+        <button class="tab" data-tab="prestige" role="tab" type="button">Relocate</button>
+        <button class="tab" data-tab="settings" role="tab" type="button">Settings</button>
+      </nav>
+
+      <div class="pane" id="pane-buildings">
+        <div class="modes" id="modes"></div>
+        <div id="buildingList" class="list"></div>
+      </div>
+      <div class="pane" id="pane-upgrades" hidden>
+        <div id="upgradeList" class="list"></div>
+        <p id="upgradeOwned" class="muted"></p>
+      </div>
+      <div class="pane" id="pane-prestige" hidden>
+        <p>Relocate your colony to fertile land. You lose resources, buildings and upgrades, but keep <b>seeds</b>: each gives <b>+5%</b> production forever.</p>
+        <p>Seeds earned on relocation = floor(sqrt(wood this run / 100K)). Unlocks at 1M wood this run.</p>
+        <dl class="stats">
+          <dt>Wood this run</dt><dd id="pRun">0</dd>
+          <dt>Seeds owned</dt><dd id="pSeeds">0</dd>
+          <dt>Current bonus</dt><dd id="pBonus">+0%</dd>
+          <dt>Seeds on relocate</dt><dd id="pGain">0</dd>
+          <dt>Bonus after</dt><dd id="pAfter">+0%</dd>
+          <dt>Relocations</dt><dd id="pCount">0</dd>
+        </dl>
+        <button id="relocate" class="btn primary" type="button" disabled>Relocate</button>
+      </div>
+      <div class="pane" id="pane-settings" hidden>
+        <p class="muted" id="saveInfo">Autosaves every 10 seconds.</p>
+        <div class="row">
+          <button id="saveNow" class="btn" type="button">Save now</button>
+          <button id="exportBtn" class="btn" type="button">Export save</button>
+          <button id="hardReset" class="btn danger" type="button">Hard reset</button>
+        </div>
+        <label class="lbl" for="saveText">Save string (paste here to import)</label>
+        <textarea id="saveText" rows="5" spellcheck="false"></textarea>
+        <div class="row">
+          <button id="importBtn" class="btn" type="button">Import save</button>
+          <span id="importMsg" class="muted" role="status"></span>
+        </div>
+      </div>
+    </aside>
+  </main>
+
+  <div id="modal" class="modal" hidden>
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <h2 id="modalTitle"></h2>
+      <div id="modalBody"></div>
+      <div id="modalButtons" class="row"></div>
+    </div>
+  </div>
+
+  <script type="module" src="src/main.js"></script>
+</body>
+</html>

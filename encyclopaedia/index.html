@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Encyclopaedia of Esotericism</title>
+<meta name="description" content="A browsable encyclopaedia of Western esoteric traditions, practices, texts, figures and movements, styled as a woodcut occult zine.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9C%A1%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wheel" id="wheel" aria-hidden="true"></div>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site">
+  <a class="masthead" href="#home"><span class="star" aria-hidden="true">&#10022;</span> Encyclopaedia of Esotericism <span class="star" aria-hidden="true">&#10022;</span></a>
+  <div class="dateline">
+    <span id="count">Treatises</span>
+    <nav aria-label="Primary">
+      <a href="#browse">Index</a><a href="#about">About</a>
+      <button id="random" type="button">Random</button>
+      <button id="theme" type="button">Night ink</button>
+    </nav>
+  </div>
+  <div class="ticker" aria-label="Treatises in this edition"><div class="track" id="track"></div></div>
+</header>
+<div class="layout">
+  <aside class="rail" aria-label="Classification">
+    <form class="box" role="search" id="searchForm">
+      <h2><label for="q">Search</label></h2>
+      <input id="q" type="search" placeholder="Title, tradition, notes…" autocomplete="off">
+    </form>
+    <nav class="box" aria-label="Classification"><h2>Classification</h2><ul class="stamps" id="stamps"></ul></nav>
+    <div class="box"><h2>Archive backup</h2>
+      <div class="row"><button id="export" type="button">Export</button><button id="importBtn" type="button">Import</button></div>
+      <input id="importFile" class="sr" type="file" accept="application/json" aria-label="Import JSON backup">
+      <p id="backupMsg" role="status">Saves bookmarks, notes and added entries as JSON.</p>
+    </div>
+  </aside>
+  <main id="main" tabindex="-1"></main>
+</div>
+<footer class="site">Introductory reference &middot; entries summarise academic scholarship &middot; see further reading</footer>
+<script type="module" src="app.js"></script>
+</body>
+</html>

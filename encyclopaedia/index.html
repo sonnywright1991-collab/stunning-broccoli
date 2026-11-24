@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Encyclopaedia of Esotericism</title>
+<meta name="description" content="A browsable encyclopaedia of Western esoteric traditions, practices, texts, figures and movements.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9C%A1%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site">
+  <a class="brand" href="#/" aria-label="Encyclopaedia of Esotericism, home">
+    <span class="sigil" aria-hidden="true">&#9737;</span>
+    <span>Encyclopaedia of <em>Esotericism</em></span>
+  </a>
+  <form class="search" role="search" id="searchForm">
+    <label class="sr" for="q">Search entries</label>
+    <input id="q" type="search" placeholder="Search entries…" autocomplete="off">
+  </form>
+  <nav aria-label="Primary">
+    <a href="#/browse">Browse</a>
+    <a href="#/about">About</a>
+    <button id="random" type="button">Random entry</button>
+    <button id="theme" type="button" aria-label="Toggle theme">&#9790;</button>
+  </nav>
+</header>
+<main id="main" tabindex="-1"></main>
+<footer class="site">
+  <p>Encyclopaedia of Esotericism &middot; an introductory reference. Entries summarise academic scholarship; see each entry's further reading.</p>
+</footer>
+<script type="module" src="app.js"></script>
+</body>
+</html>

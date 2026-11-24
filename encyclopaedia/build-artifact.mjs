@@ -2,7 +2,7 @@
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 const r = (f) => readFileSync(new URL(f, import.meta.url), "utf8");
 const entries = r("entries.js").replace(/export const/g, "const");
-const app = r("app.js").replace(/^import .*$/m, "");
+const app = r("app.js").replace(/^import .*$/m, "const BASE = ENTRIES;");
 let html = r("index.html");
 html = html.replace(/<link rel="stylesheet"[^>]*>/, `<style>\n${r("style.css")}</style>`)
   .replace(/<meta name="viewport"[^>]*>\n?/, "")

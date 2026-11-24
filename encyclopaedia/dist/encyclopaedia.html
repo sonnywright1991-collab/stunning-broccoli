@@ -1,0 +1,745 @@
+
+<meta charset="utf-8">
+<meta name="claude:viewport-fit-sides" content="cover">
+<title>Encyclopaedia of Esotericism</title>
+<meta name="description" content="A browsable encyclopaedia of Western esoteric traditions, practices, texts, figures and movements.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9C%A1%3C/text%3E%3C/svg%3E">
+<style>
+:root{
+  --bg:#eeecf3; --panel:#f8f7fb; --ink:#1d1a28; --muted:#5d5873; --rule:#cfcade;
+  --accent:#4b2e83; --gold:#8a6b1f; --link:#3b4fa0;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+}
+:root[data-theme="dark"]{
+  --bg:#12101c; --panel:#1b1829; --ink:#e8e4f2; --muted:#a29bb8; --rule:#352f4d;
+  --accent:#b79cf0; --gold:#d8b45a; --link:#8fb0ff; color-scheme:dark;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#12101c; --panel:#1b1829; --ink:#e8e4f2; --muted:#a29bb8; --rule:#352f4d;
+    --accent:#b79cf0; --gold:#d8b45a; --link:#8fb0ff; color-scheme:dark;
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:18px/1.65 var(--serif);min-height:100vh;display:flex;flex-direction:column}
+a{color:var(--link)}
+a:hover{color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.skip{position:absolute;left:-999px}.skip:focus{left:8px;top:8px;background:var(--panel);padding:8px;z-index:9}
+header.site{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;padding:14px 24px;border-bottom:1px solid var(--rule);background:var(--panel);position:sticky;top:env(safe-area-inset-top,0px);z-index:5;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--panel)}
+.brand{display:flex;gap:10px;align-items:center;text-decoration:none;color:var(--ink);font-size:1.25rem;letter-spacing:.02em}
+.brand em{color:var(--accent)}
+.sigil{color:var(--gold);font-size:1.6rem}
+.search{flex:1 1 220px;max-width:420px}
+.search input{width:100%;padding:8px 12px;border:1px solid var(--rule);border-radius:6px;background:var(--bg);color:var(--ink);font:inherit;font-size:.95rem}
+nav{display:flex;gap:14px;align-items:center;margin-left:auto}
+nav a{color:var(--ink);text-decoration:none;font-size:.95rem}
+nav a:hover{color:var(--accent)}
+button{font:inherit;font-size:.9rem;cursor:pointer;border:1px solid var(--rule);background:var(--bg);color:var(--ink);padding:6px 12px;border-radius:6px}
+button:hover{border-color:var(--accent);color:var(--accent)}
+main{flex:1;width:100%;max-width:980px;margin:0 auto;padding:32px max(16px,env(safe-area-inset-right,0px)) 56px max(16px,env(safe-area-inset-left,0px));outline:none}
+h1{font-size:2.2rem;line-height:1.2;margin:.2em 0 .1em;font-weight:600}
+h2{font-size:1.2rem;margin:2em 0 .5em;color:var(--accent);letter-spacing:.04em;text-transform:uppercase;font-weight:600}
+.lede{font-size:1.2rem;color:var(--muted);font-style:italic;margin:.4em 0 1.2em}
+.hero{text-align:center;padding:40px 0 24px;border-bottom:1px solid var(--rule);margin-bottom:28px}
+.hero h1{font-size:2.8rem}
+.hero .rule{color:var(--gold);letter-spacing:.6em;margin:10px 0}
+.badge{display:inline-block;font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);border:1px solid var(--rule);border-radius:99px;padding:1px 10px;text-decoration:none}
+.meta{color:var(--muted);font-size:.9rem;display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+article p:first-of-type::first-letter{float:left;font-size:3.4rem;line-height:.9;padding:6px 8px 0 0;color:var(--accent)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;padding:0;list-style:none}
+.card{display:block;height:100%;padding:16px 18px;background:var(--panel);border:1px solid var(--rule);border-radius:8px;text-decoration:none;color:var(--ink)}
+.card:hover{border-color:var(--accent)}
+.card h3{margin:.3em 0;font-size:1.1rem;color:var(--ink)}
+.card p{margin:0;font-size:.9rem;color:var(--muted);line-height:1.45}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 20px;padding:0;list-style:none}
+.chips a{display:inline-block;padding:3px 12px;border:1px solid var(--rule);border-radius:99px;text-decoration:none;color:var(--ink);font-size:.9rem;background:var(--panel)}
+.chips a[aria-current="true"]{background:var(--accent);color:var(--bg);border-color:var(--accent)}
+.az{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 20px;padding:0;list-style:none}
+.az a{padding:2px 8px;border:1px solid var(--rule);border-radius:4px;text-decoration:none;font-size:.9rem}
+.index-list{columns:2 280px;list-style:none;padding:0}
+.index-list li{break-inside:avoid;margin:.2em 0}
+.letter{font-size:1.6rem;color:var(--gold);margin:1em 0 .2em;break-after:avoid}
+.reading li{color:var(--muted);font-size:.95rem}
+.back{font-size:.9rem}
+mark{background:color-mix(in srgb,var(--gold) 35%,transparent);color:inherit}
+footer.site{border-top:1px solid var(--rule);padding:18px 24px;text-align:center;color:var(--muted);font-size:.85rem}
+@media (max-width:600px){body{font-size:17px}h1{font-size:1.8rem}.hero h1{font-size:2rem}header.site{padding:10px 16px}nav{margin-left:0}main{padding-top:24px;padding-bottom:48px}}
+@media print{header.site,footer.site,nav{display:none}body{background:#fff;color:#000}}
+</style>
+
+<a class="skip" href="#main">Skip to content</a>
+<header class="site">
+  <a class="brand" href="#home" aria-label="Encyclopaedia of Esotericism, home">
+    <span class="sigil" aria-hidden="true">&#9737;</span>
+    <span>Encyclopaedia of <em>Esotericism</em></span>
+  </a>
+  <form class="search" role="search" id="searchForm">
+    <label class="sr" for="q">Search entries</label>
+    <input id="q" type="search" placeholder="Search entries…" autocomplete="off">
+  </form>
+  <nav aria-label="Primary">
+    <a href="#browse">Browse</a>
+    <a href="#about">About</a>
+    <button id="random" type="button">Random entry</button>
+    <button id="theme" type="button" aria-label="Toggle theme">&#9790;</button>
+  </nav>
+</header>
+<main id="main" tabindex="-1"></main>
+<footer class="site">
+  <p>Encyclopaedia of Esotericism &middot; an introductory reference. Entries summarise academic scholarship; see each entry's further reading.</p>
+</footer>
+<script>
+(() => {
+// Encyclopaedia of Esotericism: entry data.
+// Fields: id, title, cat, era, summary, body[] (paragraphs), related[] (ids), reading[] (suggested scholarship)
+const CATEGORIES = {
+  traditions: "Traditions & Currents",
+  practices: "Practices & Arts",
+  concepts: "Concepts & Symbols",
+  texts: "Texts",
+  figures: "Figures",
+  movements: "Modern Movements",
+};
+
+const ENTRIES = [
+  {
+    id: "esotericism", title: "Esotericism", cat: "concepts", era: "Scholarly category, 17th c. onward",
+    summary: "A scholarly umbrella term for currents that stress hidden correspondences, mediating powers, living nature, imagination and inner transformation.",
+    body: [
+      "'Esotericism' is a modern academic category rather than a tradition that ever called itself by that name. The French term ésotérisme appears in the 19th century; its Greek root esoterikos ('inner') was already used in antiquity for teachings reserved for an inner circle of students.",
+      "Antoine Faivre proposed a widely used working definition: four intrinsic characteristics (correspondences, living nature, imagination and mediations, transmutation) and two relative ones (the praxis of concordance and transmission from master to disciple). Wouter Hanegraaff instead defines the field as 'rejected knowledge', the Western currents marginalised by Enlightenment rationalism and institutional religion.",
+      "Scholars debate whether esotericism is a Western phenomenon only, whether it is a category of thought or a social history of marginalised ideas, and whether the label distorts the traditions it gathers. This encyclopaedia uses it as a convenient map, not a claim of unity."
+    ],
+    related: ["hermeticism", "gnosticism", "neoplatonism", "occultism"],
+    reading: ["Antoine Faivre, Access to Western Esotericism (1994)", "Wouter J. Hanegraaff, Esotericism and the Academy (2012)"]
+  },
+  {
+    id: "hermeticism", title: "Hermeticism", cat: "traditions", era: "c. 1st-3rd c. CE; revived 15th c.",
+    summary: "Philosophical-religious current founded on the Corpus Hermeticum and attributed to Hermes Trismegistus, joining Greek philosophy with Egyptian prestige.",
+    body: [
+      "Hermetic writings, composed in Greek in Roman Egypt, present revelations given by Hermes Trismegistus ('thrice-greatest') concerning God, the cosmos and the soul. The philosophical treatises of the Corpus Hermeticum teach that the human being, uniquely, shares in both divine mind and mortal body, and may ascend through knowledge (gnosis) to rebirth.",
+      "Marsilio Ficino translated the Corpus into Latin in 1463 for Cosimo de' Medici. Renaissance readers believed Hermes predated Moses and Plato, a chronology Isaac Casaubon overturned in 1614 by dating the texts to the early Christian era. The so-called 'technical' Hermetica (astrology, alchemy, magic) fed the later Hermetic arts.",
+      "Frances Yates's thesis that Hermeticism drove the Scientific Revolution has been heavily criticised, though the current's influence on Renaissance philosophy, alchemy and occult thought is not in doubt."
+    ],
+    related: ["hermes-trismegistus", "corpus-hermeticum", "alchemy", "emerald-tablet", "neoplatonism"],
+    reading: ["Garth Fowden, The Egyptian Hermes (1986)", "Brian P. Copenhaver, Hermetica (1992)"]
+  },
+  {
+    id: "gnosticism", title: "Gnosticism", cat: "traditions", era: "2nd-4th c. CE",
+    summary: "A cluster of late-antique religious movements teaching that salvation comes through direct knowledge of a transcendent God and of the divine spark within.",
+    body: [
+      "'Gnostic' (from gnosis, knowledge) names diverse groups, among them the Sethians, Valentinians and followers of Basilides, whose myths usually describe a flawed material world made by a lesser creator (the Demiurge), and a divine spark trapped in humans that a revealer awakens.",
+      "Most of what was known came from hostile heresiologists such as Irenaeus until 1945, when a jar of thirteen codices was found near Nag Hammadi in Egypt, containing the Gospel of Thomas, the Apocryphon of John and the Gospel of Truth, among others.",
+      "Michael Williams has argued that 'Gnosticism' is an unreliable category and proposed 'biblical demiurgical traditions' instead. The label nevertheless survives, and later movements, from Theosophy to Jung's psychology, have drawn on it freely."
+    ],
+    related: ["nag-hammadi", "manichaeism", "hermeticism", "kabbalah"],
+    reading: ["Karen L. King, What Is Gnosticism? (2003)", "Michael A. Williams, Rethinking 'Gnosticism' (1996)"]
+  },
+  {
+    id: "neoplatonism", title: "Neoplatonism", cat: "traditions", era: "3rd-6th c. CE",
+    summary: "The philosophy of Plotinus and his successors, describing reality as an emanation from the ineffable One and the soul's return to it.",
+    body: [
+      "Plotinus (204/5-270 CE) taught that all things proceed from the One through Intellect (Nous) and Soul, and that philosophy is the soul's ascent back along the same path. His pupil Porphyry edited the Enneads; Iamblichus and Proclus added theurgy, ritual acts through which divine powers sustain the soul.",
+      "Neoplatonism shaped Christian, Jewish and Islamic mysticism, Renaissance Platonism (Ficino, Pico) and much of later esoteric thought. Its picture of a graded cosmos in which the lower mirrors the higher underlies the doctrine of correspondences."
+    ],
+    related: ["hermeticism", "theurgy", "correspondences", "kabbalah"],
+    reading: ["Pierre Hadot, Plotinus, or the Simplicity of Vision (1993)", "Gregory Shaw, Theurgy and the Soul (1995)"]
+  },
+  {
+    id: "kabbalah", title: "Kabbalah", cat: "traditions", era: "12th c. onward",
+    summary: "The Jewish mystical tradition of the divine emanations (sefirot), the hidden meanings of Scripture and the human role in repairing the cosmos.",
+    body: [
+      "Medieval Kabbalah emerged in Provence and Catalonia (the Bahir, c. 1180) and reached a classic form in the Zohar, published in Castile by Moses de León in the late 13th century. It describes ten sefirot through which the infinite Ein Sof manifests, and reads the Torah as a text of divine names.",
+      "After the 1492 expulsion from Spain, Isaac Luria in Safed taught that the vessels holding divine light shattered at creation, so that human action (tikkun) helps restore the world. Christian Kabbalah, begun by Pico della Mirandola in 1486, adapted the system to Christian doctrine and fed into Hermetic Qabalah and the Golden Dawn."
+    ],
+    related: ["tree-of-life", "zohar", "hermetic-qabalah", "gematria"],
+    reading: ["Gershom Scholem, Major Trends in Jewish Mysticism (1941)", "Moshe Idel, Kabbalah: New Perspectives (1988)"]
+  },
+  {
+    id: "hermetic-qabalah", title: "Hermetic Qabalah", cat: "traditions", era: "19th c. onward",
+    summary: "The Western occult adaptation of Kabbalah, linking the Tree of Life to tarot, planets, elements and ritual practice.",
+    body: [
+      "Hermetic Qabalah (spelled with a Q to distinguish it from Jewish and Christian forms) took shape through Éliphas Lévi, who linked the Hebrew letters to the tarot, and the Golden Dawn, which built a full table of correspondences across the sefirot and the 22 paths. Aleister Crowley's 777 and Dion Fortune's Mystical Qabalah extended it.",
+      "Practitioners use the Tree of Life as a map for meditation, pathworking and ritual. Its relation to Jewish Kabbalah is one of borrowed vocabulary and different aims."
+    ],
+    related: ["kabbalah", "tree-of-life", "golden-dawn", "tarot", "correspondences"],
+    reading: ["Dion Fortune, The Mystical Qabalah (1935)"]
+  },
+  {
+    id: "alchemy", title: "Alchemy", cat: "practices", era: "Hellenistic Egypt onward",
+    summary: "The art of transmuting matter, understood both as proto-chemistry and as a discipline of spiritual transformation.",
+    body: [
+      "Greco-Egyptian alchemy (Zosimos of Panopolis, 3rd-4th c.) flowed into Arabic scholarship (the Jabirian corpus), then into Latin Europe from the 12th century. Practitioners sought the philosopher's stone, an agent of perfection that could turn base metals into gold and, in some accounts, heal the body.",
+      "Operations such as calcination, dissolution, putrefaction and distillation were often read allegorically. The classic colour stages, nigredo (blackening), albedo (whitening) and rubedo (reddening), became symbols of purification. Carl Jung read them as projections of psychic individuation.",
+      "William Newman and Lawrence Principe have shown that early modern alchemists such as Robert Boyle and Isaac Newton pursued real laboratory work; the older view of alchemy as a purely spiritual allegory is now widely rejected."
+    ],
+    related: ["emerald-tablet", "philosophers-stone", "paracelsus", "hermeticism", "jung"],
+    reading: ["Lawrence M. Principe, The Secrets of Alchemy (2013)", "C. G. Jung, Psychology and Alchemy (1944)"]
+  },
+  {
+    id: "philosophers-stone", title: "Philosopher's Stone", cat: "concepts", era: "Antiquity onward",
+    summary: "The legendary substance of alchemy, said to transmute base metals into gold and to confer health or longevity.",
+    body: [
+      "Called the lapis philosophorum, the elixir or the tincture, the stone is described in treatises as simultaneously a laboratory product and a spiritual goal. Authors from Geber to George Ripley hide its preparation in allegory, using green lions, dragons and royal marriages as code.",
+      "Its symbolism of perfected matter parallels the perfected soul, which is why it appears in both chemical and devotional contexts."
+    ],
+    related: ["alchemy", "emerald-tablet", "paracelsus"],
+    reading: ["Lawrence M. Principe, The Secrets of Alchemy (2013)"]
+  },
+  {
+    id: "astrology", title: "Astrology", cat: "practices", era: "Mesopotamia, 2nd millennium BCE onward",
+    summary: "The study of correspondences between celestial bodies and terrestrial events, long counted among the sciences.",
+    body: [
+      "Babylonian omen astronomy was transformed in the Hellenistic period into horoscopic astrology, with the zodiac, planets and houses used to read a nativity. Ptolemy's Tetrabiblos (2nd c. CE) supplied a naturalistic framework that dominated medieval Islamic and Latin astrology.",
+      "Until the 17th century astrology was taught in universities beside astronomy; Kepler cast horoscopes. Its decline followed the collapse of the geocentric cosmos, though it persists in popular and esoteric culture, where psychological astrology, shaped by Jung, emphasises character over prediction."
+    ],
+    related: ["correspondences", "ficino", "hermeticism"],
+    reading: ["Nicholas Campion, A History of Western Astrology (2008-09)"]
+  },
+  {
+    id: "tarot", title: "Tarot", cat: "practices", era: "Cards 15th c.; occult use from 1780s",
+    summary: "A 78-card deck that began as an Italian card game and became an esoteric system of symbol and divination.",
+    body: [
+      "Tarot cards appeared in northern Italy around the 1440s as a trump-taking game (tarocchi). The claim that they preserve ancient Egyptian wisdom came from Antoine Court de Gébelin in 1781, and the first divinatory system was published by Etteilla soon after. There is no evidence for the Egyptian origin.",
+      "Éliphas Lévi tied the 22 trumps to the Hebrew alphabet and the Kabbalah. The Golden Dawn built this into a complete system, producing the Rider-Waite-Smith deck (1909, art by Pamela Colman Smith) and Crowley's Thoth deck, which together shape most modern decks.",
+      "Readers today use tarot for divination, meditation and reflective practice."
+    ],
+    related: ["golden-dawn", "hermetic-qabalah", "levi", "divination"],
+    reading: ["Ronald Decker and Michael Dummett, A History of the Occult Tarot (2002)"]
+  },
+  {
+    id: "divination", title: "Divination", cat: "practices", era: "Universal",
+    summary: "Methods of seeking knowledge of hidden or future matters through interpreted signs.",
+    body: [
+      "Divination appears in every culture: Mesopotamian liver-reading, Greek oracles, Roman augury, Chinese I Ching, African Ifá, medieval geomancy, and modern tarot and astrology. Cicero's De divinatione distinguishes inspired (natural) from technical (artificial) forms.",
+      "Anthropologists treat divination as a structured way of making decisions and framing uncertainty, not only as prediction."
+    ],
+    related: ["tarot", "astrology", "geomancy"],
+    reading: ["Cicero, De divinatione"]
+  },
+  {
+    id: "geomancy", title: "Geomancy", cat: "practices", era: "8th c. onward",
+    summary: "Divination by sixteen figures of dots generated from random marks in sand or on paper.",
+    body: [
+      "Arabic 'ilm al-raml ('science of the sand') passed into Latin Europe in the 12th century, where it became the most widespread of the learned divinatory arts. Four lines of random dots are marked, reduced to figures and combined into a shield chart of sixteen figures read through astrological houses.",
+      "Agrippa and the Golden Dawn kept the practice alive in the Western tradition."
+    ],
+    related: ["divination", "astrology", "agrippa"],
+    reading: ["Stephen Skinner, Terrestrial Astrology: Divination by Geomancy (1980)"]
+  },
+  {
+    id: "ceremonial-magic", title: "Ceremonial Magic", cat: "practices", era: "Medieval to present",
+    summary: "Ritual magic based on invocation, consecrated tools and spirit hierarchies, drawing on grimoire and Hermetic traditions.",
+    body: [
+      "Medieval clerical magic produced texts for summoning angels and spirits: the Ars Notoria, the Sworn Book of Honorius and the Key of Solomon. Their rites typically demand fasting, purity and prayer, and rely on divine names for authority.",
+      "The Golden Dawn systematised these methods into graded initiations and rituals such as the Lesser Banishing Ritual of the Pentagram. Crowley's Thelema recast the aim as the 'knowledge and conversation of the Holy Guardian Angel' and 'the Great Work' of discovering one's true will."
+    ],
+    related: ["grimoires", "theurgy", "golden-dawn", "thelema", "enochian"],
+    reading: ["Richard Kieckhefer, Magic in the Middle Ages (1989)", "Owen Davies, Grimoires: A History of Magic Books (2009)"]
+  },
+  {
+    id: "grimoires", title: "Grimoires", cat: "texts", era: "Medieval to 19th c.",
+    summary: "Handbooks of ritual magic containing spirit invocations, talismans and charms.",
+    body: [
+      "The term grimoire (from French grammaire) covers books such as the Key of Solomon, the Lemegeton (Lesser Key of Solomon), the Grimorium Verum and the Sixth and Seventh Books of Moses. Many circulated in manuscript before print and claim ancient authors such as Solomon or Moses.",
+      "Their contents range from conjuring spirits to finding treasure and healing. Owen Davies shows that grimoires also circulated widely among ordinary folk healers and cunning men."
+    ],
+    related: ["ceremonial-magic", "solomon", "enochian"],
+    reading: ["Owen Davies, Grimoires: A History of Magic Books (2009)"]
+  },
+  {
+    id: "theurgy", title: "Theurgy", cat: "practices", era: "Late antiquity onward",
+    summary: "Ritual action intended to unite the soul with the divine, associated with Iamblichus and later Neoplatonists.",
+    body: [
+      "Theurgy ('god-work') first appears in the Chaldean Oracles (2nd c. CE). Iamblichus argued against Porphyry that the soul cannot ascend by thought alone, since it is embodied; rituals using symbols placed in matter by the gods help it do so.",
+      "Renaissance writers such as Ficino and Agrippa and the modern Golden Dawn revived the concept, distinguishing theurgy ('high magic') from goetia ('low magic')."
+    ],
+    related: ["neoplatonism", "ceremonial-magic", "golden-dawn"],
+    reading: ["Gregory Shaw, Theurgy and the Soul (1995)"]
+  },
+  {
+    id: "correspondences", title: "Doctrine of Correspondences", cat: "concepts", era: "Antiquity onward",
+    summary: "The idea that the cosmos is a web of analogies, so that plants, metals, planets and spirits answer to each other.",
+    body: [
+      "'As above, so below' summarises a worldview in which microcosm and macrocosm reflect one another. Planets rule metals (Sun-gold, Moon-silver, Mars-iron); the zodiac maps onto the human body; each herb carries a 'signature' of its use.",
+      "Swedenborg gave the doctrine a theological form in 1750s works; Baudelaire's poem 'Correspondances' (1857) carried it into literature. In the Golden Dawn it became extensive tables linking sefirot, colours, gods, tarot cards and incense."
+    ],
+    related: ["emerald-tablet", "astrology", "hermetic-qabalah", "swedenborg"],
+    reading: ["Antoine Faivre, Access to Western Esotericism (1994)"]
+  },
+  {
+    id: "tree-of-life", title: "Tree of Life", cat: "concepts", era: "13th c. onward",
+    summary: "The Kabbalistic diagram of ten sefirot joined by 22 paths, mapping divine emanation and spiritual ascent.",
+    body: [
+      "The ten sefirot (Keter, Chokhmah, Binah, Chesed, Gevurah, Tiferet, Netzach, Hod, Yesod, Malkhut) are attributes through which Ein Sof acts. Their arrangement in three pillars first appears in printed diagrams of the 16th century.",
+      "Hermetic Qabalah added the 22 paths linked to Hebrew letters and tarot trumps, and the 'Qliphoth' (shells) as the reflected underside."
+    ],
+    related: ["kabbalah", "hermetic-qabalah", "tarot", "zohar"],
+    reading: ["Gershom Scholem, Kabbalah (1974)"]
+  },
+  {
+    id: "gematria", title: "Gematria", cat: "practices", era: "Antiquity onward",
+    summary: "Interpretation of words through the numerical values of their letters.",
+    body: [
+      "In Hebrew and Greek, letters double as numerals, so each word has a number and words of equal value are read as related. Examples are found in rabbinic literature and in Christian sources: Revelation's 666 (or 616 in some manuscripts).",
+      "Medieval Kabbalists and later Western occultists expanded the method with notarikon (acronyms) and temurah (letter substitution)."
+    ],
+    related: ["kabbalah", "numerology"],
+    reading: ["Gershom Scholem, Kabbalah (1974)"]
+  },
+  {
+    id: "numerology", title: "Numerology", cat: "practices", era: "Pythagorean origin; modern form 20th c.",
+    summary: "The belief that numbers carry qualitative meaning and shape character and events.",
+    body: [
+      "Pythagorean tradition regarded number as the principle of the cosmos, with the tetraktys (1+2+3+4=10) as sacred. Neopythagorean and Neoplatonic writers gave each digit attributes.",
+      "Modern 'numerology' reducing names and birth dates to single digits was popularised in the early 20th century, notably by L. Dow Balliett."
+    ],
+    related: ["gematria", "neoplatonism"],
+    reading: ["Christoph Riedweg, Pythagoras: His Life, Teaching, and Influence (2005)"]
+  },
+  {
+    id: "rosicrucianism", title: "Rosicrucianism", cat: "traditions", era: "1614 onward",
+    summary: "A movement born of mysterious manifestos announcing a secret brotherhood of reform, whose historical existence is uncertain.",
+    body: [
+      "The Fama Fraternitatis (1614) and Confessio Fraternitatis (1615) tell of Christian Rosenkreuz, a medieval sage who founded a hidden order of healers and reformers. A third text, the Chymical Wedding (1616), is an alchemical romance usually attributed to Johann Valentin Andreae.",
+      "Andreae later called the project a 'ludibrium' (a playful fiction), yet the manifestos inspired a European wave of searching for the Brothers. Modern orders such as the Rosicrucian Fellowship, AMORC and the Societas Rosicruciana claim descent, but historians find no evidence of a 17th-century order."
+    ],
+    related: ["alchemy", "freemasonry", "paracelsus"],
+    reading: ["Frances Yates, The Rosicrucian Enlightenment (1972)", "Christopher McIntosh, The Rosicrucians (1997)"]
+  },
+  {
+    id: "freemasonry", title: "Freemasonry", cat: "traditions", era: "Organised 1717; older roots",
+    summary: "A fraternal order using the symbolism of stonemasons' work for moral and philosophical instruction, with esoteric offshoots.",
+    body: [
+      "Speculative Freemasonry emerged from the Scottish and English stonemasons' lodges; the first Grand Lodge was founded in London in 1717. Its degrees use allegory of building Solomon's Temple to teach ethics.",
+      "Higher-degree systems such as the Scottish Rite, Egyptian Rite of Cagliostro and Martinism incorporated Hermetic, Kabbalistic and Templar themes, and the Golden Dawn drew many of its early members from Masonic ranks."
+    ],
+    related: ["rosicrucianism", "golden-dawn", "solomon"],
+    reading: ["Margaret Jacob, The Origins of Freemasonry (2006)"]
+  },
+  {
+    id: "christian-theosophy", title: "Christian Theosophy", cat: "traditions", era: "17th-18th c.",
+    summary: "Protestant mystical current descended from Jacob Boehme, concerned with divine wisdom, the fall and regeneration.",
+    body: [
+      "Jacob Boehme (1575-1624), a Görlitz shoemaker, wrote of the divine ground (Ungrund), the struggle of light and dark within God, and Sophia, divine Wisdom. His Aurora and Mysterium Magnum influenced Pietism, Quakers, the Philadelphians (Jane Leade) and German Romantics.",
+      "Not to be confused with the later Theosophical Society, which is a different 19th-century movement."
+    ],
+    related: ["boehme", "swedenborg", "theosophy"],
+    reading: ["Arthur Versluis, Wisdom's Children (1999)"]
+  },
+  {
+    id: "theosophy", title: "Theosophy", cat: "movements", era: "1875 onward",
+    summary: "The movement founded by Helena Blavatsky and Henry Olcott combining Eastern religion, Western occultism and a theory of spiritual evolution.",
+    body: [
+      "The Theosophical Society was founded in New York in 1875. Blavatsky's Isis Unveiled (1877) and The Secret Doctrine (1888) taught root races, planes of existence and Masters of Wisdom who guide humanity. In 1879 the Society moved to India, where it influenced Hindu and Buddhist reform.",
+      "Later leaders Annie Besant and C. W. Leadbeater promoted Jiddu Krishnamurti as a world teacher, which he renounced in 1929. Offshoots include Anthroposophy (Rudolf Steiner) and the 'I AM' movements. Theosophy is widely credited with introducing many Asian concepts, such as karma and reincarnation, to the Western public."
+    ],
+    related: ["blavatsky", "anthroposophy", "occultism"],
+    reading: ["Joscelyn Godwin, The Theosophical Enlightenment (1994)", "Bruce F. Campbell, Ancient Wisdom Revived (1980)"]
+  },
+  {
+    id: "anthroposophy", title: "Anthroposophy", cat: "movements", era: "1912 onward",
+    summary: "Rudolf Steiner's spiritual science, practised today in Waldorf schools, biodynamic farming and anthroposophic medicine.",
+    body: [
+      "Steiner split from the Theosophical Society in 1912-13 over the Krishnamurti affair and founded the Anthroposophical Society. His 'spiritual science' claims that trained thinking can perceive supersensible reality, and that human history unfolds through cosmic evolution.",
+      "Its practical legacy includes Waldorf education (1919), biodynamic agriculture (1924), eurythmy and the Goetheanum in Dornach, Switzerland. Several of its claims, especially in medicine and race, are criticised."
+    ],
+    related: ["theosophy", "christian-theosophy"],
+    reading: ["Geoffrey Ahern, Sun at Midnight (1984)"]
+  },
+  {
+    id: "occultism", title: "Occultism", cat: "movements", era: "19th c. onward",
+    summary: "The modern revival of magic, astrology, alchemy and mysticism, named by Éliphas Lévi in the 1850s.",
+    body: [
+      "The French 'occultisme' was popularised by Alphonse Louis Constant (Éliphas Lévi) in Dogme et Rituel de la Haute Magie (1854-56), and spread through Papus, Stanislas de Guaita, the Theosophists and the Golden Dawn.",
+      "Occultism was a reaction to the disenchantment of the world, claiming to reconcile science and religion through hidden laws of nature. Hanegraaff calls it 'esotericism in a disenchanted world'."
+    ],
+    related: ["levi", "theosophy", "golden-dawn", "spiritualism"],
+    reading: ["Wouter J. Hanegraaff, New Age Religion and Western Culture (1996)", "Alex Owen, The Place of Enchantment (2004)"]
+  },
+  {
+    id: "spiritualism", title: "Spiritualism", cat: "movements", era: "1848 onward",
+    summary: "The movement centred on communication with the dead through mediums, begun by the Fox sisters in New York.",
+    body: [
+      "In 1848 the Fox sisters of Hydesville reported raps they said were signals from a spirit. Within a decade, séances, table-turning and trance mediumship spread across the United States and Britain. Spiritualists combined ideas of progress, reform and afterlife.",
+      "The Society for Psychical Research (1882) investigated mediums, with both believers and sceptics among members. Many mediums were exposed as frauds, including Margaret Fox in 1888, yet the movement remained strong, especially after World War I."
+    ],
+    related: ["occultism", "theosophy", "swedenborg"],
+    reading: ["Alex Owen, The Darkened Room (1989)"]
+  },
+  {
+    id: "golden-dawn", title: "Hermetic Order of the Golden Dawn", cat: "movements", era: "1888-c. 1903; descendants today",
+    summary: "The British magical order that gathered Kabbalah, tarot, astrology and ritual into a graded system that shaped modern Western magic.",
+    body: [
+      "Founded in London in 1888 by Freemasons William Wynn Westcott, S. L. MacGregor Mathers and William R. Woodman, the Order claimed authority from a cipher manuscript and an alleged German adept, Anna Sprengel, whose existence is not documented. Its curriculum covered the elements, the Tree of Life, tarot, geomancy, Enochian magic and astral work.",
+      "Members included W. B. Yeats, Maud Gonne, Arthur Machen, Florence Farr and, briefly, Aleister Crowley. Internal quarrels led to schism in 1900-03, but its rituals and teachings survive in Thelema, Wicca and other contemporary paths."
+    ],
+    related: ["hermetic-qabalah", "tarot", "enochian", "thelema", "freemasonry"],
+    reading: ["Ellic Howe, The Magicians of the Golden Dawn (1972)", "Alex Owen, The Place of Enchantment (2004)"]
+  },
+  {
+    id: "thelema", title: "Thelema", cat: "movements", era: "1904 onward",
+    summary: "The religion founded by Aleister Crowley on the Book of the Law, with the maxim 'Do what thou wilt shall be the whole of the Law.'",
+    body: [
+      "Crowley said that in Cairo in April 1904 a being called Aiwass dictated Liber AL vel Legis, announcing the Aeon of Horus and the law of Thelema (Greek for 'will'). Its central principles, 'Do what thou wilt shall be the whole of the Law' and 'Love is the law, love under will', are commonly read as a call to discover and follow one's true will, not as licence.",
+      "Organisations include the A∴A∴ and Ordo Templi Orientis. Crowley's Gnostic Mass and system of initiation have influenced chaos magic and ritual traditions."
+    ],
+    related: ["crowley", "golden-dawn", "ceremonial-magic"],
+    reading: ["Marco Pasi, Aleister Crowley and the Temptation of Politics (2014)"]
+  },
+  {
+    id: "wicca", title: "Wicca", cat: "movements", era: "1950s onward",
+    summary: "A modern religion of witchcraft shaped by Gerald Gardner, honouring a Goddess and Horned God and the cycle of the seasons.",
+    body: [
+      "Gerald Gardner (1884-1964) publicised the 'Craft' after Britain repealed its Witchcraft Act in 1951, claiming a survival of an ancient witch cult. Ronald Hutton's research shows instead a mid-20th-century synthesis of ceremonial magic, folklore, Freemasonry and Margaret Murray's now-discredited 'witch-cult' thesis.",
+      "Wicca spread to the United States in the 1960s and diversified into Alexandrian, Dianic, and eclectic forms. It celebrates eight sabbats forming the Wheel of the Year."
+    ],
+    related: ["ceremonial-magic", "golden-dawn", "neopaganism"],
+    reading: ["Ronald Hutton, The Triumph of the Moon (1999)"]
+  },
+  {
+    id: "neopaganism", title: "Modern Paganism", cat: "movements", era: "20th c. onward",
+    summary: "A family of new religious movements, from Wicca to Druidry and Heathenry, reviving or reimagining pre-Christian practice.",
+    body: [
+      "Modern Paganism draws on Romantic nature-reverence, folklore studies and archaeology. Druid revival began in the 18th century (the Ancient Order of Druids, 1781); Heathenry reconstructs Norse and Germanic religion; Hellenismos and Kemetism reconstruct Greek and Egyptian worship.",
+      "Practitioners differ widely on historical continuity: most now accept that these are modern religions inspired by the past."
+    ],
+    related: ["wicca", "occultism"],
+    reading: ["Ronald Hutton, Pagan Britain (2013)"]
+  },
+  {
+    id: "new-age", title: "New Age", cat: "movements", era: "1970s onward",
+    summary: "A loose cultural milieu blending spirituality, therapy, channeling, crystals and the expectation of a coming transformation.",
+    body: [
+      "Hanegraaff distinguishes the 'New Age in the narrow sense', the 1970s-80s movement awaiting an Age of Aquarius, from the broader 'New Age in the wide sense', a diffuse milieu of self-help spirituality. Its sources include Theosophy, Spiritualism, New Thought, Eastern religion and humanistic psychology.",
+      "Notable strands: channeling (Seth, A Course in Miracles), Findhorn community, crystal healing and the Human Potential movement."
+    ],
+    related: ["theosophy", "spiritualism", "occultism"],
+    reading: ["Wouter J. Hanegraaff, New Age Religion and Western Culture (1996)"]
+  },
+  {
+    id: "enochian", title: "Enochian Magic", cat: "practices", era: "1581-89; Golden Dawn 1880s",
+    summary: "The angelic language and system recorded by John Dee and Edward Kelley in their scrying sessions.",
+    body: [
+      "Between 1582 and 1589, mathematician John Dee and his seer Edward Kelley recorded conversations with angels in a language they called Enochian, with tables of letters, Aethyrs and angelic names. Dee's diaries were later published by Meric Casaubon (1659) as an attack on spirit communication.",
+      "The Golden Dawn adapted the system into Enochian chess and the elemental tablets; Crowley's Vision and the Voice records exploration of the 30 Aethyrs."
+    ],
+    related: ["dee", "golden-dawn", "ceremonial-magic"],
+    reading: ["Deborah Harkness, John Dee's Conversations with Angels (1999)"]
+  },
+  {
+    id: "corpus-hermeticum", title: "Corpus Hermeticum", cat: "texts", era: "c. 100-300 CE",
+    summary: "Seventeen Greek treatises of revelatory philosophy attributed to Hermes Trismegistus, including the Poimandres.",
+    body: [
+      "The first treatise, Poimandres, describes a vision in which the divine Mind reveals creation, the descent of the primal human into nature, and the way of return. Later treatises treat rebirth (CH XIII), the mind of God and the beauty of the cosmos.",
+      "Ficino's 1471 Pimander translation circulated across Europe in dozens of editions. Modern critical editions are by Nock and Festugière (1945-54) and Copenhaver (1992) in English."
+    ],
+    related: ["hermeticism", "hermes-trismegistus", "ficino"],
+    reading: ["Brian P. Copenhaver, Hermetica (1992)"]
+  },
+  {
+    id: "emerald-tablet", title: "Emerald Tablet", cat: "texts", era: "Arabic c. 8th-9th c.; Latin 12th c.",
+    summary: "A terse alchemical text beginning 'That which is below is like that which is above', revered as the charter of Hermetic philosophy.",
+    body: [
+      "The Tabula Smaragdina appears first in Arabic in the Kitāb sirr al-khalīqa (Book of the Secret of Creation), attributed to Balinus (Apollonius of Tyana), and reached Latin Europe in the 12th century. Its brief verses describe the One Thing, which all things are made from, and the union of heaven and earth.",
+      "Isaac Newton made his own translation, which survives in Cambridge manuscripts."
+    ],
+    related: ["hermes-trismegistus", "alchemy", "correspondences"],
+    reading: ["Julius Ruska, Tabula Smaragdina (1926)"]
+  },
+  {
+    id: "nag-hammadi", title: "Nag Hammadi Library", cat: "texts", era: "Found 1945",
+    summary: "Thirteen fourth-century Coptic codices found in Upper Egypt, transforming knowledge of early Christian and Gnostic thought.",
+    body: [
+      "The find, probably from a monastic library, contains 52 texts (some duplicates) including the Gospel of Thomas, Gospel of Philip, Apocryphon of John, Thunder: Perfect Mind and a fragment of Plato's Republic. Some Hermetic treatises, such as the Discourse on the Eighth and Ninth, are also included.",
+      "Elaine Pagels's The Gnostic Gospels (1979) brought it to wide attention."
+    ],
+    related: ["gnosticism", "hermeticism"],
+    reading: ["James M. Robinson (ed.), The Nag Hammadi Library in English (1977)"]
+  },
+  {
+    id: "zohar", title: "Zohar", cat: "texts", era: "Late 13th c.",
+    summary: "The Book of Splendour, the central text of Kabbalah, written as a mystical commentary on the Torah.",
+    body: [
+      "Written in a medieval Aramaic, the Zohar presents the teachings of Rabbi Shimon bar Yochai and his circle. Tradition ascribed it to the 2nd-century sage; Gershom Scholem argued that Moses de León composed it in Castile, a view still dominant though refined by Yehuda Liebes and Daniel Matt.",
+      "It treats the divine as a dynamic, gendered structure of sefirot and sees Scripture as a living body of mystical meanings."
+    ],
+    related: ["kabbalah", "tree-of-life"],
+    reading: ["Daniel C. Matt (trans.), The Zohar: Pritzker Edition (2004-)"]
+  },
+  {
+    id: "manichaeism", title: "Manichaeism", cat: "traditions", era: "3rd c. CE onward",
+    summary: "A dualist world religion founded by Mani in Persia, teaching the mixture of light and darkness and the freeing of light.",
+    body: [
+      "Mani (216-c. 274) taught that light and darkness were originally separate and that the material world arose from their mixture. The Elect, who lived ascetically, helped release light through diet and ritual. It spread from Rome to China and shaped later 'dualist' movements, though the link to medieval Cathars is debated.",
+      "Augustine was a hearer for nine years before turning against it."
+    ],
+    related: ["gnosticism"],
+    reading: ["Samuel N. C. Lieu, Manichaeism in the Later Roman Empire and Medieval China (1992)"]
+  },
+  {
+    id: "hermes-trismegistus", title: "Hermes Trismegistus", cat: "figures", era: "Legendary",
+    summary: "The 'thrice-greatest Hermes', a composite of the Greek Hermes and Egyptian Thoth, supposed author of the Hermetica.",
+    body: [
+      "Greek writers identified Thoth, the Egyptian god of writing and wisdom, with Hermes. By the Roman era 'Hermes the Thrice-Greatest' was imagined as an ancient priest-king and sage. Renaissance Christians treated him as a prisca theologia, a pagan prophet who foresaw Christianity; Lactantius and Augustine remark on him.",
+      "Casaubon's 1614 redating ended the belief in his antiquity but not his symbolic role."
+    ],
+    related: ["hermeticism", "corpus-hermeticum", "emerald-tablet"],
+    reading: ["Garth Fowden, The Egyptian Hermes (1986)"]
+  },
+  {
+    id: "ficino", title: "Marsilio Ficino", cat: "figures", era: "1433-1499",
+    summary: "Florentine philosopher and priest who translated Plato and the Hermetica and revived Neoplatonism.",
+    body: [
+      "Under the patronage of Cosimo de' Medici, Ficino translated the Corpus Hermeticum (1463) and Plato's complete works (1484), and wrote the Platonic Theology and De vita (1489), a treatise on astral medicine and talismans. He led the Platonic Academy of Florence.",
+      "His coinage 'Platonic love' and his reading of Plato alongside Christian doctrine shaped Renaissance art and thought."
+    ],
+    related: ["corpus-hermeticum", "neoplatonism", "astrology"],
+    reading: ["Michael J. B. Allen, Marsilio Ficino and the Phoenix (1984)"]
+  },
+  {
+    id: "agrippa", title: "Heinrich Cornelius Agrippa", cat: "figures", era: "1486-1535",
+    summary: "German polymath whose Three Books of Occult Philosophy became the great Renaissance compendium of natural, celestial and ceremonial magic.",
+    body: [
+      "Agrippa wrote De occulta philosophia in 1510 and published the full version in 1533. It divides magic into natural, celestial and ceremonial and gathers Neoplatonic, Hermetic and Kabbalistic lore. In an apparent reversal he had in 1530 published De vanitate, a sceptical attack on all the sciences.",
+      "A later 'Fourth Book', not by him, appeared in 1559. Legends made him a black magician."
+    ],
+    related: ["ceremonial-magic", "kabbalah", "correspondences"],
+    reading: ["Christopher I. Lehrich, The Language of Demons and Angels (2003)"]
+  },
+  {
+    id: "paracelsus", title: "Paracelsus", cat: "figures", era: "1493-1541",
+    summary: "Swiss physician who remade medicine and alchemy around chemical remedies and the correspondence of man and cosmos.",
+    body: [
+      "Theophrastus von Hohenheim, called Paracelsus, challenged Galenic medicine, teaching that diseases are specific and treatable with chemical preparations. He added sulphur, mercury and salt (tria prima) to the four elements, and promoted the doctrine of signatures.",
+      "Paracelsian alchemy (iatrochemistry) flourished after his death and influenced Rosicrucian and Boehmist circles."
+    ],
+    related: ["alchemy", "rosicrucianism", "correspondences"],
+    reading: ["Walter Pagel, Paracelsus (1958)"]
+  },
+  {
+    id: "dee", title: "John Dee", cat: "figures", era: "1527-1608/9",
+    summary: "Elizabethan mathematician, navigator, advisor and magus, known for his angelic conversations.",
+    body: [
+      "Dee advised Queen Elizabeth I, coined the term 'British Empire', amassed England's greatest library and wrote the Monas Hieroglyphica (1564), a symbol he considered a key to all creation. From 1581 he sought angelic knowledge with Edward Kelley as scryer.",
+      "He is now studied as a figure in whom mathematics, navigation and spiritual quest were joined."
+    ],
+    related: ["enochian", "ceremonial-magic"],
+    reading: ["Nicholas Clulee, John Dee's Natural Philosophy (1988)"]
+  },
+  {
+    id: "boehme", title: "Jacob Boehme", cat: "figures", era: "1575-1624",
+    summary: "German shoemaker and visionary whose theosophy of divine opposites influenced mystics, philosophers and poets.",
+    body: [
+      "After a visionary experience in 1600 Boehme wrote Aurora (1612). His claim that God contains the tension of light and darkness, love and wrath, fascinated Hegel, Schelling and William Blake. Followers in England and Holland formed the Behmenist movement."
+    ],
+    related: ["christian-theosophy", "swedenborg"],
+    reading: ["Andrew Weeks, Boehme: An Intellectual Biography (1991)"]
+  },
+  {
+    id: "swedenborg", title: "Emanuel Swedenborg", cat: "figures", era: "1688-1772",
+    summary: "Swedish scientist turned visionary, who described heaven, hell and the spiritual meaning of Scripture.",
+    body: [
+      "After a distinguished scientific career, Swedenborg experienced a spiritual awakening in 1743-45. His Arcana Coelestia (1749-56) and Heaven and Hell (1758) describe a spiritual world within which angels and spirits live as humans do, and a doctrine of correspondences between natural and spiritual things.",
+      "Followers founded the New Church. His ideas influenced Blake, Emerson, Balzac, Baudelaire and Spiritualism."
+    ],
+    related: ["correspondences", "spiritualism", "christian-theosophy"],
+    reading: ["Gary Lachman, Swedenborg: An Introduction to His Life and Ideas (2012)"]
+  },
+  {
+    id: "levi", title: "Éliphas Lévi", cat: "figures", era: "1810-1875",
+    summary: "French occultist who coined 'occultism' and set the pattern for modern ritual magic and tarot symbolism.",
+    body: [
+      "Alphonse-Louis Constant, a former seminarian, wrote Dogme et Rituel de la Haute Magie (1856) and Histoire de la Magie (1860). He drew the Baphomet image, linked the tarot to the Hebrew alphabet, and taught that magic is a science of the Astral Light, a universal force directed by the will.",
+      "His influence ran through Papus and Mathers to the Golden Dawn, and through them to Crowley."
+    ],
+    related: ["occultism", "tarot", "hermetic-qabalah"],
+    reading: ["Christopher McIntosh, Eliphas Levi and the French Occult Revival (1972)"]
+  },
+  {
+    id: "blavatsky", title: "Helena P. Blavatsky", cat: "figures", era: "1831-1891",
+    summary: "Russian-born co-founder of the Theosophical Society and author of The Secret Doctrine.",
+    body: [
+      "Blavatsky travelled widely before settling in New York, where she co-founded the Theosophical Society in 1875. A 1885 Society for Psychical Research report accused her of fraud in the Mahatma letters, a verdict later contested. Her writings assert an ancient wisdom religion lying behind all faiths."
+    ],
+    related: ["theosophy", "occultism"],
+    reading: ["Peter Washington, Madame Blavatsky's Baboon (1993)"]
+  },
+  {
+    id: "crowley", title: "Aleister Crowley", cat: "figures", era: "1875-1947",
+    summary: "English occultist, poet and mountaineer, founder of Thelema and notorious public figure.",
+    body: [
+      "Born Edward Alexander Crowley, he joined the Golden Dawn in 1898, received The Book of the Law in 1904 and founded the A∴A∴ in 1907. He joined the Ordo Templi Orientis and wrote Magick in Theory and Practice (1929) and The Book of Thoth (1944). The press branded him 'the wickedest man in the world'.",
+      "Scholars such as Marco Pasi and Alex Owen treat him as an inventive and contradictory reformer of ritual magic, as well as a self-mythologiser."
+    ],
+    related: ["thelema", "golden-dawn", "ceremonial-magic", "tarot"],
+    reading: ["Tobias Churton, Aleister Crowley: The Biography (2011)"]
+  },
+  {
+    id: "jung", title: "Carl Gustav Jung", cat: "figures", era: "1875-1961",
+    summary: "Swiss psychiatrist whose analytical psychology reinterpreted gnostic, alchemical and astrological symbols as psychic processes.",
+    body: [
+      "Jung studied Gnostic texts, alchemy and astrology, finding in them symbols of individuation, the integration of the unconscious into the personality. His works Psychology and Alchemy (1944) and Mysterium Coniunctionis (1955-56) read the alchemists' opus as an inner process.",
+      "Critics such as Richard Noll accuse him of founding a mystical cult; defenders see an effort to translate esoteric imagery into psychology. Either way, he is a major conduit of esoteric ideas into modern culture."
+    ],
+    related: ["alchemy", "gnosticism", "astrology"],
+    reading: ["Wouter J. Hanegraaff, Esotericism and the Academy (2012)"]
+  },
+  {
+    id: "solomon", title: "King Solomon in Magic", cat: "figures", era: "Late antiquity onward",
+    summary: "The biblical king as legendary master of demons and patron of ritual magic.",
+    body: [
+      "The Testament of Solomon (c. 1st-3rd c. CE) shows the king commanding demons with a ring to build the Temple. Islamic tradition, in which he is Sulayman, preserves the ring and his rule over jinn. In medieval Europe, books of ritual magic such as the Key of Solomon bore his name.",
+      "The 'Seal of Solomon' hexagram and pentagram became widespread talismanic emblems."
+    ],
+    related: ["grimoires", "ceremonial-magic", "freemasonry"],
+    reading: ["Pablo A. Torijano, Solomon the Esoteric King (2002)"]
+  },
+];
+
+
+
+const $ = (s) => document.querySelector(s);
+const main = $("#main");
+const byId = new Map(ENTRIES.map((e) => [e.id, e]));
+const sorted = [...ENTRIES].sort((a, b) => a.title.localeCompare(b.title, "en"));
+const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const sortKey = (t) => t.replace(/^(The|A)\s+/i, "");
+
+function card(e) {
+  return `<li><a class="card" href="#entry-${e.id}"><span class="badge">${esc(CATEGORIES[e.cat])}</span><h3>${esc(e.title)}</h3><p>${esc(e.summary)}</p></a></li>`;
+}
+
+function home() {
+  document.title = "Encyclopaedia of Esotericism";
+  const featured = ["hermeticism", "kabbalah", "alchemy", "golden-dawn", "tarot", "gnosticism"].map((i) => byId.get(i)).filter(Boolean);
+  const counts = Object.entries(CATEGORIES).map(([k, v]) =>
+    `<li><a href="#browse-${k}">${esc(v)} (${ENTRIES.filter((e) => e.cat === k).length})</a></li>`).join("");
+  main.innerHTML = `
+  <section class="hero">
+    <div class="rule" aria-hidden="true">&#10022; &#10022; &#10022;</div>
+    <h1>Encyclopaedia of Esotericism</h1>
+    <p class="lede">Hidden knowledge, its traditions, practices and people: ${ENTRIES.length} entries and growing.</p>
+    <form id="heroSearch" role="search"><label class="sr" for="hq">Search</label>
+    <input id="hq" type="search" placeholder="Try &ldquo;alchemy&rdquo;, &ldquo;Dee&rdquo; or &ldquo;tree of life&rdquo;" style="width:min(460px,100%);padding:10px 14px;font:inherit;border:1px solid var(--rule);border-radius:6px;background:var(--panel);color:var(--ink)"></form>
+  </section>
+  <h2>Browse by section</h2><ul class="chips">${counts}</ul>
+  <h2>Featured entries</h2><ul class="grid">${featured.map(card).join("")}</ul>`;
+  $("#heroSearch").addEventListener("submit", (ev) => { ev.preventDefault(); goSearch($("#hq").value); });
+}
+
+function browse(cat) {
+  const list = cat && CATEGORIES[cat] ? sorted.filter((e) => e.cat === cat) : sorted;
+  document.title = (cat && CATEGORIES[cat] ? CATEGORIES[cat] : "All entries") + " · Encyclopaedia of Esotericism";
+  const chips = [`<li><a href="#browse" ${!cat ? 'aria-current="true"' : ""}>All</a></li>`]
+    .concat(Object.entries(CATEGORIES).map(([k, v]) => `<li><a href="#browse-${k}" ${cat === k ? 'aria-current="true"' : ""}>${esc(v)}</a></li>`)).join("");
+  const groups = new Map();
+  [...list].sort((a, b) => sortKey(a.title).localeCompare(sortKey(b.title), "en")).forEach((e) => {
+    const L = sortKey(e.title)[0].toUpperCase();
+    if (!groups.has(L)) groups.set(L, []);
+    groups.get(L).push(e);
+  });
+  const az = [...groups.keys()].map((L) => `<li><a href="#" data-jump="L${L}">${L}</a></li>`).join("");
+  const body = [...groups].map(([L, es]) => `<h3 class="letter" id="L${L}">${L}</h3><ul class="index-list">${es.map((e) => `<li><a href="#entry-${e.id}">${esc(e.title)}</a> <span class="meta" style="display:inline">&mdash; ${esc(e.era)}</span></li>`).join("")}</ul>`).join("");
+  main.innerHTML = `<h1>${cat && CATEGORIES[cat] ? esc(CATEGORIES[cat]) : "All entries"}</h1><p class="lede">${list.length} entries</p><ul class="chips">${chips}</ul><ul class="az">${az}</ul>${body}`;
+  main.querySelectorAll("[data-jump]").forEach((a) => a.addEventListener("click", (ev) => { ev.preventDefault(); document.getElementById(a.dataset.jump).scrollIntoView(); }));
+}
+
+function entry(id) {
+  const e = byId.get(id);
+  if (!e) return notFound();
+  document.title = e.title + " · Encyclopaedia of Esotericism";
+  const rel = (e.related || []).map((r) => byId.get(r)).filter(Boolean);
+  const back = ENTRIES.filter((o) => o.id !== e.id && (o.related || []).includes(e.id) && !(e.related || []).includes(o.id));
+  main.innerHTML = `
+  <p class="back"><a href="#browse-${e.cat}">&larr; ${esc(CATEGORIES[e.cat])}</a></p>
+  <article>
+    <h1>${esc(e.title)}</h1>
+    <div class="meta"><a class="badge" href="#browse-${e.cat}">${esc(CATEGORIES[e.cat])}</a><span>${esc(e.era)}</span></div>
+    <p class="lede">${esc(e.summary)}</p>
+    ${e.body.map((p) => `<p>${esc(p)}</p>`).join("")}
+    ${rel.length ? `<h2>See also</h2><ul class="grid">${rel.map(card).join("")}</ul>` : ""}
+    ${back.length ? `<h2>Mentioned in</h2><ul class="chips">${back.map((b) => `<li><a href="#entry-${b.id}">${esc(b.title)}</a></li>`).join("")}</ul>` : ""}
+    ${e.reading?.length ? `<h2>Further reading</h2><ul class="reading">${e.reading.map((r) => `<li>${esc(r)}</li>`).join("")}</ul>` : ""}
+  </article>`;
+}
+
+let lastQuery = "";
+function goSearch(q) {
+  lastQuery = q.trim();
+  if (location.hash === "#search") route(); else location.hash = "#search";
+}
+
+function search() {
+  const q = lastQuery;
+  document.title = `Search: ${q} · Encyclopaedia of Esotericism`;
+  const terms = q.toLowerCase().split(/\s+/).filter(Boolean);
+  const scored = ENTRIES.map((e) => {
+    let s = 0;
+    const t = e.title.toLowerCase(), sm = e.summary.toLowerCase(), b = e.body.join(" ").toLowerCase();
+    for (const w of terms) {
+      if (t.includes(w)) s += 10;
+      if (sm.includes(w)) s += 4;
+      if (b.includes(w)) s += 1;
+      else if (!t.includes(w) && !sm.includes(w)) return { e, s: 0 };
+    }
+    return { e, s };
+  }).filter((x) => x.s > 0).sort((a, b) => b.s - a.s);
+  main.innerHTML = `<h1>Search</h1><p class="lede">${scored.length} result${scored.length === 1 ? "" : "s"} for &ldquo;${esc(q)}&rdquo;</p>` +
+    (scored.length ? `<ul class="grid">${scored.map((x) => card(x.e)).join("")}</ul>` : `<p>No entries found. Try a broader term, or <a href="#browse">browse all entries</a>.</p>`);
+}
+
+function about() {
+  document.title = "About · Encyclopaedia of Esotericism";
+  main.innerHTML = `<h1>About</h1>
+  <p>This encyclopaedia is an introductory guide to the Western esoteric traditions: their currents, practices, texts, people and modern movements. It follows the approach of the academic study of Western esotericism, describing what practitioners believed and did, and what historians have established, without endorsing or dismissing claims of occult power.</p>
+  <p>Where traditions claim ancient origins, entries say what the evidence supports. Entries list further reading from scholarly sources.</p>
+  <h2>Using the site</h2>
+  <ul><li>Search by title, topic or keyword from any page.</li><li><a href="#browse">Browse</a> by section or A&ndash;Z.</li><li>Follow &ldquo;See also&rdquo; links between entries.</li></ul>
+  <p>The site is a static collection of files with no build step; entries live in <code>entries.js</code>.</p>`;
+}
+
+function notFound() {
+  document.title = "Not found · Encyclopaedia of Esotericism";
+  main.innerHTML = `<h1>Entry not found</h1><p>That page does not exist. <a href="#browse">Browse all entries</a>.</p>`;
+}
+
+function route() {
+  const h = location.hash.replace(/^#/, "");
+  const i = h.indexOf("-");
+  const kind = i < 0 ? h : h.slice(0, i), arg = i < 0 ? "" : h.slice(i + 1);
+  if (!kind || kind === "home") home();
+  else if (kind === "browse") browse(arg);
+  else if (kind === "entry") entry(arg);
+  else if (kind === "search") search();
+  else if (kind === "about") about();
+  else notFound();
+  window.scrollTo(0, 0);
+  main.focus({ preventScroll: true });
+}
+
+$("#searchForm").addEventListener("submit", (ev) => {
+  ev.preventDefault();
+  const q = $("#q").value.trim();
+  if (q) goSearch(q);
+});
+$("#random").addEventListener("click", () => { location.hash = "#entry-" + ENTRIES[Math.floor(Math.random() * ENTRIES.length)].id; });
+$("#theme").addEventListener("click", () => {
+  const dark = matchMedia("(prefers-color-scheme: dark)").matches;
+  const cur = document.documentElement.dataset.theme || (dark ? "dark" : "light");
+  const next = cur === "dark" ? "light" : "dark";
+  document.documentElement.dataset.theme = next;
+  try { localStorage.setItem("theme", next); } catch {}
+});
+try { const t = localStorage.getItem("theme"); if (t) document.documentElement.dataset.theme = t; } catch {}
+
+addEventListener("hashchange", route);
+route();
+
+})();
+</script>
+

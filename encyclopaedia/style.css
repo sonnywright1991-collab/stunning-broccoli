@@ -1,16 +1,16 @@
 :root{
-  --bg:#f6f0e2; --panel:#fbf7ec; --ink:#2a2118; --muted:#6e6150; --rule:#d9ccb0;
-  --accent:#7a2e2e; --gold:#a07a22; --link:#6b2a6b;
+  --bg:#eeecf3; --panel:#f8f7fb; --ink:#1d1a28; --muted:#5d5873; --rule:#cfcade;
+  --accent:#4b2e83; --gold:#8a6b1f; --link:#3b4fa0;
   --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
 }
 :root[data-theme="dark"]{
-  --bg:#14121a; --panel:#1c1925; --ink:#e9e1cf; --muted:#a39a86; --rule:#37314a;
-  --accent:#e0a458; --gold:#d8b45a; --link:#c9a4e8;
+  --bg:#12101c; --panel:#1b1829; --ink:#e8e4f2; --muted:#a29bb8; --rule:#352f4d;
+  --accent:#b79cf0; --gold:#d8b45a; --link:#8fb0ff; color-scheme:dark;
 }
 @media (prefers-color-scheme:dark){
   :root:not([data-theme="light"]){
-    --bg:#14121a; --panel:#1c1925; --ink:#e9e1cf; --muted:#a39a86; --rule:#37314a;
-    --accent:#e0a458; --gold:#d8b45a; --link:#c9a4e8;
+    --bg:#12101c; --panel:#1b1829; --ink:#e8e4f2; --muted:#a29bb8; --rule:#352f4d;
+    --accent:#b79cf0; --gold:#d8b45a; --link:#8fb0ff; color-scheme:dark;
   }
 }
 *{box-sizing:border-box}
@@ -21,7 +21,8 @@ a:hover{color:var(--accent)}
 :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 .skip{position:absolute;left:-999px}.skip:focus{left:8px;top:8px;background:var(--panel);padding:8px;z-index:9}
-header.site{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;padding:14px 24px;border-bottom:1px solid var(--rule);background:var(--panel);position:sticky;top:0;z-index:5}
+header.site{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;padding:14px 24px;border-bottom:1px solid var(--rule);background:var(--panel);position:sticky;top:env(safe-area-inset-top,0px);z-index:5;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--panel)}
 .brand{display:flex;gap:10px;align-items:center;text-decoration:none;color:var(--ink);font-size:1.25rem;letter-spacing:.02em}
 .brand em{color:var(--accent)}
 .sigil{color:var(--gold);font-size:1.6rem}
@@ -32,7 +33,7 @@ nav a{color:var(--ink);text-decoration:none;font-size:.95rem}
 nav a:hover{color:var(--accent)}
 button{font:inherit;font-size:.9rem;cursor:pointer;border:1px solid var(--rule);background:var(--bg);color:var(--ink);padding:6px 12px;border-radius:6px}
 button:hover{border-color:var(--accent);color:var(--accent)}
-main{flex:1;width:100%;max-width:980px;margin:0 auto;padding:32px 24px 56px;outline:none}
+main{flex:1;width:100%;max-width:980px;margin:0 auto;padding:32px max(16px,env(safe-area-inset-right,0px)) 56px max(16px,env(safe-area-inset-left,0px));outline:none}
 h1{font-size:2.2rem;line-height:1.2;margin:.2em 0 .1em;font-weight:600}
 h2{font-size:1.2rem;margin:2em 0 .5em;color:var(--accent);letter-spacing:.04em;text-transform:uppercase;font-weight:600}
 .lede{font-size:1.2rem;color:var(--muted);font-style:italic;margin:.4em 0 1.2em}
@@ -59,5 +60,5 @@ article p:first-of-type::first-letter{float:left;font-size:3.4rem;line-height:.9
 .back{font-size:.9rem}
 mark{background:color-mix(in srgb,var(--gold) 35%,transparent);color:inherit}
 footer.site{border-top:1px solid var(--rule);padding:18px 24px;text-align:center;color:var(--muted);font-size:.85rem}
-@media (max-width:600px){body{font-size:17px}h1{font-size:1.8rem}.hero h1{font-size:2rem}header.site{padding:10px 16px}nav{margin-left:0}main{padding:24px 16px 48px}}
+@media (max-width:600px){body{font-size:17px}h1{font-size:1.8rem}.hero h1{font-size:2rem}header.site{padding:10px 16px}nav{margin-left:0}main{padding-top:24px;padding-bottom:48px}}
 @media print{header.site,footer.site,nav{display:none}body{background:#fff;color:#000}}

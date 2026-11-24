@@ -35,6 +35,11 @@ function rebuild() {
   byId = new Map(entries.map((e) => [e.id, e]));
   byTitle = new Map(entries.map((e) => [e.title.toLowerCase(), e]));
   $("#count").textContent = entries.length + " treatises";
+  if ($("#track").dataset.n !== String(entries.length)) {
+  $("#track").dataset.n = String(entries.length);
+  const links = entries.map((e) => `<a href="#entry-${esc(e.id)}">${esc(e.title)}</a>`).join("");
+  $("#track").innerHTML = links + links.replace(/<a /g, '<a tabindex="-1" aria-hidden="true" ');
+  }
   const traditions = new Map();
   entries.forEach((e) => traditions.set(e.cat, { label: e.tradition, n: (traditions.get(e.cat)?.n || 0) + 1 }));
   const cur = currentCat();
@@ -157,6 +162,8 @@ function route() {
   else if (kind === "about") about();
   else notFound();
   window.scrollTo(0, 0);
+  main.querySelectorAll(".grid > li, .index-list li").forEach((li, n) => li.style.setProperty("--i", Math.min(n, 24)));
+  if (!reduce && main.animate) main.animate([{ transform: "translateY(10px)" }, { transform: "none" }], { duration: 320, easing: "ease-out" });
 }
 
 // ---- backup ----
@@ -184,6 +191,33 @@ $("#importFile").addEventListener("change", async (ev) => {
   } catch { msg("That file is not valid backup JSON."); }
   ev.target.value = "";
 });
+
+// ---- movement ----
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+(function wheel() {
+  const NS = "http://www.w3.org/2000/svg", Z = "♈♉♊♋♌♍♎♏♐♑♒♓", P = "☉☽☿♀♂♃♄";
+  const ring = (chars, r, size, cls) => `<g class="${cls}">${[...chars].map((ch, i) => {
+    const t = (i / chars.length) * 2 * Math.PI - Math.PI / 2;
+    return `<text x="${500 + r * Math.cos(t)}" y="${500 + r * Math.sin(t)}" font-size="${size}">${ch}\uFE0E</text>`;
+  }).join("")}</g>`;
+  const ticks = Array.from({ length: 72 }, (_, i) => {
+    const t = (i / 72) * 2 * Math.PI, r1 = i % 6 ? 452 : 440, r2 = 470;
+    return `<line x1="${500 + r1 * Math.cos(t)}" y1="${500 + r1 * Math.sin(t)}" x2="${500 + r2 * Math.cos(t)}" y2="${500 + r2 * Math.sin(t)}"/>`;
+  }).join("");
+  $("#wheel").innerHTML = `<svg viewBox="0 0 1000 1000" fill="none" stroke="currentColor" stroke-width="2">
+    <g id="scrollRot" style="transform-origin:500px 500px">
+      <g class="spin"><circle cx="500" cy="500" r="480"/><circle cx="500" cy="500" r="430"/>${ticks}${ring(Z, 385, 54, "z")}<circle cx="500" cy="500" r="340"/></g>
+      <g class="spin rev"><circle cx="500" cy="500" r="290"/>${ring(P, 245, 44, "p")}<circle cx="500" cy="500" r="200"/><path d="M500 320 L656 590 L344 590 Z"/><path d="M500 680 L344 410 L656 410 Z"/><circle cx="500" cy="500" r="28" fill="currentColor"/></g>
+    </g></svg>`;
+  if (reduce) return;
+  const rot = document.getElementById("scrollRot");
+  let ticking = false;
+  addEventListener("scroll", () => {
+    if (ticking) return; ticking = true;
+    requestAnimationFrame(() => { rot.style.transform = `rotate(${scrollY * 0.06}deg)`; ticking = false; });
+  }, { passive: true });
+})();
+$("#random").addEventListener("click", (ev) => { if (reduce) return; const b = ev.currentTarget; b.classList.remove("spin"); void b.offsetWidth; b.classList.add("spin"); });
 
 // ---- chrome ----
 $("#searchForm").addEventListener("submit", (ev) => { ev.preventDefault(); const q = $("#q").value.trim(); if (q) goSearch(q); });

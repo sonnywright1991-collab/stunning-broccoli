@@ -9,9 +9,10 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<div class="wheel" id="wheel" aria-hidden="true"></div>
 <a class="skip" href="#main">Skip to content</a>
 <header class="site">
-  <a class="masthead" href="#home">&#10022; Encyclopaedia of Esotericism &#10022;</a>
+  <a class="masthead" href="#home"><span class="star" aria-hidden="true">&#10022;</span> Encyclopaedia of Esotericism <span class="star" aria-hidden="true">&#10022;</span></a>
   <div class="dateline">
     <span id="count">Treatises</span>
     <nav aria-label="Primary">
@@ -20,6 +21,7 @@
       <button id="theme" type="button">Night ink</button>
     </nav>
   </div>
+  <div class="ticker" aria-label="Treatises in this edition"><div class="track" id="track"></div></div>
 </header>
 <div class="layout">
   <aside class="rail" aria-label="Classification">

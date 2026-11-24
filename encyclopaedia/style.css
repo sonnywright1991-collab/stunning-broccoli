@@ -67,3 +67,34 @@ footer.site{margin-bottom:24px;padding:12px;text-align:center;border-top:3px dou
 .sr-only-h{position:absolute;left:-999px}
 @media (max-width:760px){.layout{grid-template-columns:1fr}.rail{position:static}article.entry{padding:20px 18px}body{font-size:17px}}
 @media (prefers-reduced-motion:reduce){.card:hover{transform:none}}
+
+/* ---- movement ---- */
+.wheel{position:fixed;inset:0;z-index:-1;display:grid;place-items:center;pointer-events:none;overflow:hidden}
+.wheel svg{width:min(120vmin,1100px);height:auto;opacity:.09;color:var(--ink);will-change:transform}
+.wheel .spin{transform-origin:500px 500px;animation:turn 260s linear infinite}
+.wheel .spin.rev{animation-duration:180s;animation-direction:reverse}
+.wheel text{font-family:var(--serif);fill:currentColor;text-anchor:middle;dominant-baseline:central}
+@keyframes turn{to{transform:rotate(360deg)}}
+.masthead{text-wrap:balance}
+.masthead .star{display:inline-block;animation:twinkle 4s ease-in-out infinite}
+.masthead .star:last-child{animation-delay:2s}
+@keyframes twinkle{0%,100%{transform:rotate(0) scale(1)}50%{transform:rotate(180deg) scale(1.25)}}
+.ticker{margin-top:10px;padding:4px 0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);overflow:hidden;font:.8rem var(--mono);text-transform:uppercase;letter-spacing:.06em;white-space:nowrap}
+.track{display:inline-flex;gap:0;animation:scroll 120s linear infinite}
+.ticker:hover .track,.ticker:focus-within .track{animation-play-state:paused}
+.track a{text-decoration:none;padding:0 14px}
+.track a::after{content:"\2726";margin-left:28px;color:var(--stamp)}
+@keyframes scroll{to{transform:translateX(-50%)}}
+.grid>li,.index-list li{animation:stamp .5s cubic-bezier(.2,1.5,.4,1) both;animation-delay:calc(var(--i,0)*40ms)}
+@keyframes stamp{from{transform:scale(1.07) rotate(-1.2deg);filter:blur(1px)}to{transform:none;filter:none}}
+.folio.feature .code,.entry .code{animation:thud .7s cubic-bezier(.2,1.6,.4,1) both .15s}
+@keyframes thud{from{transform:scale(1.5) rotate(-6deg)}to{transform:rotate(-1.5deg)}}
+.feature h1,.entry h1{background:linear-gradient(var(--stamp),var(--stamp)) 0 100%/0 3px no-repeat;animation:ink 1.1s ease-out .3s forwards;padding-bottom:4px}
+@keyframes ink{to{background-size:100% 3px}}
+button#random.spin{animation:flip .6s ease}
+@keyframes flip{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){
+  .wheel .spin,.masthead .star,.track,.grid>li,.index-list li,.code,.feature h1,.entry h1,button#random.spin{animation:none!important}
+  .feature h1,.entry h1{background-size:100% 3px}
+  .ticker{overflow-x:auto}
+}

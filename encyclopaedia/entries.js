@@ -468,7 +468,7 @@ export const ENTRIES = [
     id: "blavatsky", title: "Helena P. Blavatsky", cat: "figures", era: "1831-1891",
     summary: "Russian-born co-founder of the Theosophical Society and author of The Secret Doctrine.",
     body: [
-      "Blavatsky travelled widely before settling in New York, where she co-founded the Theosophical Society in 1875. A 1885 Society for Psychical Research report accused her of fraud in the Mahatma letters, a verdict later contested. Her writings assert an ancient wisdom religion lying behind all faiths."
+      "Blavatsky travelled widely before settling in New York, where she co-founded the Theosophical Society in 1875. An 1885 Society for Psychical Research report accused her of fraud in the Mahatma letters, a verdict later contested. Her writings assert an ancient wisdom religion lying behind all faiths."
     ],
     related: ["theosophy", "occultism"],
     reading: ["Peter Washington, Madame Blavatsky's Baboon (1993)"]

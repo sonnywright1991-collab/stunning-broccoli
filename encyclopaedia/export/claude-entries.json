@@ -1,0 +1,548 @@
+[
+  {
+    "id": "ek-esotericism",
+    "title": "Esotericism",
+    "tradition": "Concepts & Symbols",
+    "summary": "A scholarly umbrella term for currents that stress hidden correspondences, mediating powers, living nature, imagination and inner transformation. 'Esotericism' is a modern academic category rather than a tradition that ever called itself by that name. The French term ésotérisme appears in the 19th century; its Greek root esoterikos ('inner') was already used in antiquity for teachings reserved for an inner circle of students.",
+    "keyText": "Antoine Faivre, Access to Western Esotericism (1994)",
+    "related": [
+      "Hermeticism",
+      "Gnosticism",
+      "Neoplatonism",
+      "Occultism"
+    ],
+    "sourceUrl": ""
+  },
+  {
+    "id": "ek-hermetic-qabalah",
+    "title": "Hermetic Qabalah",
+    "tradition": "Traditions & Currents",
+    "summary": "The Western occult adaptation of Kabbalah, linking the Tree of Life to tarot, planets, elements and ritual practice. Hermetic Qabalah (spelled with a Q to distinguish it from Jewish and Christian forms) took shape through Éliphas Lévi, who linked the Hebrew letters to the tarot, and the Golden Dawn, which built a full table of correspondences across the sefirot and the 22 paths. Aleister Crowley's 777 and Dion Fortune's Mystical Qabalah extended it.",
+    "keyText": "Dion Fortune, The Mystical Qabalah (1935)",
+    "related": [
+      "Kabbalah",
+      "Tree of Life",
+      "Hermetic Order of the Golden Dawn",
+      "Esoteric Tarot",
+      "Doctrine of Correspondences"
+    ],
+    "sourceUrl": ""
+  },
+  {
+    "id": "ek-philosophers-stone",
+    "title": "Philosopher's Stone",
+    "tradition": "Concepts & Symbols",
+    "summary": "The legendary substance of alchemy, said to transmute base metals into gold and to confer health or longevity. Called the lapis philosophorum, the elixir or the tincture, the stone is described in treatises as simultaneously a laboratory product and a spiritual goal. Authors from Geber to George Ripley hide its preparation in allegory, using green lions, dragons and royal marriages as code.",
+    "keyText": "Lawrence M. Principe, The Secrets of Alchemy (2013)",
+    "related": [
+      "Alchemy",
+      "Emerald Tablet",
+      "Paracelsus"
+    ],
+    "sourceUrl": ""
+  },
+  {
+    "id": "ek-astrology",
+    "title": "Astrology",
+    "tradition": "Practices & Arts",
+    "summary": "The study of correspondences between celestial bodies and terrestrial events, long counted among the sciences. Babylonian omen astronomy was transformed in the Hellenistic period into horoscopic astrology, with the zodiac, planets and houses used to read a nativity. Ptolemy's Tetrabiblos (2nd c. CE) supplied a naturalistic framework that dominated medieval Islamic and Latin astrology.",
+    "keyText": "Nicholas Campion, A History of Western Astrology (2008-09)",
+    "related": [
+      "Doctrine of Correspondences",
+      "Marsilio Ficino",
+      "Hermeticism"
+    ],
+    "sourceUrl": ""
+  },
+  {
+    "id": "ek-divination",
+    "title": "Divination",
+    "tradition": "Practices & Arts",
+    "summary": "Methods of seeking knowledge of hidden or future matters through interpreted signs. Divination appears in every culture: Mesopotamian liver-reading, Greek oracles, Roman augury, Chinese I Ching, African Ifá, medieval geomancy, and modern tarot and astrology. Cicero's De divinatione distinguishes inspired (natural) from technical (artificial) forms.",
+    "keyText": "Cicero, De divinatione",
+    "related": [
+      "Esoteric Tarot",
+      "Astrology",
+      "Geomancy"
+    ],
+    "sourceUrl": ""
+  },
+  {
+    "id": "ek-geomancy",
+    "title": "Geomancy",
+    "tradition": "Practices & Arts",
+    "summary": "Divination by sixteen figures of dots generated from random marks in sand or on paper. Arabic 'ilm al-raml ('science of the sand') passed into Latin Europe in the 12th century, where it became the most widespread of the learned divinatory arts. Four lines of random dots are marked, reduced to figures and combined into a shield chart of sixteen figures read through astrological houses.",
+    "keyText": "Stephen Skinner, Terrestrial Astrology: Divination by Geomancy (1980)",
+    "related": [
+      "Divination",
+      "Astrology",
+      "Heinrich Cornelius Agrippa"
+    ],
+    "sourceUrl": ""
+  },
+  {
+    "id": "ek-ceremonial-magic",
+    "title": "Ceremonial Magic",
+    "tradition": "Practices & Arts",
+    "summary": "Ritual magic based on invocation, consecrated tools and spirit hierarchies, drawing on grimoire and Hermetic traditions. Medieval clerical magic produced texts for summoning angels and spirits: the Ars Notoria, the Sworn Book of Honorius and the Key of Solomon. Their rites typically demand fasting, purity and prayer, and rely on divine names for authority.",
+    "keyText": "Richard Kieckhefer, Magic in the Middle Ages (1989)",
+    "related": [
+      "Grimoires",
+      "Theurgy",
+      "Hermetic Order of the Golden Dawn",
+      "Thelema",
+      "Enochian Magic"
+    ],
+    "sourceUrl": ""
+  },
+  {
+    "id": "ek-grimoires",
+    "title": "Grimoires",
+    "tradition": "Texts",
+    "summary": "Handbooks of ritual magic containing spirit invocations, talismans and charms. The term grimoire (from French grammaire) covers books such as the Key of Solomon, the Lemegeton (Lesser Key of Solomon), the Grimorium Verum and the Sixth and Seventh Books of Moses. Many circulated in manuscript before print and claim ancient authors such as Solomon or Moses.",
+    "keyText": "Owen Davies, Grimoires: A History of Magic Books (2009)",
+    "related": [
+      "Ceremonial Magic",
+      "King Solomon in Magic",
+      "Enochian Magic"
+    ],
+    "sourceUrl": ""
+  },
+  {
+    "id": "ek-correspondences",
+    "title": "Doctrine of Correspondences",
+    "tradition": "Concepts & Symbols",
+    "summary": "The idea that the cosmos is a web of analogies, so that plants, metals, planets and spirits answer to each other. 'As above, so below' summarises a worldview in which microcosm and macrocosm reflect one another. Planets rule metals (Sun-gold, Moon-silver, Mars-iron); the zodiac maps onto the human body; each herb carries a 'signature' of its use.",
+    "keyText": "Antoine Faivre, Access to Western Esotericism (1994)",
+    "related": [
+      "Emerald Tablet",
+      "Astrology",
+      "Hermetic Qabalah",
+      "Emanuel Swedenborg"
+    ],
+    "sourceUrl": ""
+  },
+  {
+    "id": "ek-tree-of-life",
+    "title": "Tree of Life",
+    "tradition": "Concepts & Symbols",
+    "summary": "The Kabbalistic diagram of ten sefirot joined by 22 paths, mapping divine emanation and spiritual ascent. The ten sefirot (Keter, Chokhmah, Binah, Chesed, Gevurah, Tiferet, Netzach, Hod, Yesod, Malkhut) are attributes through which Ein Sof acts. Their arrangement in three pillars first appears in printed diagrams of the 16th century.",
+    "keyText": "Gershom Scholem, Kabbalah (1974)",
+    "related": [
+      "Kabbalah",
+      "Hermetic Qabalah",
+      "Esoteric Tarot",
+      "Zohar"
+    ],
+    "sourceUrl": ""
+  },
+  {
+    "id": "ek-gematria",
+    "title": "Gematria",
+    "tradition": "Practices & Arts",
+    "summary": "Interpretation of words through the numerical values of their letters. In Hebrew and Greek, letters double as numerals, so each word has a number and words of equal value are read as related. Examples are found in rabbinic literature and in Christian sources: Revelation's 666 (or 616 in some manuscripts).",
+    "keyText": "Gershom Scholem, Kabbalah (1974)",
+    "related": [
+      "Kabbalah",
+      "Numerology"
+    ],
+    "sourceUrl": ""
+  },
+  {
+    "id": "ek-numerology",
+    "title": "Numerology",
+    "tradition": "Practices & Arts",
+    "summary": "The belief that numbers carry qualitative meaning and shape character and events. Pythagorean tradition regarded number as the principle of the cosmos, with the tetraktys (1+2+3+4=10) as sacred. Neopythagorean and Neoplatonic writers gave each digit attributes.",
+    "keyText": "Christoph Riedweg, Pythagoras: His Life, Teaching, and Influence (2005)",
+    "related": [
+      "Gematria",
+      "Neoplatonism"
+    ],
+    "sourceUrl": ""
+  },
+  {
+    "id": "ek-rosicrucianism",
+    "title": "Rosicrucianism",
+    "tradition": "Traditions & Currents",
+    "summary": "A movement born of mysterious manifestos announcing a secret brotherhood of reform, whose historical existence is uncertain. The Fama Fraternitatis (1614) and Confessio Fraternitatis (1615) tell of Christian Rosenkreuz, a medieval sage who founded a hidden order of healers and reformers. A third text, the Chymical Wedding (1616), is an alchemical romance usually attributed to Johann Valentin Andreae.",
+    "keyText": "Frances Yates, The Rosicrucian Enlightenment (1972)",
+    "related": [
+      "Alchemy",
+      "Freemasonry",
+      "Paracelsus"
+    ],
+    "sourceUrl": ""
+  },
+  {
+    "id": "ek-freemasonry",
+    "title": "Freemasonry",
+    "tradition": "Traditions & Currents",
+    "summary": "A fraternal order using the symbolism of stonemasons' work for moral and philosophical instruction, with esoteric offshoots. Speculative Freemasonry emerged from the Scottish and English stonemasons' lodges; the first Grand Lodge was founded in London in 1717. Its degrees use allegory of building Solomon's Temple to teach ethics.",
+    "keyText": "Margaret Jacob, The Origins of Freemasonry (2006)",
+    "related": [
+      "Rosicrucianism",
+      "Hermetic Order of the Golden Dawn",
+      "King Solomon in Magic"
+    ],
+    "sourceUrl": ""
+  },
+  {
+    "id": "ek-christian-theosophy",
+    "title": "Christian Theosophy",
+    "tradition": "Traditions & Currents",
+    "summary": "Protestant mystical current descended from Jacob Boehme, concerned with divine wisdom, the fall and regeneration. Jacob Boehme (1575-1624), a Görlitz shoemaker, wrote of the divine ground (Ungrund), the struggle of light and dark within God, and Sophia, divine Wisdom. His Aurora and Mysterium Magnum influenced Pietism, Quakers, the Philadelphians (Jane Leade) and German Romantics.",
+    "keyText": "Arthur Versluis, Wisdom's Children (1999)",
+    "related": [
+      "Jacob Boehme",
+      "Emanuel Swedenborg",
+      "Theosophy"
+    ],
+    "sourceUrl": ""
+  },
+  {
+    "id": "ek-theosophy",
+    "title": "Theosophy",
+    "tradition": "Modern Movements",
+    "summary": "The movement founded by Helena Blavatsky and Henry Olcott combining Eastern religion, Western occultism and a theory of spiritual evolution. The Theosophical Society was founded in New York in 1875. Blavatsky's Isis Unveiled (1877) and The Secret Doctrine (1888) taught root races, planes of existence and Masters of Wisdom who guide humanity. In 1879 the Society moved to India, where it influenced Hindu and Buddhist reform.",
+    "keyText": "Joscelyn Godwin, The Theosophical Enlightenment (1994)",
+    "related": [
+      "Helena P. Blavatsky",
+      "Anthroposophy",
+      "Occultism"
+    ],
+    "sourceUrl": ""
+  },
+  {
+    "id": "ek-anthroposophy",
+    "title": "Anthroposophy",
+    "tradition": "Modern Movements",
+    "summary": "Rudolf Steiner's spiritual science, practised today in Waldorf schools, biodynamic farming and anthroposophic medicine. Steiner split from the Theosophical Society in 1912-13 over the Krishnamurti affair and founded the Anthroposophical Society. His 'spiritual science' claims that trained thinking can perceive supersensible reality, and that human history unfolds through cosmic evolution.",
+    "keyText": "Geoffrey Ahern, Sun at Midnight (1984)",
+    "related": [
+      "Theosophy",
+      "Christian Theosophy"
+    ],
+    "sourceUrl": ""
+  },
+  {
+    "id": "ek-occultism",
+    "title": "Occultism",
+    "tradition": "Modern Movements",
+    "summary": "The modern revival of magic, astrology, alchemy and mysticism, named by Éliphas Lévi in the 1850s. The French 'occultisme' was popularised by Alphonse Louis Constant (Éliphas Lévi) in Dogme et Rituel de la Haute Magie (1854-56), and spread through Papus, Stanislas de Guaita, the Theosophists and the Golden Dawn.",
+    "keyText": "Wouter J. Hanegraaff, New Age Religion and Western Culture (1996)",
+    "related": [
+      "Éliphas Lévi",
+      "Theosophy",
+      "Hermetic Order of the Golden Dawn",
+      "Spiritualism"
+    ],
+    "sourceUrl": ""
+  },
+  {
+    "id": "ek-spiritualism",
+    "title": "Spiritualism",
+    "tradition": "Modern Movements",
+    "summary": "The movement centred on communication with the dead through mediums, begun by the Fox sisters in New York. In 1848 the Fox sisters of Hydesville reported raps they said were signals from a spirit. Within a decade, séances, table-turning and trance mediumship spread across the United States and Britain. Spiritualists combined ideas of progress, reform and afterlife.",
+    "keyText": "Alex Owen, The Darkened Room (1989)",
+    "related": [
+      "Occultism",
+      "Theosophy",
+      "Emanuel Swedenborg"
+    ],
+    "sourceUrl": ""
+  },
+  {
+    "id": "ek-golden-dawn",
+    "title": "Hermetic Order of the Golden Dawn",
+    "tradition": "Modern Movements",
+    "summary": "The British magical order that gathered Kabbalah, tarot, astrology and ritual into a graded system that shaped modern Western magic. Founded in London in 1888 by Freemasons William Wynn Westcott, S. L. MacGregor Mathers and William R. Woodman, the Order claimed authority from a cipher manuscript and an alleged German adept, Anna Sprengel, whose existence is not documented. Its curriculum covered the elements, the Tree of Life, tarot, geomancy, Enochian magic and astral work.",
+    "keyText": "Ellic Howe, The Magicians of the Golden Dawn (1972)",
+    "related": [
+      "Hermetic Qabalah",
+      "Esoteric Tarot",
+      "Enochian Magic",
+      "Thelema",
+      "Freemasonry"
+    ],
+    "sourceUrl": ""
+  },
+  {
+    "id": "ek-thelema",
+    "title": "Thelema",
+    "tradition": "Modern Movements",
+    "summary": "The religion founded by Aleister Crowley on the Book of the Law, with the maxim 'Do what thou wilt shall be the whole of the Law.' Crowley said that in Cairo in April 1904 a being called Aiwass dictated Liber AL vel Legis, announcing the Aeon of Horus and the law of Thelema (Greek for 'will'). Its central principles, 'Do what thou wilt shall be the whole of the Law' and 'Love is the law, love under will', are commonly read as a call to discover and follow one's true will, not as licence.",
+    "keyText": "Marco Pasi, Aleister Crowley and the Temptation of Politics (2014)",
+    "related": [
+      "Aleister Crowley",
+      "Hermetic Order of the Golden Dawn",
+      "Ceremonial Magic"
+    ],
+    "sourceUrl": ""
+  },
+  {
+    "id": "ek-wicca",
+    "title": "Wicca",
+    "tradition": "Modern Movements",
+    "summary": "A modern religion of witchcraft shaped by Gerald Gardner, honouring a Goddess and Horned God and the cycle of the seasons. Gerald Gardner (1884-1964) publicised the 'Craft' after Britain repealed its Witchcraft Act in 1951, claiming a survival of an ancient witch cult. Ronald Hutton's research shows instead a mid-20th-century synthesis of ceremonial magic, folklore, Freemasonry and Margaret Murray's now-discredited 'witch-cult' thesis.",
+    "keyText": "Ronald Hutton, The Triumph of the Moon (1999)",
+    "related": [
+      "Ceremonial Magic",
+      "Hermetic Order of the Golden Dawn",
+      "Modern Paganism"
+    ],
+    "sourceUrl": ""
+  },
+  {
+    "id": "ek-neopaganism",
+    "title": "Modern Paganism",
+    "tradition": "Modern Movements",
+    "summary": "A family of new religious movements, from Wicca to Druidry and Heathenry, reviving or reimagining pre-Christian practice. Modern Paganism draws on Romantic nature-reverence, folklore studies and archaeology. Druid revival began in the 18th century (the Ancient Order of Druids, 1781); Heathenry reconstructs Norse and Germanic religion; Hellenismos and Kemetism reconstruct Greek and Egyptian worship.",
+    "keyText": "Ronald Hutton, Pagan Britain (2013)",
+    "related": [
+      "Wicca",
+      "Occultism"
+    ],
+    "sourceUrl": ""
+  },
+  {
+    "id": "ek-new-age",
+    "title": "New Age",
+    "tradition": "Modern Movements",
+    "summary": "A loose cultural milieu blending spirituality, therapy, channeling, crystals and the expectation of a coming transformation. Hanegraaff distinguishes the 'New Age in the narrow sense', the 1970s-80s movement awaiting an Age of Aquarius, from the broader 'New Age in the wide sense', a diffuse milieu of self-help spirituality. Its sources include Theosophy, Spiritualism, New Thought, Eastern religion and humanistic psychology.",
+    "keyText": "Wouter J. Hanegraaff, New Age Religion and Western Culture (1996)",
+    "related": [
+      "Theosophy",
+      "Spiritualism",
+      "Occultism"
+    ],
+    "sourceUrl": ""
+  },
+  {
+    "id": "ek-enochian",
+    "title": "Enochian Magic",
+    "tradition": "Practices & Arts",
+    "summary": "The angelic language and system recorded by John Dee and Edward Kelley in their scrying sessions. Between 1582 and 1589, mathematician John Dee and his seer Edward Kelley recorded conversations with angels in a language they called Enochian, with tables of letters, Aethyrs and angelic names. Dee's diaries were later published by Meric Casaubon (1659) as an attack on spirit communication.",
+    "keyText": "Deborah Harkness, John Dee's Conversations with Angels (1999)",
+    "related": [
+      "John Dee",
+      "Hermetic Order of the Golden Dawn",
+      "Ceremonial Magic"
+    ],
+    "sourceUrl": ""
+  },
+  {
+    "id": "ek-corpus-hermeticum",
+    "title": "Corpus Hermeticum",
+    "tradition": "Texts",
+    "summary": "Seventeen Greek treatises of revelatory philosophy attributed to Hermes Trismegistus, including the Poimandres. The first treatise, Poimandres, describes a vision in which the divine Mind reveals creation, the descent of the primal human into nature, and the way of return. Later treatises treat rebirth (CH XIII), the mind of God and the beauty of the cosmos.",
+    "keyText": "Brian P. Copenhaver, Hermetica (1992)",
+    "related": [
+      "Hermeticism",
+      "Hermes Trismegistus",
+      "Marsilio Ficino"
+    ],
+    "sourceUrl": ""
+  },
+  {
+    "id": "ek-emerald-tablet",
+    "title": "Emerald Tablet",
+    "tradition": "Texts",
+    "summary": "A terse alchemical text beginning 'That which is below is like that which is above', revered as the charter of Hermetic philosophy. The Tabula Smaragdina appears first in Arabic in the Kitāb sirr al-khalīqa (Book of the Secret of Creation), attributed to Balinus (Apollonius of Tyana), and reached Latin Europe in the 12th century. Its brief verses describe the One Thing, which all things are made from, and the union of heaven and earth.",
+    "keyText": "Julius Ruska, Tabula Smaragdina (1926)",
+    "related": [
+      "Hermes Trismegistus",
+      "Alchemy",
+      "Doctrine of Correspondences"
+    ],
+    "sourceUrl": ""
+  },
+  {
+    "id": "ek-nag-hammadi",
+    "title": "Nag Hammadi Library",
+    "tradition": "Texts",
+    "summary": "Thirteen fourth-century Coptic codices found in Upper Egypt, transforming knowledge of early Christian and Gnostic thought. The find, probably from a monastic library, contains 52 texts (some duplicates) including the Gospel of Thomas, Gospel of Philip, Apocryphon of John, Thunder: Perfect Mind and a fragment of Plato's Republic. Some Hermetic treatises, such as the Discourse on the Eighth and Ninth, are also included.",
+    "keyText": "James M. Robinson (ed.), The Nag Hammadi Library in English (1977)",
+    "related": [
+      "Gnosticism",
+      "Hermeticism"
+    ],
+    "sourceUrl": ""
+  },
+  {
+    "id": "ek-zohar",
+    "title": "Zohar",
+    "tradition": "Texts",
+    "summary": "The Book of Splendour, the central text of Kabbalah, written as a mystical commentary on the Torah. Written in a medieval Aramaic, the Zohar presents the teachings of Rabbi Shimon bar Yochai and his circle. Tradition ascribed it to the 2nd-century sage; Gershom Scholem argued that Moses de León composed it in Castile, a view still dominant though refined by Yehuda Liebes and Daniel Matt.",
+    "keyText": "Daniel C. Matt (trans.), The Zohar: Pritzker Edition (2004-)",
+    "related": [
+      "Kabbalah",
+      "Tree of Life"
+    ],
+    "sourceUrl": ""
+  },
+  {
+    "id": "ek-manichaeism",
+    "title": "Manichaeism",
+    "tradition": "Traditions & Currents",
+    "summary": "A dualist world religion founded by Mani in Persia, teaching the mixture of light and darkness and the freeing of light. Mani (216-c. 274) taught that light and darkness were originally separate and that the material world arose from their mixture. The Elect, who lived ascetically, helped release light through diet and ritual. It spread from Rome to China and shaped later 'dualist' movements, though the link to medieval Cathars is debated.",
+    "keyText": "Samuel N. C. Lieu, Manichaeism in the Later Roman Empire and Medieval China (1992)",
+    "related": [
+      "Gnosticism"
+    ],
+    "sourceUrl": ""
+  },
+  {
+    "id": "ek-hermes-trismegistus",
+    "title": "Hermes Trismegistus",
+    "tradition": "Figures",
+    "summary": "The 'thrice-greatest Hermes', a composite of the Greek Hermes and Egyptian Thoth, supposed author of the Hermetica. Greek writers identified Thoth, the Egyptian god of writing and wisdom, with Hermes. By the Roman era 'Hermes the Thrice-Greatest' was imagined as an ancient priest-king and sage. Renaissance Christians treated him as a prisca theologia, a pagan prophet who foresaw Christianity; Lactantius and Augustine remark on him.",
+    "keyText": "Garth Fowden, The Egyptian Hermes (1986)",
+    "related": [
+      "Hermeticism",
+      "Corpus Hermeticum",
+      "Emerald Tablet"
+    ],
+    "sourceUrl": ""
+  },
+  {
+    "id": "ek-ficino",
+    "title": "Marsilio Ficino",
+    "tradition": "Figures",
+    "summary": "Florentine philosopher and priest who translated Plato and the Hermetica and revived Neoplatonism. Under the patronage of Cosimo de' Medici, Ficino translated the Corpus Hermeticum (1463) and Plato's complete works (1484), and wrote the Platonic Theology and De vita (1489), a treatise on astral medicine and talismans. He led the Platonic Academy of Florence.",
+    "keyText": "Michael J. B. Allen, Marsilio Ficino and the Phoenix (1984)",
+    "related": [
+      "Corpus Hermeticum",
+      "Neoplatonism",
+      "Astrology"
+    ],
+    "sourceUrl": ""
+  },
+  {
+    "id": "ek-agrippa",
+    "title": "Heinrich Cornelius Agrippa",
+    "tradition": "Figures",
+    "summary": "German polymath whose Three Books of Occult Philosophy became the great Renaissance compendium of natural, celestial and ceremonial magic. Agrippa wrote De occulta philosophia in 1510 and published the full version in 1533. It divides magic into natural, celestial and ceremonial and gathers Neoplatonic, Hermetic and Kabbalistic lore. In an apparent reversal he had in 1530 published De vanitate, a sceptical attack on all the sciences.",
+    "keyText": "Christopher I. Lehrich, The Language of Demons and Angels (2003)",
+    "related": [
+      "Ceremonial Magic",
+      "Kabbalah",
+      "Doctrine of Correspondences"
+    ],
+    "sourceUrl": ""
+  },
+  {
+    "id": "ek-paracelsus",
+    "title": "Paracelsus",
+    "tradition": "Figures",
+    "summary": "Swiss physician who remade medicine and alchemy around chemical remedies and the correspondence of man and cosmos. Theophrastus von Hohenheim, called Paracelsus, challenged Galenic medicine, teaching that diseases are specific and treatable with chemical preparations. He added sulphur, mercury and salt (tria prima) to the four elements, and promoted the doctrine of signatures.",
+    "keyText": "Walter Pagel, Paracelsus (1958)",
+    "related": [
+      "Alchemy",
+      "Rosicrucianism",
+      "Doctrine of Correspondences"
+    ],
+    "sourceUrl": ""
+  },
+  {
+    "id": "ek-dee",
+    "title": "John Dee",
+    "tradition": "Figures",
+    "summary": "Elizabethan mathematician, navigator, advisor and magus, known for his angelic conversations. Dee advised Queen Elizabeth I, coined the term 'British Empire', amassed England's greatest library and wrote the Monas Hieroglyphica (1564), a symbol he considered a key to all creation. From 1581 he sought angelic knowledge with Edward Kelley as scryer.",
+    "keyText": "Nicholas Clulee, John Dee's Natural Philosophy (1988)",
+    "related": [
+      "Enochian Magic",
+      "Ceremonial Magic"
+    ],
+    "sourceUrl": ""
+  },
+  {
+    "id": "ek-boehme",
+    "title": "Jacob Boehme",
+    "tradition": "Figures",
+    "summary": "German shoemaker and visionary whose theosophy of divine opposites influenced mystics, philosophers and poets. After a visionary experience in 1600 Boehme wrote Aurora (1612). His claim that God contains the tension of light and darkness, love and wrath, fascinated Hegel, Schelling and William Blake. Followers in England and Holland formed the Behmenist movement.",
+    "keyText": "Andrew Weeks, Boehme: An Intellectual Biography (1991)",
+    "related": [
+      "Christian Theosophy",
+      "Emanuel Swedenborg"
+    ],
+    "sourceUrl": ""
+  },
+  {
+    "id": "ek-swedenborg",
+    "title": "Emanuel Swedenborg",
+    "tradition": "Figures",
+    "summary": "Swedish scientist turned visionary, who described heaven, hell and the spiritual meaning of Scripture. After a distinguished scientific career, Swedenborg experienced a spiritual awakening in 1743-45. His Arcana Coelestia (1749-56) and Heaven and Hell (1758) describe a spiritual world within which angels and spirits live as humans do, and a doctrine of correspondences between natural and spiritual things.",
+    "keyText": "Gary Lachman, Swedenborg: An Introduction to His Life and Ideas (2012)",
+    "related": [
+      "Doctrine of Correspondences",
+      "Spiritualism",
+      "Christian Theosophy"
+    ],
+    "sourceUrl": ""
+  },
+  {
+    "id": "ek-levi",
+    "title": "Éliphas Lévi",
+    "tradition": "Figures",
+    "summary": "French occultist who coined 'occultism' and set the pattern for modern ritual magic and tarot symbolism. Alphonse-Louis Constant, a former seminarian, wrote Dogme et Rituel de la Haute Magie (1856) and Histoire de la Magie (1860). He drew the Baphomet image, linked the tarot to the Hebrew alphabet, and taught that magic is a science of the Astral Light, a universal force directed by the will.",
+    "keyText": "Christopher McIntosh, Eliphas Levi and the French Occult Revival (1972)",
+    "related": [
+      "Occultism",
+      "Esoteric Tarot",
+      "Hermetic Qabalah"
+    ],
+    "sourceUrl": ""
+  },
+  {
+    "id": "ek-blavatsky",
+    "title": "Helena P. Blavatsky",
+    "tradition": "Figures",
+    "summary": "Russian-born co-founder of the Theosophical Society and author of The Secret Doctrine. Blavatsky travelled widely before settling in New York, where she co-founded the Theosophical Society in 1875. An 1885 Society for Psychical Research report accused her of fraud in the Mahatma letters, a verdict later contested. Her writings assert an ancient wisdom religion lying behind all faiths.",
+    "keyText": "Peter Washington, Madame Blavatsky's Baboon (1993)",
+    "related": [
+      "Theosophy",
+      "Occultism"
+    ],
+    "sourceUrl": ""
+  },
+  {
+    "id": "ek-crowley",
+    "title": "Aleister Crowley",
+    "tradition": "Figures",
+    "summary": "English occultist, poet and mountaineer, founder of Thelema and notorious public figure. Born Edward Alexander Crowley, he joined the Golden Dawn in 1898, received The Book of the Law in 1904 and founded the A∴A∴ in 1907. He joined the Ordo Templi Orientis and wrote Magick in Theory and Practice (1929) and The Book of Thoth (1944). The press branded him 'the wickedest man in the world'.",
+    "keyText": "Tobias Churton, Aleister Crowley: The Biography (2011)",
+    "related": [
+      "Thelema",
+      "Hermetic Order of the Golden Dawn",
+      "Ceremonial Magic",
+      "Esoteric Tarot"
+    ],
+    "sourceUrl": ""
+  },
+  {
+    "id": "ek-jung",
+    "title": "Carl Gustav Jung",
+    "tradition": "Figures",
+    "summary": "Swiss psychiatrist whose analytical psychology reinterpreted gnostic, alchemical and astrological symbols as psychic processes. Jung studied Gnostic texts, alchemy and astrology, finding in them symbols of individuation, the integration of the unconscious into the personality. His works Psychology and Alchemy (1944) and Mysterium Coniunctionis (1955-56) read the alchemists' opus as an inner process.",
+    "keyText": "Wouter J. Hanegraaff, Esotericism and the Academy (2012)",
+    "related": [
+      "Alchemy",
+      "Gnosticism",
+      "Astrology"
+    ],
+    "sourceUrl": ""
+  },
+  {
+    "id": "ek-solomon",
+    "title": "King Solomon in Magic",
+    "tradition": "Figures",
+    "summary": "The biblical king as legendary master of demons and patron of ritual magic. The Testament of Solomon (c. 1st-3rd c. CE) shows the king commanding demons with a ring to build the Temple. Islamic tradition, in which he is Sulayman, preserves the ring and his rule over jinn. In medieval Europe, books of ritual magic such as the Key of Solomon bore his name.",
+    "keyText": "Pablo A. Torijano, Solomon the Esoteric King (2002)",
+    "related": [
+      "Grimoires",
+      "Ceremonial Magic",
+      "Freemasonry"
+    ],
+    "sourceUrl": ""
+  }
+]

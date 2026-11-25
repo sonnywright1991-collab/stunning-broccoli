@@ -1,5 +1,28 @@
 # Inverted Ocean Desert: video prompt (audited, v2)
 
+## Muse Video version (set 10 seconds and 16:9 in the selectors)
+Tighter, positive-only, 10-second timeline, sound in its own sentences.
+
+Photorealistic cinematic single continuous shot.
+
+An endless golden desert of wind-rippled sand beneath an impossible upside-down ocean that fills the whole sky like a turquoise ceiling. Its underside ripples slowly and stays perfectly suspended, meeting the sand at the horizon in a thin band of warm amber haze. The sun glows high above, beyond the water; sunlight filters down in turquoise shafts, casting slowly moving caustic patterns across the dunes and lighting drifting sand.
+
+A lone traveller in weathered charcoal robes stands barefoot on the crest of a tall dune, seen only from behind, facing the horizon. The robes ripple in the wind; figure and clothing stay consistent.
+
+The camera starts low and close behind the traveller, then makes one slow, smooth move: rising, pulling back and tilting up, keeping the traveller in frame as they become a small figure in the lower third.
+
+0-2s: wind in the robes, drifting sand, caustics sliding over the dune.
+2-5s: a gigantic humpback whale emerges from the hazy blue distance at upper left and swims slowly left to right, seen from below: pale throat grooves, long white flippers, slow up-and-down fluke strokes.
+5-8s: the whale glides overhead; its soft shadow sweeps across the dunes and over the traveller, who slowly tilts their head back to look up. Glinting water droplets lift from the sand around their feet.
+8-10s: the droplets rise toward the ocean as a sparkling trail. The camera settles on the wide final frame: a small but clearly visible traveller, endless dunes, the whale and ocean towering overhead.
+
+Deep turquoise and warm amber grade, subtle anamorphic flare, atmospheric haze, monumental scale, dreamlike mood.
+
+Sound: deep sub-bass rumble and soft desert wind throughout. Distant low whale calls. A gentle ethereal string swell as the whale passes overhead, settling into a sustained ambient tone. Instrumental only.
+
+### Muse Video short fallback (if the prompt box truncates)
+Photorealistic single continuous shot. An endless golden desert beneath an upside-down ocean filling the whole sky; its turquoise underside ripples slowly, perfectly suspended. High sunlight filters down through the water, casting moving caustics on the dunes. A lone barefoot traveller in charcoal robes stands on a dune crest, seen from behind. The camera starts low behind them, then slowly rises, pulls back and tilts up. A giant humpback whale glides left to right through the ocean overhead with slow up-and-down fluke strokes; its soft shadow sweeps over the traveller, who tilts their head back to look up. Glinting droplets rise from the sand toward the ocean. Ends wide: small figure, vast dunes, whale overhead. Turquoise and amber grade, dreamlike scale. Sound: deep sub-bass rumble, desert wind, distant whale calls, a gentle string swell.
+
 ## Single-box prompt (video + audio)
 Use this when the tool has one prompt box. Negatives are phrased as positive
 constraints, so nothing unwanted gets named.

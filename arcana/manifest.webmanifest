@@ -1,0 +1,14 @@
+{
+  "name": "Arcana",
+  "short_name": "Arcana",
+  "description": "Daily tarot, moon phase, planetary hours, sigils and a grimoire journal.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0b0713",
+  "theme_color": "#0b0713",
+  "icons": [
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}

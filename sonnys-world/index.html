@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=1060">
+<script>var MOBILE=screen.width<=900||innerWidth<=700;if(MOBILE)document.querySelector('meta[name=viewport]').setAttribute('content','width=480')</script>
 <title>Sonny's World</title>
 <meta name="description" content="A web-collage of one house in Wagga Wagga: crows, old books, esoterica, beard oil, football and two kids' worlds. Best viewed in Times New Roman.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -149,10 +150,21 @@ footer small{color:#777}
 .pg .fine{font-size:12px;color:#555}
 .pg ul{margin:6px 0 6px 22px;padding:0}
 
+/* phone: same collage on a 480px canvas, fragments cascade down in a staggered pile */
+.m body,body.m{min-width:480px}
+.m .stage{width:480px;margin-left:-240px}
+.m .t-word{font-size:48px;letter-spacing:0;line-height:1.05}
+.m .t-glitter{font-size:27px}
+.m .t-big{font-size:24px}.m .t-sp{letter-spacing:4px}
+.m .uc{width:300px}.m .t-comic{font-size:18px}.m .t-court{font-size:15px}
+.m footer .in{width:90%}
+.m #controls button{width:44px;height:44px}
+.m .rib i{font-size:17px}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important}}
 </style>
 </head>
 <body>
+<script>if(MOBILE)document.body.classList.add("m")</script>
 
 <div id="controls">
   <button id="snd" title="sound on/off" aria-label="Toggle soundtrack">🔇</button>
@@ -414,24 +426,7 @@ function el(tag,cls,css){const e=document.createElement(tag);if(cls)e.className=
 function build(s,i){
   const r=rng(i*977+13), sec=el('section','sec','height:'+s.h+'px'), bg=el('div','bg '+s.bg+(['b-stars','b-hearts','b-void','b-lav','b-hazard','b-water','b-rainbow','b-night'].includes(s.bg)?' dr':'')), st=el('div','stage');
   sec.id=s.id;sec.append(bg,st);
-  // collage fillers: emoji artefacts + pixel sprites
-  for(let k=0;k<s.fill;k++){
-    const g=el('div','g'),sz=18+Math.floor(Math.pow(r(),2)*70);
-    g.textContent=pick(r,s.spr);g.style.fontSize=sz+'px';g.style.left=(r()*96)+'%';g.style.top=(r()*(s.h-80))+'px';
-    const rot=Math.round(r()*50-25);g.style.setProperty('--r',rot+'deg');g.style.transform=`rotate(${rot}deg)`;
-    if(r()<.58){g.classList.add(pick(r,ANIMS));g.style.setProperty('--d',(1+r()*5).toFixed(1)+'s');g.style.setProperty('--l',(-r()*4).toFixed(1)+'s')}
-    if(r()<.34){g.dataset.room=s.rooms[0];g.title=s.id}
-    st.append(g);
-  }
-  const np=10+Math.floor(r()*5);
-  for(let k=0;k<np;k++){
-    const n=pick(r,s.pix),sc=3+Math.floor(r()*5),p=pix(n,sc),d=el('div','px g');
-    d.style.cssText=`width:${p.w}px;height:${p.h}px;background-image:url(${p.u});left:${r()*94}%;top:${r()*(s.h-100)}px`;
-    const rot=Math.round(r()*30-15);d.style.setProperty('--r',rot+'deg');d.style.transform=`rotate(${rot}deg)`;
-    if(r()<.6){d.classList.add(pick(r,['a-bob','a-spin','a-twinkle','a-float','a-shake']));d.style.setProperty('--d',(1.2+r()*4).toFixed(1)+'s');d.style.setProperty('--l',(-r()*3).toFixed(1)+'s')}
-    if(r()<.3)d.dataset.room=s.rooms[0];
-    st.append(d);
-  }
+  if(!MOBILE)fillers(s,r,st,s.h,1);
   // curated fragments
   s.txt.forEach(t=>{
     const d=el('div','t '+(t.c||''));d.style.left=t.x+'%';d.style.top=t.y+'px';if(t.w)d.style.width=t.w+'px';
@@ -442,7 +437,7 @@ function build(s,i){
   // link forest
   if(s.id==='forest'){
     const L=["Raven the Rottweiler's Fan Club","Crow Facts (unofficial)","Agartha: the Hollow Earth FAQ","Kimberly's Dragons (mirror)","How to make beard oil in a shed","Closet Vampire Central (not mine)","Essendon: the long road home","Wagga Wagga: place of many crows","The Murrumbidgee Fishing Report","Dolphins, Angles of the Sea","Best viewed at 800x600","Virtual Orion Telescope","The Old Books Shelf, annex","What is a murder of crows?","Dog Biscuit Recipes (NEW!)","Free MIDI: the greatest hits","Click here to see a picture of my shed","Webring: Wagga Webring","Webring: Beard Oil Webring","Awards I won (and gave myself)","(B)asic (I)nstructions (B)efore (L)eaving (E)arth","Hit counter repair kit","My Hotmail address (dead)","Netscape 2.0 download (dead)","The Sunken Library","Poems from the back verandah","Photos of a cloud","Photos of another cloud","A page about my other page","Please sign my other guestbook","Sprite Gallery Vol. 2","Why the dog is the boss","The Fairy Court: complaints","Recipes my nan sent","The Great Wagga Pie Review","Farmers' Almanac, unofficial","Crows I have met: a list","Nothing here, keep scrolling","Cat pages (for cat lovers only!!!)","A page about the page you're on","Bear with me while I fix this","Under construction since 1998","Updates: Friday 20th August — production of the page commenced","The Sleeping Giant's Guide to Sleep","Stargazing for lazy people","What the kids built today","Kids' World (they let me link it)","Soundtrack: Tune No. 1","Soundtrack: Tune No. 1 (dub version)","Soundtrack: Tune No. 1 (acapella cover)","Soundtrack: Tune No. 1 (Carpentry Mix)","Hall of Fame: you!","Top 10 reasons to visit Wagga","Top 11 reasons (the 11th is the river)","Lost: one button, one key, 3 beads (see crow)","E-pals wanted (crow lovers only)","A page for people who like pages","Tips for a better tomorrow","Mirror of the mirror","Return to top (just scroll up)"];
-    const f=el('div','t','left:2%;top:420px;width:96%;text-align:justify;line-height:1.5;word-spacing:3px');
+    const f=el('div','t',(MOBILE?'left:10px;width:460px;':'left:2%;width:96%;')+'top:420px;text-align:justify;line-height:1.5;word-spacing:3px');
     const cols=['#00f','#a0a','#c00','#006','#030','#609','#e60','#000'];
     const rr=rng(404);
     f.innerHTML=[...L,...L.slice(0,28)].map((n,k)=>{const fs=11+Math.floor(rr()*17);return `<a class="site-link" data-room="${n}" style="font-size:${fs}px;font-weight:${rr()<.2?'bold':'normal'};color:${cols[k%cols.length]};background:rgba(255,255,255,.${6+Math.floor(rr()*3)});padding:0 3px;margin:2px 0;display:inline-block">${n}</a>`}).join(' &nbsp;|&nbsp; ');
@@ -450,9 +445,45 @@ function build(s,i){
   }
   return [sec,s.rib];
 }
+function fillers(s,r,st,H,k0){
+  const nf=Math.round(s.fill*(MOBILE?.7:1));
+  for(let k=0;k<nf;k++){
+    const g=el('div','g'),sz=(MOBILE?14:18)+Math.floor(Math.pow(r(),2)*(MOBILE?50:70));
+    g.textContent=pick(r,s.spr);g.style.fontSize=sz+'px';g.style.left=(r()*96)+'%';g.style.top=(r()*(H-80))+'px';
+    const rot=Math.round(r()*50-25);g.style.setProperty('--r',rot+'deg');g.style.transform=`rotate(${rot}deg)`;
+    if(r()<.58){g.classList.add(pick(r,ANIMS));g.style.setProperty('--d',(1+r()*5).toFixed(1)+'s');g.style.setProperty('--l',(-r()*4).toFixed(1)+'s')}
+    if(r()<.34){g.dataset.room=s.rooms[0];g.title=s.id}
+    st.prepend(g);
+  }
+  const np=(MOBILE?7:10)+Math.floor(r()*5);
+  for(let k=0;k<np;k++){
+    const n=pick(r,s.pix),sc=(MOBILE?2:3)+Math.floor(r()*(MOBILE?3:5)),p=pix(n,sc),d=el('div','px g');
+    d.style.cssText=`width:${p.w}px;height:${p.h}px;background-image:url(${p.u});left:${r()*94}%;top:${r()*(H-100)}px`;
+    const rot=Math.round(r()*30-15);d.style.setProperty('--r',rot+'deg');d.style.transform=`rotate(${rot}deg)`;
+    if(r()<.6){d.classList.add(pick(r,['a-bob','a-spin','a-twinkle','a-float','a-shake']));d.style.setProperty('--d',(1.2+r()*4).toFixed(1)+'s');d.style.setProperty('--l',(-r()*3).toFixed(1)+'s')}
+    if(r()<.3)d.dataset.room=s.rooms[0];
+    st.prepend(d);
+  }
+}
+/* phone: reflow the text fragments into a staggered cascade, then size the section to fit */
+function mlayout(sec,s,i){
+  const st=sec.querySelector('.stage'),r=rng(i*313+7);let y=s.marq?96:60,n=0;
+  st.querySelectorAll(':scope>.t').forEach(d=>{
+    const w0=parseInt(d.style.width)||0;
+    d.style.width=w0?(w0>=400?'460px':Math.min(w0,300)+'px'):'';d.style.maxWidth='460px';
+    if(d.firstChild&&d.firstChild.style&&d.firstChild.style.width==='96%'){}
+    d.style.top=y+'px';
+    const w=d.offsetWidth;
+    d.style.left=Math.max(6,(n%2?480-w-8-r()*18:8+r()*18))+'px';
+    y+=d.offsetHeight+30+Math.abs(parseFloat((d.style.transform.match(/-?[\d.]+/)||[0])[0]))*6;n++;
+  });
+  const H=Math.max(y+60,640);sec.style.height=H+'px';
+  const m=sec.querySelector(':scope>.t');if(m)m.style.top='44px';
+  fillers(s,r,st,H,0);
+}
 const W=$('#world');
 SECS.forEach((s,i)=>{
-  const [sec,rib]=build(s,i);W.append(sec);
+  const [sec,rib]=build(s,i);W.append(sec);if(MOBILE)mlayout(sec,s,i);
   if(rib){const d=el('div','rib '+rib[0]);d.innerHTML=`<i>${rib[1]}</i>`;W.append(d)}
 });
 

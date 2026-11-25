@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1060">
+<title>Sonny's World</title>
+<meta name="description" content="A web-collage of one house in Wagga Wagga: crows, old books, esoterica, beard oil, football and two kids' worlds. Best viewed in Times New Roman.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&family=VT323&family=Press+Start+2P&display=swap" rel="stylesheet">
+<style>
+/* ===== SONNY'S WORLD — no tokens, no system, on purpose ===== */
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:#000}
+body{min-width:1060px;font-family:"Times New Roman",Times,serif;font-size:16px;color:#fff;overflow-x:hidden}
+a{cursor:pointer}
+
+/* the two global controls */
+#controls{position:fixed;top:6px;left:6px;z-index:900;display:flex;gap:6px}
+#controls button{width:36px;height:36px;font-size:20px;line-height:1;border:2px outset #ddd;background:#c0c0c0;cursor:pointer;padding:0}
+#controls button:active{border-style:inset}
+
+/* sections */
+.sec{position:relative;width:100%;overflow:hidden}
+.bg{position:absolute;inset:0}
+.stage{position:absolute;left:50%;top:0;width:1280px;height:100%;margin-left:-640px}
+.g,.t{position:absolute}
+.g{line-height:1;user-select:none;filter:contrast(1.25) saturate(1.5);image-rendering:pixelated}
+.px{image-rendering:pixelated;background-repeat:no-repeat;background-size:100% 100%}
+[data-room],[data-caw]{cursor:pointer}
+.g[data-room]:hover,.px[data-room]:hover{filter:brightness(1.5) drop-shadow(0 0 6px #fff)}
+.site-link{color:#00f;text-decoration:underline}
+.site-link:hover{color:#f0f;background:#ff0}
+
+/* tiled backgrounds */
+@keyframes drift{to{background-position:var(--tx,100px) var(--ty,100px)}}
+.dr{animation:drift var(--sp,40s) linear infinite}
+.b-stars{background:radial-gradient(1px 1px at 20px 30px,#fff,transparent),radial-gradient(1.5px 1.5px at 90px 70px,#ff0,transparent),radial-gradient(1px 1px at 150px 120px,#51f7ff,transparent),radial-gradient(2px 2px at 60px 160px,#fff,transparent),radial-gradient(1px 1px at 120px 20px,#ff6699,transparent),#05010f;background-size:180px 200px;--tx:180px;--ty:200px;--sp:70s}
+.b-hearts{background:radial-gradient(circle,#ff6699 7px,transparent 8px) 0 0/44px 44px,radial-gradient(circle,#fff 2px,transparent 3px) 22px 22px/44px 44px,#ff0098;--tx:44px;--ty:44px;--sp:6s}
+.b-void{background:repeating-linear-gradient(45deg,#34011f 0 22px,#11041f 22px 44px);--tx:62px;--ty:0;--sp:5s}
+.b-parch{background:repeating-linear-gradient(90deg,transparent 0 58px,#b8742a 58px 64px),repeating-linear-gradient(0deg,#fec36c 0 120px,#8a4b14 120px 130px);}
+.b-lav{background:radial-gradient(circle,#000 6px,transparent 7px) 0 0/52px 52px,#9f97fa;--tx:52px;--ty:52px;--sp:8s}
+.b-hazard{background:repeating-linear-gradient(-45deg,#48c42c 0 30px,#111 30px 60px);--tx:85px;--ty:0;--sp:4s}
+.b-ess{background:repeating-linear-gradient(90deg,#000 0 60px,#e60026 60px 120px)}
+.b-water{background:radial-gradient(circle at 50% 0,transparent 14px,#51f7ff 15px 17px,transparent 18px) 0 0/50px 25px,#676bfb;--tx:50px;--ty:0;--sp:3s}
+.b-check{background:conic-gradient(#51f7ff 25%,#fff 0 50%,#51f7ff 0 75%,#fff 0) 0 0/64px 64px}
+.b-yel{background:radial-gradient(circle,#ff0098 5px,transparent 6px) 0 0/34px 34px,#ff0}
+.b-rainbow{background:linear-gradient(90deg,#f00,#f90,#ff0,#0f0,#0ff,#00f,#f0f,#f00) 0 0/480px 100%;--tx:480px;--ty:0;--sp:6s}
+.b-night{background:radial-gradient(1.5px 1.5px at 30px 40px,#fff,transparent),radial-gradient(1px 1px at 110px 100px,#ff0,transparent),radial-gradient(1px 1px at 170px 20px,#fff,transparent),#11041f;background-size:200px 160px;--tx:200px;--ty:160px;--sp:90s}
+
+/* animations */
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes bob{0%,100%{transform:translateY(0) rotate(var(--r,0deg))}50%{transform:translateY(-14px) rotate(var(--r,0deg))}}
+@keyframes blink{0%,49%{opacity:1}50%,100%{opacity:0}}
+@keyframes twinkle{0%,100%{opacity:1;scale:1}50%{opacity:.25;scale:.6}}
+@keyframes floatr{0%{translate:-30px 0}50%{translate:30px -10px}100%{translate:-30px 0}}
+@keyframes marq{from{transform:translateX(100%)}to{transform:translateX(-100%)}}
+@keyframes rbw{to{background-position:300% 0}}
+@keyframes shake{0%,100%{rotate:-3deg}50%{rotate:3deg}}
+.a-spin{animation:spin var(--d,6s) linear infinite var(--l,0s)}
+.a-bob{animation:bob var(--d,2s) ease-in-out infinite var(--l,0s)}
+.a-blink{animation:blink var(--d,1s) steps(1) infinite var(--l,0s)}
+.a-twinkle{animation:twinkle var(--d,1.6s) ease-in-out infinite var(--l,0s)}
+.a-float{animation:floatr var(--d,5s) ease-in-out infinite var(--l,0s)}
+.a-shake{animation:shake var(--d,.6s) ease-in-out infinite var(--l,0s)}
+
+/* text treatments */
+.t{line-height:1.15}
+.t-glitter{font:900 38px "Comic Neue","Comic Sans MS",cursive;background:linear-gradient(90deg,#f0f,#ff0,#0ff,#f0f,#ff0,#0ff,#f0f) 0 0/300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-stroke:1px #000;animation:rbw 3s linear infinite}
+.t-word{font:900 76px Impact,"Arial Black",sans-serif;color:#ff0;text-shadow:1px 1px #f0f,2px 2px #f0f,3px 3px #f0f,4px 4px #f0f,5px 5px #f0f,6px 6px #f0f,7px 7px #00f,8px 8px #00f,9px 9px #00f;letter-spacing:2px}
+.t-comic{font:700 20px "Comic Neue","Comic Sans MS",cursive}
+.t-court{font:16px "Courier New",monospace}
+.t-lcd{font:30px VT323,"Courier New",monospace;letter-spacing:2px}
+.t-px{font:12px "Press Start 2P","Courier New",monospace;line-height:1.7}
+.t-big{font-size:34px;font-weight:bold}
+.t-sm{font-size:11px}
+.t-sp{letter-spacing:9px}
+.bx-y{background:#ff0;color:#000;border:3px ridge #f60;padding:8px 12px}
+.bx-k{background:#000;color:#ff0;border:3px double #f0f;padding:8px 12px}
+.bx-w{background:#fff;color:#000;border:2px solid #000;padding:8px 12px}
+.bx-p{background:#fcf;color:#609;border:3px dashed #f0f;padding:8px 12px}
+.bx-c{background:#0ff;color:#006;border:3px outset #0aa;padding:8px 12px}
+.bx-g{background:#cfc;color:#030;border:3px groove #0a0;padding:8px 12px}
+.bx-r{background:#900;color:#ffd;border:3px ridge #f66;padding:8px 12px}
+.bx-b{background:#fff;color:#000;padding:6px}
+.neon{color:#0f0;text-shadow:0 0 6px #0f0,0 0 14px #0f0;background:#000;padding:4px 10px}
+
+/* era furniture */
+.burst{width:96px;height:96px;background:#f00;color:#ff0;font:900 22px Impact,sans-serif;display:flex;align-items:center;justify-content:center;text-align:center;clip-path:polygon(50% 0,61% 15%,79% 8%,80% 27%,98% 32%,87% 48%,100% 62%,82% 69%,85% 88%,66% 84%,50% 100%,36% 85%,18% 90%,19% 70%,0 62%,12% 47%,2% 31%,20% 27%,21% 9%,40% 15%);animation:spin 8s linear infinite}
+.burst span{display:block;animation:spin 8s linear infinite reverse;line-height:1}
+.uc{width:340px;background:repeating-linear-gradient(-45deg,#ff0 0 16px,#000 16px 32px);padding:10px;text-align:center}
+.uc div{background:#000;color:#ff0;font:700 15px "Courier New",monospace;padding:6px}
+.award{width:130px;height:130px;border-radius:50%;background:radial-gradient(circle,#ff0 0 30%,#fc0 30% 60%,#a60 60% 66%,#fc0 66%);border:4px double #630;color:#300;font:900 13px "Times New Roman",serif;display:flex;align-items:center;justify-content:center;text-align:center;padding:14px}
+.badge88{border:2px outset #ccc;background:#c0c0c0;color:#000;font:11px Arial,sans-serif;padding:3px 8px;text-align:center}
+.counter{background:#000;border:3px inset #888;padding:6px 10px;color:#0f0;font:34px VT323,monospace;letter-spacing:5px}
+.ribbon-row{display:inline-block;background:#c0c0c0;border:2px outset #fff;padding:4px 10px;color:#000;font:13px Arial,sans-serif}
+.win{background:#c0c0c0;border:3px outset #fff;padding:3px;color:#000;box-shadow:4px 4px 0 #000}
+.win .wt{background:linear-gradient(90deg,#000080,#1084d0);color:#fff;font:700 13px Arial,sans-serif;padding:3px 6px;display:flex;justify-content:space-between}
+.win .wb{background:#fff;padding:8px;border:2px inset #888;margin-top:3px}
+table.calc td{padding:2px}
+table.calc button{width:42px;height:32px;font:700 14px Arial;background:#c0c0c0;border:2px outset #fff;cursor:pointer}
+table.calc button:active{border-style:inset}
+#cdisp{width:100%;background:#9fb59a;border:2px inset #666;font:28px VT323,monospace;text-align:right;padding:2px 6px;color:#031;min-height:36px}
+
+/* ribbon dividers */
+.rib{position:relative;height:56px;overflow:hidden;border-top:3px solid #000;border-bottom:3px solid #000}
+.rib i{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:#000;color:#ff0;font:700 22px "Times New Roman",serif;font-style:normal;padding:2px 22px;border:3px double #ff0;white-space:nowrap}
+.r-stars{background:#00f radial-gradient(circle,#ff0 3px,transparent 4px) 0 0/28px 28px}
+.r-check{background:conic-gradient(#000 25%,#fff 0 50%,#000 0 75%,#fff 0) 0 0/56px 56px}
+.r-rain{background:linear-gradient(0deg,#f00 0 14%,#f90 0 28%,#ff0 0 42%,#0f0 0 57%,#0cf 0 71%,#00f 0 85%,#90f 0)}
+.r-bub{background:radial-gradient(circle,transparent 8px,#fff 9px 11px,transparent 12px) 0 0/30px 30px,#06c}
+.r-dia{background:linear-gradient(45deg,#f0f 25%,transparent 25% 75%,#f0f 75%) 0 0/40px 40px,linear-gradient(45deg,#f0f 25%,#0f0 25% 75%,#f0f 75%) 20px 20px/40px 40px}
+.r-zig{background:linear-gradient(135deg,#ff0 25%,transparent 25%) -20px 0/40px 40px,linear-gradient(225deg,#ff0 25%,transparent 25%) -20px 0/40px 40px,#c00}
+
+/* footer: the one sober surface */
+footer{background:#f4f3ef;color:#222;font:15px/1.6 system-ui,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;padding:56px 0 80px}
+footer .in{width:640px;margin:0 auto}
+footer h2{font-size:15px;margin:0 0 14px;letter-spacing:.02em}
+footer p{margin:0 0 12px}
+footer a{color:#222;text-decoration:underline;margin-right:14px}
+footer small{color:#777}
+
+/* CATSCAPE NAVIGATOR 2.0 */
+#cat{position:fixed;inset:0;z-index:1000;display:none;background:rgba(0,0,0,.55);align-items:center;justify-content:center}
+#cat.on{display:flex}
+#win{width:min(920px,94vw);height:min(660px,88vh);background:#c0c0c0;border:3px outset #fff;box-shadow:8px 8px 0 #000;display:flex;flex-direction:column;color:#000;font:13px Arial,Helvetica,sans-serif}
+#win .title{background:linear-gradient(90deg,#000080,#1084d0);color:#fff;padding:3px 6px;display:flex;justify-content:space-between;align-items:center;font-weight:bold}
+#win .title button{width:22px;height:20px;font:700 12px Arial;border:2px outset #fff;background:#c0c0c0;cursor:pointer;padding:0}
+#tabs{display:flex;gap:2px;padding:4px 4px 0;background:#b0b0b0}
+#tabs button{font:12px Arial;padding:4px 12px;border:2px outset #fff;border-bottom:0;background:#c0c0c0;cursor:pointer}
+#tabs button.on{background:#fff;font-weight:bold}
+#tool{display:flex;gap:6px;align-items:center;padding:4px;border-bottom:2px groove #888}
+#tool button{font:12px Arial;border:2px outset #fff;background:#c0c0c0;padding:3px 8px;cursor:pointer}
+#addr{flex:1;background:#fff;border:2px inset #888;padding:3px 6px;font:12px "Courier New",monospace;white-space:nowrap;overflow:hidden}
+#loader{font-size:24px;animation:spin 1s linear infinite;display:inline-block}
+#view{flex:1;background:#fff;border:2px inset #666;margin:4px;overflow:auto;position:relative}
+#view::-webkit-scrollbar{width:18px;background:repeating-conic-gradient(#c0c0c0 0 25%,#fff 0 50%) 0 0/4px 4px}
+#view::-webkit-scrollbar-thumb{background:#c0c0c0;border:2px outset #fff}
+#page{padding:18px 26px;font-family:"Times New Roman",serif;font-size:18px;line-height:1.35;color:#000;min-height:100%}
+#status{display:flex;justify-content:space-between;padding:3px 8px;border-top:2px groove #888;font-size:12px}
+#popup{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:360px;background:#c0c0c0;border:3px outset #fff;box-shadow:5px 5px 0 #000;display:none;z-index:5}
+#popup.on{display:block}
+#popup .wt{background:#000080;color:#fff;padding:3px 6px;font-weight:bold}
+#popup p{padding:14px;margin:0;font-size:14px}
+#popup button{margin:0 0 12px 140px;padding:3px 20px;font:13px Arial;border:2px outset #fff;background:#c0c0c0}
+.pg h1{font-size:34px;margin:0 0 8px;color:#609}
+.pg h2{font-size:22px;color:#c00;margin:18px 0 6px}
+.pg hr{border:0;height:6px;background:linear-gradient(90deg,#f00,#f90,#ff0,#0f0,#0cf,#00f,#90f)}
+.pg .note{background:#ffc;border:1px solid #990;padding:6px 10px;margin:6px 0;font-family:"Comic Neue","Comic Sans MS",cursive}
+.pg .fine{font-size:12px;color:#555}
+.pg ul{margin:6px 0 6px 22px;padding:0}
+
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important}}
+</style>
+</head>
+<body>
+
+<div id="controls">
+  <button id="snd" title="sound on/off" aria-label="Toggle soundtrack">🔇</button>
+  <button id="soc" title="say hi" aria-label="Say hi" data-room="mail">✉️</button>
+</div>
+
+<main id="world"></main>
+
+<footer>
+  <div class="in">
+    <h2>Sonny's World</h2>
+    <p>Sonny's World is a web-collage of text, pictures and noise assembled from one house in Wagga Wagga, in the manner of the old GeoCities homepages (1994–2009). It is a love letter to the Internet of old, and a tribute to Cameron's World.</p>
+    <p>Collected and assembled by Sonny. Built with Claude. Music: one cheerful looping MIDI-style tune, synthesised live in your browser. Everything here is served from this page; there is no other archive.</p>
+    <p><a data-room="press">Press</a><a data-room="disclaimer">Disclaimer</a><a data-room="soundtrack">Download soundtrack</a><a data-room="mail">Contact</a></p>
+    <p><small>Best viewed on a big screen with a mouse and five unhurried minutes.</small></p>
+  </div>
+</footer>
+
+<!-- CATSCAPE NAVIGATOR 2.0 -->
+<div id="cat" role="dialog" aria-modal="true" aria-label="Catscape Navigator 2.0">
+  <div id="win">
+    <div class="title"><span>🐱 Catscape Navigator 2.0 — <span id="ttl">Welcome</span></span><button id="x" aria-label="Close">X</button></div>
+    <div id="tabs"><button data-tab="what">What is Catscape?</button><button data-tab="up">Upgrades</button><button data-tab="meow">Meow</button></div>
+    <div id="tool"><button id="back">◀ Back to page</button><span>Original Address:</span><div id="addr"></div><span id="loader">🌐</span></div>
+    <div id="view"><div id="page" class="pg"></div>
+      <div id="popup"><div class="wt">Catscape Upgrade Centre</div><p>Catscape is the most advanced browser available. Version 2.324.46948633454654564646</p><button id="pok">OK</button></div>
+    </div>
+    <div id="status"><span id="stat">Document: Done.</span><span>Archived by the Family Wayback Machine</span></div>
+  </div>
+</div>
+
+<script>
+"use strict";
+/* ---------- helpers ---------- */
+const $=(s,r=document)=>r.querySelector(s);
+const rng=a=>()=>{a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296};
+const pick=(r,arr)=>arr[Math.floor(r()*arr.length)];
+const rb=s=>[...s].map((c,i)=>`<span style="color:hsl(${i*47%360} 100% 50%)">${c}</span>`).join('');
+const room=(id,label)=>`<a class="site-link" data-room="${id}">${label}</a>`;
+
+/* ---------- pixel art (drawn to canvas, shown as crunchy background-images) ---------- */
+const PAL={K:'#1d1d2b',P:'#5a4a8a',W:'#fff',Y:'#ffe600',O:'#ff8a00',R:'#e60026',B:'#2a2aff',G:'#19c200',N:'#7a4a1e',C:'#00e5ff',M:'#ff00aa'};
+const PIX={
+ crow:["....KKK.....","...KKKKK....","..KKWKKKYY..","..KKKKKK....","...KKKKKK...",".KKKPKKKKK..","KKKKKKKKKKK.",".KKKKKKKKK..","...KKKKK....","....O..O....","...OO.OO...."],
+ heart:[".RR..RR.","RRRRRRRR","RRWRRRRR","RRRRRRRR",".RRRRRR.","..RRRR..","...RR..."],
+ star:["....Y....","....Y....","...YYY...","YYYYYYYYY",".YYYYYYY.","..YYYYY..","..YYYYY..",".YYY.YYY.",".YY...YY."],
+ flame:["...R....","..RR..R.","..RRR.RR",".RROORRR",".RROOORR","RROOYOOR","RROYYYOR",".ROYYYO.","..OOYO.."],
+ book:[".BBBBBBBB.","BRRRRRRRBB","BRWWWWWRBW","BRRRRRRRBW","BRWWWWWRBW","BRRRRRRRBW","BBBBBBBBBW",".WWWWWWWW."],
+ raven:["..K...K.....","..KK.KK.....","..KKKKK.....",".KKWKWKK....",".KKKNNKK....","..KKNNK.....","...KKKK.....","..KKKKKKK...",".KKKNKNKKK..",".KKK...KKK..","KKK.....KKK."],
+ ball:["..NNNN..",".NWNNWN.","NNWNNWNN","NWWWWWWN","NNWNNWNN",".NWNNWN.","..NNNN.."],
+ gem:["..CCCC..",".CWCCCC.","CWCCCCCC","CCCCCCCM",".CCCCCM.","..CCMM..","...MM..."]
+};
+const _c={};
+function pix(name,scale){const k=name+scale;if(_c[k])return _c[k];const g=PIX[name],c=document.createElement('canvas');c.width=g[0].length*scale;c.height=g.length*scale;const x=c.getContext('2d');g.forEach((row,y)=>[...row].forEach((ch,i)=>{if(PAL[ch]){x.fillStyle=PAL[ch];x.fillRect(i*scale,y*scale,scale,scale)}}));return _c[k]={u:c.toDataURL(),w:c.width,h:c.height}}
+
+/* ---------- era furniture snippets ---------- */
+const NEW=t=>`<div class="burst"><span>${t||'NEW!'}</span></div>`;
+const UC=`<div class="uc"><div>🚧 THIS PAGE IS ALWAYS CHANGING 🚧</div></div>`;
+const AWARD=(a,b)=>`<div class="award"><span>${a}<br>★<br>${b}</span></div>`;
+const BV=t=>`<div class="badge88">${t}</div>`;
+let hits=4217;try{hits=+(localStorage.getItem('sw_hits')||4216)+1;localStorage.setItem('sw_hits',hits)}catch(e){}
+const COUNTER=`<div class="t-sm" style="color:#ff0">You are visitor number</div><div class="counter">${String(hits).padStart(6,'0')}</div>`;
+const CALC=`<div class="win" style="width:230px"><div class="wt"><span>Calculator</span><span>_ □ x</span></div><div class="wb" style="background:#c0c0c0;padding:6px"><div id="cdisp">0</div><table class="calc">
+<tr><td><button data-k="sin">sin</button><td><button data-k="cos">cos</button><td><button data-k="tan">tan</button><td><button data-k="π">π</button></tr>
+<tr><td><button data-k="7">7</button><td><button data-k="8">8</button><td><button data-k="9">9</button><td><button data-k="/">÷</button></tr>
+<tr><td><button data-k="4">4</button><td><button data-k="5">5</button><td><button data-k="6">6</button><td><button data-k="*">×</button></tr>
+<tr><td><button data-k="1">1</button><td><button data-k="2">2</button><td><button data-k="3">3</button><td><button data-k="-">−</button></tr>
+<tr><td><button data-k="C">C</button><td><button data-k="0">0</button><td><button data-k="=">=</button><td><button data-k="+">+</button></tr></table></div></div>`;
+
+/* ---------- the sections ---------- */
+/* x is % of the 1280 stage, y is px from section top. c = box class. r = rotation. */
+const SECS=[
+{id:'sky',h:1100,bg:'b-stars',rib:['r-stars','✦ ✦ ✦'],rooms:['sky'],fill:46,
+ spr:['⭐','✨','🌙','🪐','🌟','☄️','🛸','💫','🌠','🔭'],pix:['star','star','gem'],
+ txt:[
+ {x:14,y:70,c:'t-word',h:"Sonny's World",r:-3},
+ {x:30,y:200,c:'t-glitter',h:"~*~ Welcome Welcome Welcome ~*~"},
+ {x:6,y:320,c:'t-comic bx-p',w:300,r:-4,h:"take a wistful gaze into my celestial coffee cup ☕ and tell me what you see"},
+ {x:58,y:300,c:'t-court bx-k',w:330,r:3,h:"I can see Orion from the back verandah if the neighbours turn their light off. This is the best thing about Wagga Wagga."},
+ {x:36,y:440,c:'t-lcd',h:COUNTER},
+ {x:70,y:520,c:'t-comic',w:280,h:`<span style="color:#0ff">Hello! You are standing under the night sky over my house. ${room('sky','Click here to see the stars up close')}</span>`},
+ {x:8,y:600,h:NEW('NEW!'),},
+ {x:20,y:720,c:'t-big t-sp',h:rb("W E L C O M E")},
+ {x:62,y:760,c:'t-court bx-y',w:310,r:-2,h:"Wagga Wagga NSW, Australia, Southern Hemisphere, Earth, The Solar System, The Milky Way, The Universe."},
+ {x:4,y:880,c:'t-px',w:340,h:`<span style="color:#0f0">Please scroll down.<br>It is a long way down.<br>It is worth it!!!</span>`},
+ {x:44,y:960,h:BV('Best viewed at 1024x768<br>in Times New Roman')},
+ {x:80,y:980,h:AWARD('COOL SITE','OF THE WEEK')}
+ ],
+ marq:"★ ★ ★  WELCOME TO MY NET HOME  ★ ★ ★  sign my guestbook  ★ ★ ★  please report any broken links to me  ★ ★ ★"},
+
+{id:'door',h:1000,bg:'b-hearts',rib:['r-check','Welcome to my net home'],rooms:['door'],fill:40,
+ spr:['💖','🌹','🏡','🦋','💌','🌸','🍪','💕','🧸'],pix:['heart','heart','flame'],
+ txt:[
+ {x:6,y:50,c:'t-glitter',h:"♥ Welcome to my net home ♥"},
+ {x:4,y:150,c:'t-comic bx-w',w:330,r:-3,h:`Hello! Welcome to my net home. Please wipe your feet. Take off your shoes if you like, mind the dog.<br><br>${room('door','Come in the front door &gt;&gt;')}`},
+ {x:40,y:140,c:'bx-b',h:`<table border="2" cellpadding="6" style="background:#ffc;color:#000;font:15px 'Comic Neue','Comic Sans MS'"><tr><td colspan="2" align="center"><b>ABOUT ME</b></td></tr><tr><td><b>Hobbies:</b></td><td>crows, old books, weird history, making things in the shed, the footy, my kids' worlds</td></tr><tr><td><b>Friends:</b></td><td>Raven the Rottweiler, any crow that will let me</td></tr><tr><td><b>Quote:</b></td><td><i>"i wasnt lost i was exploring"</i></td></tr></table>`},
+ {x:72,y:330,c:'t-comic bx-y',w:290,r:4,h:"Hello ladies and gentlemen — let me tell you my hobbies. Number 1 is everything. Number 2 is running out of time for everything."},
+ {x:10,y:480,c:'t-court bx-k',w:340,h:"Emoticon dictionary:<br>0:-)&nbsp; angel<br>:-{}&nbsp; lipstick<br>@&gt;-`-,--&nbsp; a rose<br>:-D&nbsp; me at the footy"},
+ {x:50,y:560,h:COUNTER},
+ {x:76,y:540,h:NEW('NEW!<br>room')},
+ {x:8,y:720,h:UC},
+ {x:38,y:760,c:'t-comic bx-p',w:360,r:-2,h:"This page is dedicated to my family, who put up with me, and to everyone who ever made a page and then forgot the password."},
+ {x:70,y:800,h:BV('Member of the<br>Wagga Webring ◀ ▶')},
+ {x:46,y:900,c:'t-sm',h:"I wish all of you happy net surfing!!"}
+ ]},
+
+{id:'agartha',h:1100,bg:'b-void',rib:['r-dia','↓ below the crust ↓'],rooms:['agartha'],fill:44,
+ spr:['🐉','🧙','🔮','🏰','⚔️','🧚','🌋','🗝️','📜','🕯️'],pix:['gem','flame','star'],
+ txt:[
+ {x:8,y:50,c:'t-word',h:"AGARTHA",r:2},
+ {x:6,y:190,c:'t-glitter',h:"the campaign worlds"},
+ {x:6,y:290,c:'t-comic bx-k',w:330,r:-2,h:`Beneath the crust, past the Murrumbidgee, past the last light, there is a door. The door is not on any map. ${room('agartha','Enter the hollow earth')}`},
+ {x:44,y:260,c:'t-court bx-r',w:340,h:"Kimberly's Dragons<br>Wizards of the Hollow Level<br>The Fairy Court (do NOT feed them)<br>Castle Wagga: under siege since 1998"},
+ {x:72,y:420,c:'t-px',w:300,h:`<span style="color:#f0f">ROLL FOR<br>INITIATIVE</span>`},
+ {x:10,y:560,c:'t-comic bx-p',w:320,r:3,h:"the dragon is real. i have seen it. it was a lizard on the shed but it was a very big lizard"},
+ {x:46,y:620,h:AWARD('BEST','DRAGON PAGE')},
+ {x:70,y:660,c:'t-court bx-c',w:300,r:-3,h:"Worlds under construction:<br>■ Agartha<br>■ the sunken library<br>■ the inn at the end of Baylis St"},
+ {x:12,y:820,h:UC},
+ {x:50,y:850,c:'t-lcd',h:`<span style="color:#0f0">HP 20/20 &nbsp; MP 44/44</span>`},
+ {x:30,y:960,c:'t-sm',h:"all dragons on this page are used with permission (from the dragons)"}
+ ]},
+
+{id:'books',h:1000,bg:'b-parch',rib:['r-zig','☙ the old books ❧'],rooms:['books'],fill:36,
+ spr:['📚','📖','📜','🕯️','🪶','🔖','🧿','🗺️','🔑'],pix:['book','book','book'],
+ txt:[
+ {x:6,y:50,c:'t-glitter',h:"The Old Books Shelf"},
+ {x:4,y:150,c:'t-court bx-w',w:340,r:-2,h:"Please do not eat near the books.<br>Please do not stack the books more than 4 high.<br>Please report any missing books immediately."},
+ {x:40,y:130,c:'t-comic bx-y',w:360,r:2,h:`I collect the old ones: esoterica, strange histories, field guides with the covers falling off. ${room('books','Browse the shelf')}`},
+ {x:72,y:230,c:'bx-b',h:`<table border="1" cellpadding="4" style="background:#fff;color:#000;font:14px 'Courier New'"><tr><th>TITLE<th>CONDITION<tr><td>The Hollow Earth<td>foxed<tr><td>Birds of Australia<td>spine gone<tr><td>Untitled (mystery)<td>smells good<tr><td>Dolphins: Angles of the sea<td>wet</table>`},
+ {x:8,y:420,c:'t-big',h:`<span style="color:#400;text-shadow:2px 2px #fc0">a book is a door</span>`},
+ {x:50,y:470,c:'t-comic bx-g',w:320,r:-3,h:"Currently reading: 4 books. Currently finished: 0 books. This is fine."},
+ {x:12,y:620,h:BV('Best viewed with a<br>cup of tea')},
+ {x:36,y:660,h:NEW('NEW<br>old book!')},
+ {x:66,y:640,c:'t-court bx-k',w:300,h:"smell of old paper: ★★★★★<br>smell of new paper: ★★<br>smell of a dog on the old paper: ★★★★"},
+ {x:8,y:800,h:UC},
+ {x:44,y:860,c:'t-sm',h:"If you have a copy of anything weird and old please email me!!!"}
+ ]},
+
+{id:'crows',h:1100,bg:'b-lav',rib:['r-bub','🪶 caw caw 🪶'],rooms:['crows'],fill:44,
+ spr:['🪶','🐦‍⬛','🌙','🌑','🦴','🐕','🍖','🌳'],pix:['crow','crow','raven','crow','raven'],
+ txt:[
+ {x:6,y:50,c:'t-word',h:"CROWS",r:-2},
+ {x:6,y:190,c:'t-glitter',h:"&amp; Raven the Rottweiler"},
+ {x:6,y:300,c:'t-comic bx-w',w:330,r:-2,h:`Crows remember faces. Mine remember mine. They know the ute, the dog, the bag of dog biscuits. ${room('crows','Read more crow facts')}`},
+ {x:40,y:280,c:'bx-k t-court',w:350,r:2,h:"CROW FACTS:<br>★ a group of crows is a murder<br>★ they hold funerals<br>★ they bring gifts (my fence has a button, a key, 3 beads)<br>★ they judge you"},
+ {x:72,y:400,h:`<div class="t-comic bx-y" data-caw style="width:230px;text-align:center">Click here to restart the crow 🔊<br><small>(turn your sound on!)</small></div>`},
+ {x:8,y:560,c:'t-comic bx-p',w:340,r:3,h:"RAVEN THE ROTTWEILER<br>Age: forever<br>Likes: me, biscuits, being the boss<br>Dislikes: the vacuum, crows (loves crows)"},
+ {x:46,y:620,h:AWARD('GOOD','BOY AWARD')},
+ {x:66,y:660,c:'t-lcd',h:`<span style="color:#fff;background:#000;padding:4px 10px">CAW: ${String(hits%900+11).padStart(4,'0')}</span>`},
+ {x:10,y:820,h:UC},
+ {x:48,y:860,c:'t-court bx-c',w:320,h:"visitors who fed the crows today: 3<br>visitors who were told off by the crows: 3"},
+ {x:78,y:880,h:NEW('NEW!<br>crow')}
+ ]},
+
+{id:'feral',h:1000,bg:'b-hazard',rib:['r-check','Feral Dimension Workshop'],rooms:['feral'],fill:36,
+ spr:['🔧','🪚','🔨','⚙️','🧔','🛢️','🔥','🪵','🧴','⚡'],pix:['flame','flame','gem'],
+ txt:[
+ {x:6,y:50,c:'t-word',h:"FERAL<br>DIMENSION",r:-2},
+ {x:38,y:90,c:'t-comic bx-y',w:320,r:2,h:`This is the workshop. It smells like sawdust and cedarwood. Things get made in here. Sometimes they get fixed. ${room('feral','Open the shed door')}`},
+ {x:70,y:160,c:'bx-k t-court',w:310,h:"WORKSHOP RULES<br>1. Tools go back where they came from<br>2. Wear the glasses<br>3. Beard oil is not a snack"},
+ {x:6,y:380,c:'t-glitter',h:"the beard oil"},
+ {x:6,y:470,c:'t-comic bx-w',w:330,r:-3,h:"Small batch beard oil, made in the shed in Wagga. Smells like a forest, a campfire and a library all at once. Your face will thank you. Your dog will sniff you."},
+ {x:42,y:520,h:AWARD('MADE','IN THE SHED')},
+ {x:60,y:560,c:'t-lcd',h:`<span style="color:#0f0;background:#000;padding:4px 10px">STOCK: LOW &nbsp;MOOD: HIGH</span>`},
+ {x:8,y:720,h:UC},
+ {x:48,y:740,h:NEW('NEW<br>scent!')},
+ {x:66,y:800,c:'t-court bx-p',w:320,r:2,h:"Currently in the shed: 3 half-finished projects, 1 finished project (shhh), 2 crows on the roof"}
+ ]},
+
+{id:'ess',h:1000,bg:'b-ess',rib:['r-stars','★ UP THE BOMBERS ★'],rooms:['essendon'],fill:34,
+ spr:['🏉','🏆','📣','🍺','🥧','🧣','🔥','🦅'],pix:['ball','ball','flame'],
+ txt:[
+ {x:6,y:50,c:'t-word',h:"ESSENDON",r:2},
+ {x:6,y:190,c:'t-glitter',h:"the red and black room"},
+ {x:6,y:300,c:'t-comic bx-w',w:350,r:-2,h:`Welcome to the Essendon room. We have suffered. We have hope. We have a pie. ${room('essendon','Enter the rooms of the Bombers')}`},
+ {x:42,y:280,c:'bx-k t-court',w:340,h:"LADDER POSITION<br>this year: <i>ask me in September</i><br>last year: <i>we do not talk about last year</i>"},
+ {x:72,y:400,c:'t-comic bx-y',w:290,r:3,h:"Members of this page agree: it was a goal."},
+ {x:8,y:560,c:'t-px',w:340,h:`<span style="color:#fff;text-shadow:2px 2px #000">COME ON<br>YOU BOMBERS</span>`},
+ {x:46,y:620,h:AWARD('LOYAL','SUPPORTER')},
+ {x:66,y:660,h:COUNTER},
+ {x:10,y:780,h:UC},
+ {x:52,y:800,h:NEW('GO<br>BOMBERS')},
+ {x:74,y:830,h:BV('Optimised for<br>Saturday arvo')}
+ ]},
+
+{id:'wagga',h:1100,bg:'b-water',rib:['r-bub','~ Murrumbidgee ~'],rooms:['wagga'],fill:44,
+ spr:['🐟','🌊','🦆','🐸','🚣','🌉','🌾','🐠','🦢','🌅'],pix:['gem','star','heart'],
+ txt:[
+ {x:6,y:50,c:'t-word',h:"WAGGA<br>WAGGA",r:-2},
+ {x:42,y:100,c:'t-glitter',h:"&amp; the Murrumbidgee"},
+ {x:42,y:200,c:'t-comic bx-w',w:360,r:2,h:`The name means "place of many crows". I did not make that up. The river goes past the end of everything. ${room('wagga','Walk down to the river')}`},
+ {x:6,y:380,c:'t-court bx-y',w:340,h:"Wagga Wagga, NSW<br>pop. enough<br>things to do: walk by the river, look at the sky, wave at strangers"},
+ {x:46,y:420,c:'t-big',h:`<span style="color:#fff;text-shadow:3px 3px #006">the Riverina is a feeling</span>`},
+ {x:70,y:520,c:'t-comic bx-c',w:300,r:-3,h:"Wave to a stranger = +1 neighbour"},
+ {x:8,y:640,h:AWARD('FRIENDLY','TOWN')},
+ {x:36,y:680,h:NEW('NEW<br>mud')},
+ {x:60,y:700,c:'t-court bx-k',w:320,h:"river level today: <span style='color:#0f0'>ok</span><br>duck count: 12<br>mosquito count: do not ask"},
+ {x:10,y:880,h:UC},
+ {x:52,y:920,c:'t-sm',h:"Best viewed from the Wollundry Lagoon bench at sunset"}
+ ]},
+
+{id:'sprites',h:1000,bg:'b-check',rib:['r-rain','⚡ the sprite gallery ⚡'],rooms:['sprites'],fill:48,
+ spr:['👾','🕹️','🎮','💾','📟','🖥️','🤖','🎲','📼','💿'],pix:['crow','heart','star','flame','book','raven','ball','gem'],
+ txt:[
+ {x:6,y:50,c:'t-glitter',h:"~ the sprite gallery ~"},
+ {x:6,y:150,c:'t-comic bx-w',w:350,r:-2,h:`Little pictures I and the kids made. Pixel by pixel. Every one of them is a small excavated artefact. ${room('sprites','Open the whole gallery')}`},
+ {x:44,y:120,h:CALC},
+ {x:70,y:140,c:'t-court bx-k',w:310,r:2,h:"the calculator really works!!<br>try 3 × 7 = or pi"},
+ {x:8,y:380,c:'t-px',w:360,h:`<span style="color:#f0f">1 PIXEL = 1 PROMISE</span>`},
+ {x:46,y:430,c:'t-comic bx-y',w:300,r:-3,h:"Some pictures were drawn at 2am. The rest were drawn at 3am."},
+ {x:72,y:500,h:COUNTER},
+ {x:6,y:620,h:UC},
+ {x:44,y:640,h:AWARD('PIXEL','PERFECT')},
+ {x:66,y:660,c:'t-court bx-p',w:310,h:"gallery rules:<br>please do not right-click and save<br>(ok you can)"},
+ {x:12,y:800,h:BV('Optimised for<br>800 x 600')},
+ {x:40,y:830,h:NEW('NEW!<br>sprites')}
+ ]},
+
+{id:'guest',h:1000,bg:'b-yel',rib:['r-dia','✎ sign my guestbook ✎'],rooms:['guest'],fill:36,
+ spr:['✏️','💌','📮','📝','💬','😀','👍','🍰','🎈'],pix:['heart','star','heart'],
+ txt:[
+ {x:6,y:50,c:'t-word',h:"GUESTBOOK",r:-2},
+ {x:6,y:190,c:'t-glitter',h:"please sign!!!"},
+ {x:6,y:290,c:'t-comic bx-k',w:360,r:-2,h:`You are guest number ${hits}. Everyone who ever walked through the door is on the wall. ${room('guest','Read the whole guestbook')}`},
+ {x:44,y:160,c:'bx-b',w:300,r:3,h:`<div class="pg" style="font:16px 'Comic Neue','Comic Sans MS'"><b>Anonymous Crow</b><br>caw caw caw<br><small>– a window ledge</small></div>`},
+ {x:72,y:300,c:'bx-b',w:290,r:-3,h:`<div class="pg" style="font:16px 'Comic Neue','Comic Sans MS'"><b>Raven</b><br>woof (this means welcome)<br><small>– under the table</small></div>`},
+ {x:38,y:480,c:'bx-b',w:320,r:2,h:`<div class="pg" style="font:16px 'Comic Neue','Comic Sans MS'"><b>Someone from the old web</b><br>I came here by webring and I stayed<br><small>– 5 minutes ago</small></div>`},
+ {x:8,y:620,h:AWARD('MOST','LOVED')},
+ {x:42,y:700,c:'t-court bx-p',w:360,h:"Please be kind. This is somebody's house."},
+ {x:74,y:660,h:NEW('SIGN<br>ME')},
+ {x:10,y:820,h:UC},
+ {x:50,y:850,h:`<div class="ribbon-row">◀ prev &nbsp;|&nbsp; Wagga Webring &nbsp;|&nbsp; next ▶</div>`}
+ ]},
+
+{id:'forest',h:1500,bg:'b-rainbow',rib:['r-check','the end is near'],rooms:['forest'],fill:50,
+ spr:['🔗','🕷️','🕸️','🌐','📎','🐇','🕳️','🍄'],pix:['crow','gem'],
+ txt:[
+ {x:6,y:40,c:'t-word',h:"LINKS",r:2},
+ {x:42,y:60,c:'t-glitter',h:"Rabbit Holes!!!"},
+ {x:4,y:200,c:'t-comic bx-w',w:330,r:-1,h:"These are the links I wanted to share. All of them are real. Some of them used to be. Click anywhere — nothing here is a dead end (everything is a dead end)."}
+ ]},
+
+{id:'end',h:1000,bg:'b-night',rib:null,rooms:['farewell'],fill:34,
+ spr:['⭐','🌙','✨','🪐','🌠','🦉','🐦‍⬛','💫'],pix:['crow','star','heart'],
+ txt:[
+ {x:14,y:70,c:'t-glitter',h:"to the end ~"},
+ {x:10,y:200,c:'t-comic bx-y',w:600,r:-1,h:"I am glad to inform you that this site no longer exists. Its the end!!!"},
+ {x:10,y:360,c:'t-court bx-k',w:420,h:"...except the door is open, the light is on and there's a pot of tea.<br>Come back any time."},
+ {x:52,y:330,h:`<div data-room="farewell" style="font-size:210px;line-height:1;cursor:pointer;filter:drop-shadow(0 0 40px #ff0)">🚪</div>`},
+ {x:18,y:620,c:'t-px',h:`<span style="color:#ff0">THANK YOU FOR VISITING<br><br>PLEASE COME AGAIN</span>`},
+ {x:70,y:640,h:COUNTER},
+ {x:34,y:820,h:UC}
+ ]}
+];
+
+const ANIMS=['a-spin','a-bob','a-blink','a-twinkle','a-float','a-shake'];
+function el(tag,cls,css){const e=document.createElement(tag);if(cls)e.className=cls;if(css)e.style.cssText=css;return e}
+
+function build(s,i){
+  const r=rng(i*977+13), sec=el('section','sec','height:'+s.h+'px'), bg=el('div','bg '+s.bg+(['b-stars','b-hearts','b-void','b-lav','b-hazard','b-water','b-rainbow','b-night'].includes(s.bg)?' dr':'')), st=el('div','stage');
+  sec.id=s.id;sec.append(bg,st);
+  // collage fillers: emoji artefacts + pixel sprites
+  for(let k=0;k<s.fill;k++){
+    const g=el('div','g'),sz=18+Math.floor(Math.pow(r(),2)*70);
+    g.textContent=pick(r,s.spr);g.style.fontSize=sz+'px';g.style.left=(r()*96)+'%';g.style.top=(r()*(s.h-80))+'px';
+    const rot=Math.round(r()*50-25);g.style.setProperty('--r',rot+'deg');g.style.transform=`rotate(${rot}deg)`;
+    if(r()<.58){g.classList.add(pick(r,ANIMS));g.style.setProperty('--d',(1+r()*5).toFixed(1)+'s');g.style.setProperty('--l',(-r()*4).toFixed(1)+'s')}
+    if(r()<.34){g.dataset.room=s.rooms[0];g.title=s.id}
+    st.append(g);
+  }
+  const np=10+Math.floor(r()*5);
+  for(let k=0;k<np;k++){
+    const n=pick(r,s.pix),sc=3+Math.floor(r()*5),p=pix(n,sc),d=el('div','px g');
+    d.style.cssText=`width:${p.w}px;height:${p.h}px;background-image:url(${p.u});left:${r()*94}%;top:${r()*(s.h-100)}px`;
+    const rot=Math.round(r()*30-15);d.style.setProperty('--r',rot+'deg');d.style.transform=`rotate(${rot}deg)`;
+    if(r()<.6){d.classList.add(pick(r,['a-bob','a-spin','a-twinkle','a-float','a-shake']));d.style.setProperty('--d',(1.2+r()*4).toFixed(1)+'s');d.style.setProperty('--l',(-r()*3).toFixed(1)+'s')}
+    if(r()<.3)d.dataset.room=s.rooms[0];
+    st.append(d);
+  }
+  // curated fragments
+  s.txt.forEach(t=>{
+    const d=el('div','t '+(t.c||''));d.style.left=t.x+'%';d.style.top=t.y+'px';if(t.w)d.style.width=t.w+'px';
+    if(t.r){d.style.transform=`rotate(${t.r}deg)`}
+    d.innerHTML=t.h;st.append(d);
+  });
+  if(s.marq){const m=el('div','t bx-k','left:0;right:0;top:1030px;overflow:hidden;white-space:nowrap;padding:6px 0;border-left:0;border-right:0');m.innerHTML=`<div style="display:inline-block;font:700 22px 'Courier New',monospace;animation:marq 22s linear infinite">${s.marq}</div>`;sec.append(m);m.style.position='absolute'}
+  // link forest
+  if(s.id==='forest'){
+    const L=["Raven the Rottweiler's Fan Club","Crow Facts (unofficial)","Agartha: the Hollow Earth FAQ","Kimberly's Dragons (mirror)","How to make beard oil in a shed","Closet Vampire Central (not mine)","Essendon: the long road home","Wagga Wagga: place of many crows","The Murrumbidgee Fishing Report","Dolphins, Angles of the Sea","Best viewed at 800x600","Virtual Orion Telescope","The Old Books Shelf, annex","What is a murder of crows?","Dog Biscuit Recipes (NEW!)","Free MIDI: the greatest hits","Click here to see a picture of my shed","Webring: Wagga Webring","Webring: Beard Oil Webring","Awards I won (and gave myself)","(B)asic (I)nstructions (B)efore (L)eaving (E)arth","Hit counter repair kit","My Hotmail address (dead)","Netscape 2.0 download (dead)","The Sunken Library","Poems from the back verandah","Photos of a cloud","Photos of another cloud","A page about my other page","Please sign my other guestbook","Sprite Gallery Vol. 2","Why the dog is the boss","The Fairy Court: complaints","Recipes my nan sent","The Great Wagga Pie Review","Farmers' Almanac, unofficial","Crows I have met: a list","Nothing here, keep scrolling","Cat pages (for cat lovers only!!!)","A page about the page you're on","Bear with me while I fix this","Under construction since 1998","Updates: Friday 20th August — production of the page commenced","The Sleeping Giant's Guide to Sleep","Stargazing for lazy people","What the kids built today","Kids' World (they let me link it)","Soundtrack: Tune No. 1","Soundtrack: Tune No. 1 (dub version)","Soundtrack: Tune No. 1 (acapella cover)","Soundtrack: Tune No. 1 (Carpentry Mix)","Hall of Fame: you!","Top 10 reasons to visit Wagga","Top 11 reasons (the 11th is the river)","Lost: one button, one key, 3 beads (see crow)","E-pals wanted (crow lovers only)","A page for people who like pages","Tips for a better tomorrow","Mirror of the mirror","Return to top (just scroll up)"];
+    const f=el('div','t','left:2%;top:420px;width:96%;text-align:justify;line-height:1.5;word-spacing:3px');
+    const cols=['#00f','#a0a','#c00','#006','#030','#609','#e60','#000'];
+    const rr=rng(404);
+    f.innerHTML=[...L,...L.slice(0,28)].map((n,k)=>{const fs=11+Math.floor(rr()*17);return `<a class="site-link" data-room="${n}" style="font-size:${fs}px;font-weight:${rr()<.2?'bold':'normal'};color:${cols[k%cols.length]};background:rgba(255,255,255,.${6+Math.floor(rr()*3)});padding:0 3px;margin:2px 0;display:inline-block">${n}</a>`}).join(' &nbsp;|&nbsp; ');
+    st.append(f);
+  }
+  return [sec,s.rib];
+}
+const W=$('#world');
+SECS.forEach((s,i)=>{
+  const [sec,rib]=build(s,i);W.append(sec);
+  if(rib){const d=el('div','rib '+rib[0]);d.innerHTML=`<i>${rib[1]}</i>`;W.append(d)}
+});
+
+/* ---------- ROOMS (the pages that open inside Catscape) ---------- */
+// NOTE: guestbook entries below are placeholders in the right voice. Swap in real notes.
+const R={
+ sky:{u:'http://www.geocities.com/Area51/Cosmos/4217/sky.html',h:`<h1>The Night Sky Over My House</h1><hr><p>Take a wistful gaze into my celestial coffee cup. From the back verandah I can see: <b>Orion</b> (winter), <b>the Southern Cross</b> (always, that's the best one), <b>the Magellanic clouds</b> (if the neighbours turn their light off), and one very dedicated aeroplane.</p><div class="note">Warning: stargazing is addictive. You will lie in the grass. The dog will come and lie on you.</div><p class="fine">best viewed in the dark.</p>`},
+ door:{u:'http://www.geocities.com/Heartland/Meadows/1998/index.html',h:`<h1>Welcome to My Net Home!</h1><hr><p>Hello! Come on in. The kettle's on. This is the page about the house and the people in it. There's a dog. The dog's name is Raven and she is the boss.</p><h2>House Rules</h2><ul><li>Please don't break anything</li><li>Please report any crows on the roof immediately (they know)</li><li>Take your shoes off if you like</li></ul><p class="fine">This page is always changing.</p>`},
+ agartha:{u:'http://www.geocities.com/Area51/Dragons/Agartha/hollow.html',h:`<h1>Agartha, Level One</h1><hr><p>They say there is a place under the world where the light comes from inside. A civilisation of the old ones, a sun in the middle, a door that isn't on any map. I run games there. The party is made of friends who keep forgetting their dice.</p><h2>Campaign Worlds</h2><ul><li>Agartha (the hollow earth)</li><li>The Sunken Library</li><li>Castle Wagga: besieged</li><li>The Fairy Court (do not feed)</li></ul><div class="note">DM tip: if in doubt, add a dragon. If still in doubt, add a bigger dragon.</div>`},
+ books:{u:'http://www.geocities.com/Athens/Library/books.html',h:`<h1>The Old Books Shelf</h1><hr><p>A book is a door. Here are some doors:</p><ul><li><i>The Hollow Earth</i> (foxed, smells like a cave)</li><li><i>Birds of Australia</i> (spine gone, wings intact)</li><li><i>A Treatise on Crows</i> (I have not found this yet but I am looking)</li><li>Anything weird. Anything old. Anything with a map in the front.</li></ul><div class="note">If you have something odd and old, please email me!!!</div>`},
+ crows:{u:'http://www.geocities.com/Heartland/Hills/Crows/facts.html',h:`<h1>Crows!!!</h1><hr><p>Crows know your face. They hold funerals. They bring gifts (I have a button, a key and three beads). Wagga Wagga means "place of many crows" and I have seen it proven.</p><h2>Raven the Rottweiler</h2><p>Named after the bird. Does not know this. Loves the crows. The crows tolerate her.</p><div class="note">Please do not feed the crows chocolate. Dog biscuits are ok.</div>`},
+ feral:{u:'http://www.geocities.com/Colosseum/Workshop/feral.html',h:`<h1>Feral Dimension Workshop</h1><hr><p>This is where things get made, mended, and occasionally set on fire (small). The beard oil starts here: cedarwood, a bit of pine, something smoky. Small batches. Brown bottles. Real smells.</p><h2>On the Bench</h2><ul><li>3 half-finished projects</li><li>1 finished project (secret)</li><li>1 mug of cold tea</li></ul><p class="fine">The workshop is a free country. Mind your head.</p>`},
+ essendon:{u:'http://www.geocities.com/Colosseum/Field/bombers.html',h:`<h1>The Essendon Room</h1><hr><p>Red and black. Hope and heartbreak. Pies. This is a page about a footy club and what it does to a person over a lifetime.</p><ul><li>Favourite memory: too many to list</li><li>Least favourite memory: ask me in September</li></ul><div class="note">Best viewed in a scarf.</div>`},
+ wagga:{u:'http://www.geocities.com/TheTropics/Riverina/wagga.html',h:`<h1>Wagga Wagga &amp; the Murrumbidgee</h1><hr><p>The name means "place of many crows" (or so they say). The river goes through the middle of it and the whole town leans a little towards it. There's a lagoon, a lot of sky, and people who wave from the ute.</p><div class="note">Local tip: if you can see the river, you're not lost.</div>`},
+ sprites:{u:'http://www.geocities.com/SiliconValley/Pixels/gallery.html',h:`<h1>Sprite Gallery</h1><hr><p>Little pictures drawn one square at a time: a crow, a heart, a star, a flame, a book, a dog, a football. Hand drawn. Some of them by the kids.</p><div class="note">1 pixel = 1 promise.</div><p class="fine">Feel free to right-click and save. Credit is appreciated.</p>`},
+ guest:{u:'http://www.geocities.com/Heartland/Guestbook/sign.html',h:`<h1>Guestbook</h1><hr>
+  <div class="note"><b>Anonymous Crow</b>: caw caw caw. <i>– a window ledge</i></div>
+  <div class="note"><b>Raven</b>: woof (this means welcome). <i>– under the table</i></div>
+  <div class="note"><b>Someone from the old web</b>: I came here by webring and I stayed.</div>
+  <div class="note"><b>a friend</b>: Great page!!! Love the dragons. <i>(placeholder, put real notes here)</i></div>
+  <p class="fine">Please sign my guestbook. Please be kind. This is somebody's house.</p>`},
+ forest:{u:'http://www.geocities.com/links/',h:`<h1>Links</h1><hr><p>You have reached the end of the links. There is another link at the end of this link.</p>`},
+ farewell:{u:'http://www.geocities.com/Heartland/Hills/Door/',h:`<h1>The Door is Open</h1><hr><p>Thank you for visiting. I am glad to inform you that this site no longer exists. Its the end!!!</p><p>But the door is open and the light is on. Come back any time.</p><p>– Sonny</p>`},
+ mail:{u:'mailto:sonny@geocities.com',h:`<h1>Say Hello</h1><hr><p>Email me! I answer every email (eventually).</p><div class="note">TODO: replace this with the real address or social link.</div><p class="fine">Please do not send chain letters!!</p>`},
+ press:{u:'http://www.geocities.com/press.html',h:`<h1>Press</h1><hr><p>"You are going to want to lie down after this." — nobody yet.</p>`},
+ disclaimer:{u:'http://www.geocities.com/disclaimer.html',h:`<h1>Disclaimer</h1><hr><p>All dragons are fictional. All crows are real. The dog is the boss. This site is a tribute to Cameron's World and the whole beautiful dead web. Nothing here was excavated from real people's pages; everything is made fresh and made with love.</p>`},
+ soundtrack:{u:'http://www.geocities.com/music/tune.mid',h:`<h1>Download Soundtrack</h1><hr><p>The soundtrack is one cheerful tune, synthesised live in your browser. Press the little speaker at the top left. It loops forever.</p><p class="fine">(No MIDI file to download yet. Coming soon!!!)</p>`},
+ meow:{u:'http://www.geocities.com/Heartland/Meadows/Cats/meow.html',h:`<h1>🐱 Meow</h1><hr><p>This is a page for cat lovers only!!! If you are not a cat lover please leave. If you are a crow, you may stay.</p><p style="font-size:60px;line-height:1">🐈 🐈‍⬛ 😺</p><div class="note">@i-love-cats.com email — for cat lovers only!!!</div>`},
+ what:{u:'about:catscape',h:`<h1>What is Catscape?</h1><hr><p>Catscape Navigator is the most purrfect way to see the web. It is based on a browser found in the archives. It uses 100% less future.</p>`}
+};
+const CRUMBS=["This page is always changing. Please come back soon!","I am still working on this bit. Bear with me.","Nothing to see here, keep scrolling.","Best viewed at 800x600.","If this link is broken please tell me.","Click here to sign my other guestbook."];
+function getRoom(id){if(R[id])return R[id];const slug=String(id).replace(/[^a-z0-9]+/gi,'_').toLowerCase();return{u:`http://www.geocities.com/Heartland/Hills/${slug}.html`,h:`<h1>${String(id).replace(/</g,'&lt;')}</h1><hr><p>${CRUMBS[slug.length%CRUMBS.length]}</p><div class="note">🚧 Under construction since 1998 🚧</div><p class="fine">Last updated: Friday 20th August, 1999. Production of the page commenced.</p>`}}
+
+/* ---------- Catscape modal ---------- */
+const cat=$('#cat'),page=$('#page'),pop=$('#popup');let cur='sky',tm;
+function load(id){
+  cur=id;const r=getRoom(id);$('#loader').style.display='inline-block';$('#stat').textContent='Contacting host...';page.style.visibility='hidden';
+  $('#addr').textContent=r.u;$('#ttl').textContent=(r.h.match(/<h1>(.*?)<\/h1>/)||[0,'Document'])[1].replace(/<[^>]+>/g,'');
+  document.querySelectorAll('#tabs button').forEach(b=>b.classList.remove('on'));
+  clearTimeout(tm);tm=setTimeout(()=>{page.innerHTML=r.h;page.style.visibility='visible';$('#loader').style.display='none';$('#stat').textContent='Document: Done.';$('#view').scrollTop=0},520);
+}
+function openRoom(id){cat.classList.add('on');pop.classList.remove('on');load(id)}
+function closeCat(){cat.classList.remove('on')}
+document.addEventListener('click',e=>{
+  const a=e.target.closest('[data-room]');if(a){e.preventDefault();openRoom(a.dataset.room);return}
+  if(e.target.closest('[data-caw]'))caw();
+});
+$('#x').onclick=closeCat;cat.addEventListener('click',e=>{if(e.target===cat)closeCat()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeCat()});
+$('#back').onclick=()=>{pop.classList.remove('on');load(cur)};
+$('#pok').onclick=()=>pop.classList.remove('on');
+document.querySelectorAll('#tabs button').forEach(b=>b.onclick=()=>{
+  const t=b.dataset.tab;document.querySelectorAll('#tabs button').forEach(x=>x.classList.remove('on'));b.classList.add('on');
+  if(t==='up'){pop.classList.add('on');return}
+  pop.classList.remove('on');const r=R[t==='meow'?'meow':'what'];page.innerHTML=r.h;page.style.visibility='visible';$('#addr').textContent=r.u;$('#view').scrollTop=0});
+
+/* ---------- calculator gag ---------- */
+(function(){let s='';const d=()=>$('#cdisp');
+document.addEventListener('click',e=>{const b=e.target.closest('[data-k]');if(!b||!d())return;const k=b.dataset.k;
+ if(k==='C')s='';else if(k==='='){try{const x=s.replace(/π/g,'Math.PI').replace(/(sin|cos|tan)/g,'Math.$1');if(!/^[0-9+\-*/.() MathPIsincota]*$/.test(x))throw 0;s=String(+Function('"use strict";return ('+x+')')().toFixed(8))}catch(_){s='Error'}}
+ else if(k==='sin'||k==='cos'||k==='tan')s+=k+'(';else s+=k;
+ d().textContent=(s||'0').replace(/\*/g,'×').replace(/\//g,'÷');if(s==='Error')s=''})})();
+
+/* ---------- sound: one looping MIDI-style tune (no autoplay, volume low) ---------- */
+let ac,tick,playing=false,step=0,next=0;
+const MEL=[72,76,79,76,72,76,79,84,83,79,76,79,83,79,76,74,72,76,79,76,72,67,69,71,72,0,76,0,79,0,0,0];
+const BASS=[48,48,55,55,53,53,55,55];
+const hz=n=>440*Math.pow(2,(n-69)/12);
+function note(f,t,d,type,v){const o=ac.createOscillator(),g=ac.createGain();o.type=type;o.frequency.value=f;g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(.0001,t+d);o.connect(g).connect(ac.destination);o.start(t);o.stop(t+d)}
+function sched(){while(next<ac.currentTime+.4){const m=MEL[step%MEL.length];if(m)note(hz(m),next,.2,'square',.035);if(step%4===0)note(hz(BASS[(step/4)%BASS.length|0]),next,.45,'triangle',.07);step++;next+=.2}}
+$('#snd').onclick=()=>{
+  if(!ac)ac=new(window.AudioContext||window.webkitAudioContext)();
+  if(!playing){ac.resume();next=ac.currentTime+.05;tick=setInterval(sched,100);playing=true;$('#snd').textContent='🔊'}
+  else{clearInterval(tick);playing=false;$('#snd').textContent='🔇'}};
+function caw(){if(!ac)ac=new(window.AudioContext||window.webkitAudioContext)();ac.resume();
+  [0,.22,.44].forEach(d=>{const t=ac.currentTime+d,o=ac.createOscillator(),g=ac.createGain();o.type='sawtooth';o.frequency.setValueAtTime(520,t);o.frequency.exponentialRampToValueAtTime(190,t+.18);g.gain.setValueAtTime(.12,t);g.gain.exponentialRampToValueAtTime(.001,t+.2);o.connect(g).connect(ac.destination);o.start(t);o.stop(t+.22)})}
+</script>
+</body>
+</html>
